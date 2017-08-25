@@ -1,9 +1,9 @@
 :source-highlighter: highlightjs
-= Easy Buying
+= Clínica Vita
 :revnumber: {version}
 :example-caption!:
 
-Especificação da API da aplicação "Easy Buying".
+Especificação da API da aplicação "Clínica Vita".
 
 == Buscar os Usuários
 
