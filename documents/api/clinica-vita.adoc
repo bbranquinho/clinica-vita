@@ -1,0 +1,22 @@
+:source-highlighter: highlightjs
+= Easy Buying
+:revnumber: {version}
+:example-caption!:
+
+Especificação da API da aplicação "Easy Buying".
+
+== Buscar os Usuários
+
+Serviço que realiza a busca de todos os usuários.
+
+Chamada **curl**:
+include::{snippets}/find-all_success/curl-request.adoc[]
+
+Requisição:
+include::{snippets}/find-all_success/http-request.adoc[]
+
+Resposta de Sucesso:
+include::{snippets}/find-all_success/http-response.adoc[]
+
+Campos da Resposta:
+include::{snippets}/find-all_success/response-fields.adoc[]

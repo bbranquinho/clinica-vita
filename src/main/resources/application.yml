@@ -1,0 +1,19 @@
+# APPLICATION
+spring:
+  application:
+    name: Clínica Vita
+    description: Projeto desenvolvido pelos alunos da Faculdade UNA de Uberlândia, sob orientação do professor @bbranquinho.
+    version: @project.version@
+  profiles:
+    active: dev
+
+# SERVER
+server:
+  contextPath: /
+  port: 8080
+
+security:
+  user:
+    password: password
+  password:
+    secret: secret

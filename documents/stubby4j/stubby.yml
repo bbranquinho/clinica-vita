@@ -1,0 +1,12 @@
+- request:
+    method: GET
+    url: ^/oi$
+
+  response:
+    status: 200
+    headers:
+      content-type: application/json
+    body: >
+      {
+        "id": 1
+      }
