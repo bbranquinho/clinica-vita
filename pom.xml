@@ -4,12 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.fpu.medivitaBackEnd</groupId>
-	<artifactId>clinicaMedivitaBackEnd</artifactId>
+	<artifactId>clinica-vita</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>clinicaMedivitaBackEnd</name>
-	<description>Demo project for Spring Boot</description>
+	<name>clinica-vita</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
