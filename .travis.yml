@@ -1,14 +1,17 @@
 language: java
 sudo: false
 jdk:
-  - oraclejdk8
+- oraclejdk8
 deploy:
   provider: heroku
   api-key:
     secure: "$HEROKU_API_KEY"
   app: clinica-vita
 script:
-  - mvn test
-  - mvn cobertura:cobertura
+- mvn test
+- mvn cobertura:cobertura
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+notifications:
+  slack:
+    secure: Bua6b+iA91rFnn20FnHCb8F3wzWbjgp4B+M/QNhrx3oPq/kCJ2HjVJaA0vGO5NdYLAEkqUgpDswBioegeAEmQvBuyiyCwQcD7DnXwXaZhKiLTTJ1VCoAw5ecyv+ys3wl1YU8TYxXYUOzWrTKCyfzD8rLv2zguRX08MqjEwMHomxW78skqOBshmJdqAB2oYa9GmwYXpazpHr/cHZzjVcPcLZe9Kf0f31TKVeR+YBHW3wuJe6jGg+MdRdQxD20rLWVkmvsuYEPDIJ0mmnNfnUVCLWUghUFdaYYa1Hgp6INV3Dxjowes0chI14AqQuy4t/dKgHO/uvPnQosl4o0XdtJNoh2h11MpAIqpUAS1TFIq8BCnXfuHk2INZvD/0Z/Kw5S+DASSWw2TWUN0sV4LIce2IC/wAtnMnqjFQXCwMFFt2CIbqz95WKTdLuXvnuSaF/HUhKlbP0eX2u+dM+cVF0aUr/uyQ9KUB5sN668nOBIOKvWb9FUX/dt91tAeBup3SJjz0DrLjsYv7FRBdSRTkF8Yrz7jE1p9mgg3a5Mkj70Q87Wi31/ajNULgOb8j0wpLmphDwCh6G/0ur4NpA715PBgYc66L5hl4jSkVTgPFYKghBbyK787a67OV7ogv3F2dSAbfWD8CLu6vSBvbnjAsmzfjLyCS4bn2N3UzDoXYyZSsQ=
