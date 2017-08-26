@@ -1,0 +1,84 @@
+<md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+        <!--<h2 class="md-title">Text</h2>-->
+        <div flex></div>
+
+    </div>
+</md-toolbar>
+
+
+
+<md-table-container>
+    <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+        <thead md-head md-order="order" md-on-reorder="getDesserts">
+        <tr md-row>
+
+            <th md-column md-column ng-if="columns[0].status">
+                <span>id:
+                    <i class="material-icons" ng-click="reorder('id')">arrow_downward<md-tooltip md-direction="bottom">Desc</md-tooltip></i><i class="material-icons"  ng-click="reorder('-id')">arrow_upward<md-tooltip md-direction="bottom">Asc</md-tooltip></i>
+                </span></th>
+            <th md-column md-column ng-if="columns[1].status"><span>Foto:</span></th>
+            <th md-column md-column>Nome:</th>
+            <th md-column md-column ng-if="columns[2].status">Matricula:</th>
+            <th md-column md-column ng-if="columns[3].status">RG:</th>
+            <th md-column md-column ng-if="columns[4].status">CPF:</th>
+            <th md-column md-column ng-if="columns[5].status">Data Nascimento:</th>
+            <th md-column md-column ng-if="columns[6].status">Cargo:</th>
+            <th md-column md-column ng-if="columns[7].status">Setor:</th>
+            <th md-column md-column ng-if="columns[8].status">Data Admissão:</th>
+            <th md-column md-column ng-if="columns[9].status">Telefone:</th>
+            <th md-column md-column ng-if="columns[10].status">Sexo:</th>
+            <th md-column md-column ng-if="columns[11].status">Cep:</th>
+            <th md-column md-column ng-if="columns[12].status">Rua:</th>
+            <th md-column md-column ng-if="columns[13].status">Bairro:</th>
+            <th md-column md-column ng-if="columns[14].status">Cidade:</th>
+            <th md-column md-column ng-if="columns[15].status">Estado:</th>
+            <th md-column md-column ng-if="columns[16].status">Número:</th>
+            <th md-column md-column ng-if="columns[17].status">Email:</th>
+            <th md-column md-column ng-if="columns[18].status">Status:</th>
+            </th>
+
+        </tr>
+        </thead>
+        <tbody md-body>
+
+        <tr md-row md-select="funcionario" md-select-id="nome"  md-auto-select ng-repeat="funcionario in funcionarios | filter:searchText | orderBy: order| limitTo: myLimit: (myPage - 1) * myLimit">
+            <!--<pre>{{selected | json}}</pre>-->
+            <td md-cell ng-if="columns[0].status">{{funcionario.id}}</td>
+            <td md-cell ng-if="columns[1].status">
+
+                <md-icon md-svg-icon="funcionario_m" class="md-user-avatar" ng-if="!funcionario.user.fileUpload && funcionario.sexo.indexOf('Masculino') !== -1" style="width: 50px; height: 50px;"></md-icon>
+                <md-icon md-svg-icon="funcionario_f" class="md-user-avatar" ng-if="!funcionario.user.fileUpload && funcionario.sexo.indexOf('Feminino') !== -1" style="width: 50px; height: 50px;"></md-icon>
+                <img class="md-user-avatar" ng-if="!!funcionario.user.fileUpload"  src="{{funcionario.user.fileUpload.mimeType}},{{funcionario.user.fileUpload.file}}" class="avatar" style="width: 50px; height: 50px;">
+            </td>
+            <td md-cell>{{funcionario.user.nome}}</td>
+            <td md-cell ng-if="columns[2].status">{{funcionario.matricula}}</td>
+            <td md-cell ng-if="columns[3].status">{{funcionario.rg}}</td>
+            <td md-cell ng-if="columns[4].status">{{funcionario.cpf}}</td>
+            <td md-cell ng-if="columns[5].status">{{funcionario.dataNascimento}}</td>
+            <td md-cell ng-if="columns[6].status">{{funcionario.cargo.nome}}</td>
+            <td md-cell ng-if="columns[7].status">{{funcionario.setor.nome}}</td>
+            <td md-cell ng-if="columns[8].status">{{funcionario.dataAdmissao}}</td>
+            <td md-cell ng-if="columns[9].status">{{funcionario.telefone}}</td>
+            <td md-cell ng-if="columns[10].status">{{funcionario.sexo}}</td>
+            <td md-cell ng-if="columns[11].status">{{funcionario.cep}}</td>
+            <td md-cell ng-if="columns[12].status">{{funcionario.rua}}</td>
+            <td md-cell ng-if="columns[13].status">{{funcionario.bairro}}</td>
+            <td md-cell ng-if="columns[14].status">{{funcionario.cidade}}</td>
+            <td md-cell ng-if="columns[15].status">{{funcionario.estado}}</td>
+            <td md-cell ng-if="columns[16].status">{{funcionario.numero}}</td>
+            <td md-cell ng-if="columns[17].status">{{funcionario.user.email}}</td>
+            <td md-cell ng-if="columns[18].status">{{funcionario.status}}</td>
+        <tr md-row ng-show ="data_loading">
+
+            <td class="text-center" colspan="6" >   <div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular class="center center" ng-if="data_loading" class="md-accent" md-mode="indeterminate" md-diameter="100px"></md-progress-circular></div></td>
+        </tr>
+        </tr>
+        <tr md-row ng-show ="funcionarios.length == 0 && !data_loading">
+            <td class="text-center" colspan="6" >Nenhum funcionario encontrado.</td>
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.length}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>

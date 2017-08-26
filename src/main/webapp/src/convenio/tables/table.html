@@ -1,0 +1,87 @@
+<md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+        <!--<h2 class="md-title">Text</h2>-->
+        <div flex></div>
+
+    </div>
+</md-toolbar>
+
+
+
+<md-table-container>
+    <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+        <thead md-head md-order="order" md-on-reorder="getDesserts">
+        <tr md-row>
+            <th >
+
+
+            </th>
+            <th md-column md-column ng-if="columns[0].status">
+                <span>id:
+                    <i class="material-icons" ng-click="reorder('id')">arrow_downward<md-tooltip md-direction="bottom">Desc</md-tooltip></i><i class="material-icons"  ng-click="reorder('-id')">arrow_upward<md-tooltip md-direction="bottom">Asc</md-tooltip></i>
+                </span></th>
+
+            <th md-column md-column ng-if="columns[1].status">Registro(Ans):</th>
+            <th md-column md-column ng-if="columns[2].status">Razão Social:</th>
+            <th md-column md-column>Nome Fantasia:</th>
+            <th md-column md-column ng-if="columns[3].status">Médicos:</th>
+
+
+
+        </tr>
+        </thead>
+        <tbody md-body>
+
+
+        <tr md-row md-select="convenio" md-select-id="nome"  md-auto-select ng-repeat="convenio in convenios | filter:searchText | orderBy: order| limitTo: myLimit: (myPage - 1) * myLimit">
+            <!--<pre>{{selected | json}}</pre>-->
+            <td md-cell></td>
+            <td md-cell ng-if="columns[0].status">{{convenio.id}}</td>
+            <td md-cell  ng-if="columns[1].status">{{convenio.registroAns}}</td>
+            <td md-cell ng-if="columns[2].status">{{convenio.razaoSocial}}</td>
+            <td md-cell>{{convenio.nomeFantasia}}</td>
+            <td md-cell ng-if="convenio.medicos.length == 0 && columns[3].status">Nenhum.</td>
+
+            <td md-cell ng-if="convenio.medicos.length != 0 && columns[3].status">
+                <div layout="row">
+                <!--<md-input-container>
+
+
+                <md-select ng-model="selectedItem" placeholder="Ver" aria-label="Médicos do Convênio">
+
+                    <md-optgroup label="Médicos deste Convênio">
+                       &lt;!&ndash; <md-option value="" selected>Select Type</md-option>&ndash;&gt;
+                        <md-option ng-value="item" ng-repeat="item in convenio.medicos">{{item.user.nome}}</md-option>
+                    </md-optgroup>
+                </md-select>
+                    </md-input-container>-->
+                    <div>
+                        <md-tooltip md-direction="bottom">Ver Médicos/Total:{{convenio.medicos.length}}</md-tooltip>
+
+
+                            <md-button aria-label="menu" class="md-fab md-mini md-primary" ng-click="showMedicos(convenio.medicos,$event)">
+                                <ng-md-icon icon="visibility"></ng-md-icon>
+                            </md-button>
+
+                    </div>
+
+                </div>
+                    <!--<span ng-repeat="userMedico in convenio.medicos">
+                        {{userMedico.user.nome}}</span>-->
+
+            </td>
+        </tr>
+
+        <tr md-row ng-show ="data_loading">
+
+            <td   md-cell class="text-center" colspan="6" >   <div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular class="center center" ng-if="data_loading" class="md-accent" md-mode="indeterminate" md-diameter="70px"></md-progress-circular></div></td>
+        </tr>
+        </tr>
+        <tr md-row ng-show ="convenios.length == 0 && !data_loading">
+            <td  md-cell class="text-center" colspan="6" >Nenhum medico encontrado.</td>
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.length}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>

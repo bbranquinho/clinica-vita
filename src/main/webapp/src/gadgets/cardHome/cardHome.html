@@ -1,0 +1,38 @@
+<md-card flex ng-class="color" >
+
+    <!--<md-card-title>
+        <div class="primary backlog">
+            Pacientes
+        </div>
+        <md-card-title-media>
+            <div class="md-media-sm card-media" layout>
+                <md-icon md-svg-icon="person" style="color:grey"></md-icon>
+            </div>
+        </md-card-title-media>
+
+    </md-card-title>-->
+    <div layout="column" layout-padding>
+
+
+        <!--<img alt="Foto" id="imagemFuncionario" src="" style="width: 118px; height: 140px; " border=0>
+        <input type="file" id="file" ng-change="visualizarImg()">-->
+
+        <!--  <foto></foto>-->
+
+        <div layout="column" layout-align="center center" flex>
+            <md-button class="md-fab" aria-label="icon">
+                <md-icon  role="img" class="material-icons mat-icon" aria-label="icon" ng-bind="icon"></md-icon>
+            </md-button>
+            <div class="md-media-sm card-media" style="font-size: 80px;font-weight: 500;" layout ng-bind="value"></div>
+            <div class="md-media-sm card-media" style="font-size: 20px;font-weight: 500;" layout ng-bind="title"></div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</md-card>

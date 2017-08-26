@@ -1,0 +1,58 @@
+<md-dialog>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edição de Setores</h2>
+            <span flex></span>
+
+        </div>
+    </md-toolbar>
+    <form name="editSetorForm" ng-submit="salvar()" ng-init="setFormEditSetorScope(this)">
+        <md-dialog-content>
+
+            <!--Show errors-->
+            <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                <div layout="column" layout-padding>
+                    <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                    <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                </div></div>
+            </div>
+
+            <div layout="column" layout-padding>
+                <div layout-gt-sm="row">
+                    <div flex-gt-xs>
+                        <h4>Nome*:</h4>
+                        <md-input-container class="md-block"   flex-gt-sm>
+                            <label>Nome</label>
+                            <input ng-model="editarSetor.nome" name="nome" md-autofocus required="required">
+                            <div ng-messages="editSetorForm.firstNome.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div flex-gt-xs>
+                        <h4>Nome*:</h4>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Descrição</label>
+                            <input ng-model="editarSetor.descricao" name="descricao" required>
+                            <div ng-messages="editSetorForm.descricao.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </div>
+
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancelar()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="setorForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

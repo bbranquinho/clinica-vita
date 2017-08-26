@@ -1,0 +1,21 @@
+<md-card flex ng-class="color" >
+
+
+    <md-card-header layout="row" layout-align="end stretch" >
+
+    </md-card-header>
+    <md-card-content  flex layout="column">
+        <div flex layout="column">
+            <div  layout="row" layout-align="center center" style="margin-top:15px;" >
+                Pacientes do Hospital
+            </div>
+
+            <!-- <nvd3 data="chart.data" layout-align="center center" options="chart.options" flex></nvd3>-->
+
+            <canvas class="chart chart-line" chart-data="data" chart-labels="labels"
+                    chart-series="series" chart-click="onClick"></canvas>
+
+        </div>
+
+    </md-card-content>
+</md-card>

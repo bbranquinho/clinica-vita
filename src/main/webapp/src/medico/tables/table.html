@@ -1,0 +1,88 @@
+<md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+        <!--<h2 class="md-title">Text</h2>-->
+        <div flex></div>
+
+    </div>
+</md-toolbar>
+
+
+
+<md-table-container>
+    <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+        <thead md-head md-order="order" md-on-reorder="getDesserts">
+        <tr md-row>
+
+            <th md-column md-column ng-if="columns[0].status">
+                <span>id:
+                    <i class="material-icons" ng-click="reorder('id')">arrow_downward<md-tooltip md-direction="bottom">Desc</md-tooltip></i><i class="material-icons"  ng-click="reorder('-id')">arrow_upward<md-tooltip md-direction="bottom">Asc</md-tooltip></i>
+                </span></th>
+            <th md-column md-column ng-if="columns[1].status"><span>Foto:</span></th>
+            <th md-column md-column>Nome:</th>
+            <th md-column md-column ng-if="columns[2].status">Tipo Registro:</th>
+            <th md-column md-column ng-if="columns[3].status">Estado Registro:</th>
+            <th md-column md-column ng-if="columns[4].status">Registro Profissional:</th>
+            <th md-column md-column ng-if="columns[5].status">RG:</th>
+            <th md-column md-column ng-if="columns[6].status">CPF:</th>
+            <th md-column md-column ng-if="columns[7].status">Data Nascimento:</th>
+            <th md-column md-column ng-if="columns[8].status">Cargo:</th>
+            <th md-column md-column ng-if="columns[9].status">Setor:</th>
+            <th md-column md-column ng-if="columns[10].status">Especialidade:</th>
+            <th md-column md-column ng-if="columns[11].status">Data Admissão:</th>
+            <th md-column md-column ng-if="columns[12].status">Telefone:</th>
+            <th md-column md-column ng-if="columns[13].status">Sexo:</th>
+            <th md-column md-column ng-if="columns[14].status">Cep:</th>
+            <th md-column md-column ng-if="columns[15].status">Rua:</th>
+            <th md-column md-column ng-if="columns[16].status">Bairro:</th>
+            <th md-column md-column ng-if="columns[17].status">Cidade:</th>
+            <th md-column md-column ng-if="columns[18].status">Estado:</th>
+            <th md-column md-column ng-if="columns[19].status">Número:</th>
+            <th md-column md-column ng-if="columns[20].status">Email:</th>
+            <th md-column md-column ng-if="columns[21].status">Status:</th>
+
+        </tr>
+        </thead>
+        <tbody md-body>
+
+        <tr md-row md-select="medico" md-select-id="nome"  md-auto-select ng-repeat="medico in medicos | filter:searchText | orderBy: order| limitTo: myLimit: (myPage - 1) * myLimit">
+            <!--<pre>{{selected | json}}</pre>-->
+            <td md-cell ng-if="columns[0].status">{{medico.id}}</td>
+            <td md-cell ng-if="columns[1].status">
+                <md-icon md-svg-icon="doutor" class="md-user-avatar" ng-if="!medico.user.fileUpload && medico.sexo.indexOf('Masculino') !== -1" style="width: 50px; height: 50px;"></md-icon>
+                <md-icon md-svg-icon="doutora" class="md-user-avatar" ng-if="!medico.user.fileUpload && medico.sexo.indexOf('Feminino') !== -1" style="width: 50px; height: 50px;"></md-icon>
+                <img class="md-user-avatar" ng-if="!!medico.user.fileUpload"  src="{{medico.user.fileUpload.mimeType}},{{medico.user.fileUpload.file}}" class="avatar" style="width: 50px; height: 50px;">
+</td>
+            <td md-cell>{{medico.user.nome}}</td>
+            <td md-cell ng-if="columns[2].status">{{medico.tipoRegistro}}</td>
+            <td md-cell ng-if="columns[3].status">{{medico.estadoRegistro}}</td>
+            <td md-cell ng-if="columns[4].status">{{medico.registroProfissional}}</td>
+            <td md-cell ng-if="columns[5].status">{{medico.rg}}</td>
+            <td md-cell ng-if="columns[6].status">{{medico.cpf}}</td>
+            <td md-cell ng-if="columns[7].status">{{medico.dataNascimento}}</td>
+            <td md-cell ng-if="columns[8].status">{{medico.cargo.nome}}</td>
+            <td md-cell ng-if="columns[9].status">{{medico.setor.nome}}</td>
+            <td md-cell ng-if="columns[10].status">{{medico.especialidade}}</td>
+            <td md-cell ng-if="columns[11].status">{{medico.dataAdmissao}}</td>
+            <td md-cell ng-if="columns[12].status">{{medico.telefone}}</td>
+            <td md-cell ng-if="columns[13].status">{{medico.sexo}}</td>
+            <td md-cell ng-if="columns[14].status">{{medico.cep}}</td>
+            <td md-cell ng-if="columns[15].status">{{medico.rua}}</td>
+            <td md-cell ng-if="columns[16].status">{{medico.bairro}}</td>
+            <td md-cell ng-if="columns[17].status">{{medico.cidade}}</td>
+            <td md-cell ng-if="columns[18].status">{{medico.estado}}</td>
+            <td md-cell ng-if="columns[19].status">{{medico.numero}}</td>
+            <td md-cell ng-if="columns[20].status">{{medico.user.email}}</td>
+            <td md-cell ng-if="columns[21].status">{{medico.status}}</td>
+        <tr md-row ng-show ="data_loading">
+
+            <td class="text-center" colspan="6" >   <div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular class="center center" ng-if="data_loading" class="md-accent" md-mode="indeterminate" md-diameter="70px"></md-progress-circular></div></td>
+        </tr>
+        </tr>
+        <tr md-row ng-show ="medicos.length == 0 && !data_loading">
+            <td class="text-center" colspan="6" >Nenhum medico encontrado.</td>
+        </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.length}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>

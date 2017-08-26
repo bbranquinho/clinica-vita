@@ -64,6 +64,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
 		
 		http.httpBasic().and().authorizeRequests()
+		.antMatchers("/*","/css/**", "/js/**", "/fonts/**", "/img/**","/src/**","/webjars/**").permitAll()
 		// Global Authority to OPTIONS (permit all).
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		// Public (permit all).

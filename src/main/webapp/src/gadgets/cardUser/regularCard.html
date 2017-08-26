@@ -1,0 +1,46 @@
+
+
+<md-card flex ng-class="color">
+<!--    <div layout="column" layout-align="center center" flex>
+        <div class="primary backlog">
+            <div class="md-media-sm card-media" style="width:120px; height: 120px;" layout>
+                <md-icon md-svg-icon="user_home" style="color:grey" class="logo"></md-icon>
+            </div>
+        </div>
+        <div class="secondary">
+            <span class="md-headline">Olá: <span   ng-show="authDetails.authenticated" ng-bind = "authDetails.name" ></span></span>
+
+        </div>
+    </div>-->
+    <!--<md-card-title>
+        <md-card-title-media>
+            <div class="md-media-sm card-media" style="width:120px; height: 120px;" layout>
+                <md-icon md-svg-icon="user_home" style="color:grey" class="logo"></md-icon>
+            </div>
+        </md-card-title-media>
+        &lt;!&ndash;<md-card-title-text>
+            <span class="md-headline">Olá: </span>
+            <span class="md-subhead mat-indigo description" hide-xs ng-show="authDetails.authenticated" ng-bind = "authDetails.name" style="margin-left: 30px"></span>
+        </md-card-title-text>&ndash;&gt;
+    </md-card-title>-->
+
+    <div flex layout="column" class="tile" layout-align="center stretch">
+    <div layout="column" layout-align="center center" flex>
+        <div ng-class="colorTitle">
+            <md-icon md-svg-icon="user_home" style="color:grey;margin-top: 15px;" class="logo" ng-if="!authDetails.file"></md-icon>
+          <img class="md-user-avatar" ng-if="!!authDetails.file"  src="{{authDetails.file.mimeType}},{{authDetails.file.file}}"  style="width: 100px;height: 100px;margin-top: 20px;border-radius: 50%;">
+        </div>
+        <h3 class=""  >
+            Bem Vindo:
+        </h3>
+        <h2 class="md-media-sm card-media" ng-show="authDetails.authenticated" ng-bind = "authDetails.name" >
+
+        </h2>
+    </div>
+    <div layout="row" layout-align="end center" class="details">
+
+    </div>
+    </div>
+
+</md-card>
+

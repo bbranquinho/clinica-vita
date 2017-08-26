@@ -1,9 +1,175 @@
-<html>
-    <head>
-        <title>Clínica Vita</title>
-    </head>
+<!doctype html>
+<html lang="pt-br" ng-app="clinica">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Medivita!</title>
+    <!--<h1 class="md-title"><md-icon md-svg-icon="logo" class="logo"></md-icon></h1>-->
+    <link rel="shortcut icon" href="./css/assets/svg/favicon.svg" class="logo"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- inject:css -->
+    <!-- endinject -->
 
-    <body>
-        Clínica
-    </body>
+    <link rel="stylesheet" href="css/angular-material.css">
+    <link rel="stylesheet" href="css/angular-material-icons.css">
+    <link rel="stylesheet" href="css/assets/app.css">
+    <link rel="stylesheet" href="css/md-data-table.min.css">
+    <link rel="stylesheet" href="css/angular-material-accordion.css">
+    <link rel="stylesheet" href="css/picker.css">
+    <link rel="stylesheet" href="css/angular-material-event-calendar.css">
+    <link rel="stylesheet" href="css/timepiker.css">
+    <link rel="stylesheet" href="css/gmBackToTop-min.css">
+
+
+
+
+    <!--<style type="text/css">-->
+        <!--[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {-->
+            <!--display: none !important;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body layout="row" ng-cloak ng-controller="mainController" >
+
+
+<!-- Side Nav -->
+<div ng-include="'src/fragments/sidenav.html'" ng-if="statusMenu" layout="vertical"></div>
+
+<div layout="column" flex id="wrapper" role="main" >
+
+    <md-toolbar ng-include="'src/fragments/toolbar-header.html'" ng-if="statusMenu"></md-toolbar>
+
+    <!--ToolBar
+    <md-toolbar>
+
+    </md-toolbar>-->
+
+
+
+
+
+
+
+
+
+
+
+
+    <md-content id="content" class="page-container" ng-view flex  md-scroll-y>
+
+
+    </md-content>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.min.js"></script>
+    <script src="js/ngStorage.min.js"></script>
+
+    <script src="js/angular-material.min.js"></script>
+
+    <script src="js/angular-messages.min.js"></script>
+    <script src="js/angular-material-icons.min.js"></script>
+    <script src="js/md-data-table.min.js"></script>
+    <script src="js/angular-material-accordion.js"></script>
+    <script src="js/angular-locale_pt-br.js"></script>
+    <script src="js/br-masks.js"></script>
+    <script src="js/angular-chart.js"></script>
+    <script src="js/angular-chart.min.js"></script>
+    <script src="js/modal-md-datepicker.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/picker.js"></script>
+<script src="js/angular-material-event-calendar.js"></script>
+<script src="js/checklist-model.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- inject:js -->
+    <script src="src/app.js"></script>
+    <script src="src/main.js"></script>
+    <script src="src/agenda/agenda.js"></script>
+    <script src="src/cargo/cargo.js"></script>
+    <script src="src/compromissos/compromissos.js"></script>
+    <script src="src/contact/ContactPanelController.js"></script>
+    <script src="src/convenio/convenio.js"></script>
+    <script src="src/dashboard/dashboardDirective.js"></script>
+    <script src="src/dashboard/dashboardDirectiveController.js"></script>
+    <script src="src/fragments/backToTop.js"></script>
+    <script src="src/funcionario/funcionario.js"></script>
+    <script src="src/gadgets/gadgetDirective.js"></script>
+    <script src="src/home/home.js"></script>
+    <script src="src/login/loginController.js"></script>
+    <script src="src/medico/medico.js"></script>
+    <script src="src/paciente/paciente.js"></script>
+    <script src="src/service/login.logout.service.js"></script>
+    <script src="src/service/service.js"></script>
+    <script src="src/setor/setor.js"></script>
+    <script src="src/socket/socket.js"></script>
+    <script src="src/user/addUserDialogController.js"></script>
+    <script src="src/utils/filter.js"></script>
+    <script src="src/utils/interceptor.js"></script>
+    <script src="src/utils/routers.js"></script>
+    <script src="src/utils/theme_icons.js"></script>
+    <script src="src/agenda/agendamento/agendamentoController.js"></script>
+    <script src="src/agenda/agendamento/newAgendamentoDialog.js"></script>
+    <script src="src/agenda/dialog/newAgendaDialog.js"></script>
+    <script src="src/agenda/dialog/viewDetailAgenda.js"></script>
+    <script src="src/cargo/dialog/editCargoDialogController.js"></script>
+    <script src="src/cargo/dialog/newCargoDialogController.js"></script>
+    <script src="src/compromissos/compromisso/agendamentoCompromissoController.js"></script>
+    <script src="src/compromissos/compromisso/newAgendamentoCompromissoDialog.js"></script>
+    <script src="src/compromissos/dialog/newCompromissoDialog.js"></script>
+    <script src="src/compromissos/dialog/viewDetailCompromisso.js"></script>
+    <script src="src/convenio/dialog/editConvenioDialogController.js"></script>
+    <script src="src/convenio/dialog/newConvenioDialogController.js"></script>
+    <script src="src/funcionario/dialog/editFuncionarioDialogController.js"></script>
+    <script src="src/funcionario/dialog/newFuncionarioDialogController.js"></script>
+    <script src="src/gadgets/cardBarGrafic/cardBarGrafic.js"></script>
+    <script src="src/gadgets/cardBarHorizontalGrafic/cardBarHorizontalGrafic.js"></script>
+    <script src="src/gadgets/cardDonutGrafic/cardDonutGrafic.js"></script>
+    <script src="src/gadgets/cardHome/cardHomeDirective.js"></script>
+    <script src="src/gadgets/cardLineGrafic/cardLineGrafic.js"></script>
+    <script src="src/gadgets/cardPaciente/cardPaciente.js"></script>
+    <script src="src/gadgets/cardPieGrafic/cardPieGrafic.js"></script>
+    <script src="src/gadgets/cardPolarGrafic/cardPolarGrafic.js"></script>
+    <script src="src/gadgets/cardUser/userCardDirective.js"></script>
+    <script src="src/home/perfil/perfilDirective.js"></script>
+    <script src="src/medico/dialog/editMedicoDialogController.js"></script>
+    <script src="src/medico/dialog/newMedicoDialogController.js"></script>
+    <script src="src/paciente/dialog/editPacienteDialogController.js"></script>
+    <script src="src/paciente/dialog/newPacienteDialogController.js"></script>
+    <script src="src/setor/dialog/editSetorDialogController.js"></script>
+    <script src="src/setor/dialog/newSetorDialogController.js"></script>
+    <!-- endinject -->
+
+<!--<script src="./dist/controllers/mainController.js"></script>-->
+<!--<script src="./dist/boot.js"></script>-->
+
+
+</body>
 </html>

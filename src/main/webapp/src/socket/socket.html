@@ -1,0 +1,31 @@
+
+<form name="socketForm" ng-submit="sendButton()" ng-init="init()">
+<div id="content" style="width: 500px; height: 300px; margin: 0 0 20px 0; border: solid 1px #999; overflow-y: scroll;">
+    <span >{{status}}</span>
+</div>
+
+    <div layout="column" layout-padding>
+        <div layout-gt-sm="row">
+            <div flex-gt-xs>
+                <h4>Nome*:</h4>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Nome</label>
+                    <input ng-model="chat.nome" name="nome" md-autofocus required="required">
+
+                </md-input-container>
+            </div>
+            <div flex-gt-xs>
+                <h4>Message*:</h4>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Message</label>
+                    <input ng-model="chat.message" name="message" md-autofocus required="required">
+
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+    <md-button type="submit" class="md-primary md-raised" ng-disabled="socketForm.$invalid">
+        Send
+    </md-button>
+
+</form>

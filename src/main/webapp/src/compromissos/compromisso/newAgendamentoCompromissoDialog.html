@@ -1,0 +1,204 @@
+
+
+<md-dialog aria-label="Gerar Horário para Agendamento" data-ng-init="getEnuns()">
+    <!--<pre>{{ funcionario| json}}</pre>-->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Solicitação de Agendamento</h2>
+            <span flex></span>
+            <!-- <md-button class="md-icon-button" ng-click="cancel()">
+                 <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+             </md-button>-->
+        </div>
+    </md-toolbar>
+    <form name="newAgendamento" ng-submit="salvar()" >
+        <md-dialog-content layout-padding>
+
+            <md-tabs md-dynamic-height md-stretch-tabs="always"   md-border-bottom>
+                <md-tab>
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Gerar Horário</md-tooltip>
+                        <ng-md-icon icon="person" class="material-icons  md-24">
+                    </md-tab-label>
+                    <md-tab-body>
+
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                            <div layout="column" layout-padding>
+                                <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                                <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                            </div></div>
+                        </div>
+
+
+                        <div layout="column" layout-padding>
+                            <!-- <foto model="funcionario.user.fileUpload" mimetypefile="{{funcionario.user.fileUpload.mimeType}},{{funcionario.user.fileUpload.file}}" showfoto="{{funcionario.user.fileUpload}}"></foto>-->
+
+
+
+                            <div>
+
+                                <div layout-gt-sm="row">
+                                    <div flex-gt-xs>
+                                        <h4>Paciente*:</h4>
+                                        <span>{{itemAgenda.paciente.user.nome}}</span>
+
+                                    </div>
+
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <div flex-gt-xs>
+                                        <h4>Médico(a)*:</h4>
+                                        <span>{{itemAgenda.medico.user.nome}}</span>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div layout-gt-sm="row">
+
+                                    <div flex-gt-xs>
+
+                                        <div flex-gt-xs>
+                                            <h4>Data de Agendamento*:</h4>
+                                            <span>{{itemAgenda.agenda.dataAgendamento}}</span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Data/Hora Inicial*:</h4>
+                                            <span>{{itemAgenda.agenda.dataHoraInicialConsulta}}</span>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Data/Hora Final*:</h4>
+                                            <span>{{itemAgenda.agenda.dataHoraFinalConsulta}}</span>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Tipo Agendamento*:</h4>
+                                            <span>{{itemAgenda.tipoAgenda}}</span>
+                                        </div>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Status Agenda*:</h4>
+                                            <span>{{itemAgenda.statusAgenda}}</span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Valor da Consulta*:</h4>
+                                            <span>{{itemAgenda.valorConsulta | currency:"R$"}}</span>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+
+
+            </md-tabs>
+
+            <!-- <pre>{{itemAgenda | json}}</pre>-->
+        </md-dialog-content>
+        <!--<pre>{{funcionario | json}}</pre>-->
+
+
+        <md-dialog-actions layout="row">
+
+
+            <!-- <md-button  class="md-primary md-raised" ng-click="tabIndexControll()" >
+                 <md-tooltip md-direction="top">{{tabToolTip}}</md-tooltip>
+                 <span ng-bind="tabControl" ></span>
+
+             </md-button>-->
+
+
+            <md-button ng-click="cancelar()">
+                <md-tooltip md-direction="top" >Cancelar</md-tooltip>
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="newAgendamento.$invalid">
+                <md-tooltip md-direction="top" >Salvar</md-tooltip>
+                Save
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>
