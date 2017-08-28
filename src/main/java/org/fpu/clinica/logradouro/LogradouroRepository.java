@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LogradouroRepository extends JpaRepository<Logradouro,Long> {
 
+	public Logradouro findByNome(String nome);
 }

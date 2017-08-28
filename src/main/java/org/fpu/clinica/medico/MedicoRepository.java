@@ -10,4 +10,6 @@ public interface MedicoRepository extends JpaRepository<Medico,Long>{
 	public List<Medico> findByUser(Usuario user);
 	
 	public List<Medico> findByStatus(String status);
+	
+	public Medico findByRegistroProfissional(String registroProfissional);
 }

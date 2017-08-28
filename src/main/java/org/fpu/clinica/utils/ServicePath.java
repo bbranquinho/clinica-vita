@@ -49,6 +49,10 @@ public final class ServicePath {
 	
 	public static final String USUARIO_PATH = PRIVATE_ROOT_PATH + "/usuario";
 	
+	public static final String ESCALA_ATENDIMENTO_PATH = PRIVATE_ROOT_PATH + "/escala_atendimento";
+	
+	public static final String ITEM_ESCALA_ATENDIMENTO_PATH = PRIVATE_ROOT_PATH + "/item_escala_atendimento";
+	
 	//------PUBLIC PATHS
 	
 	public static final String H2_PATH = PUBLIC_ROOT_PATH + "/h2/**";

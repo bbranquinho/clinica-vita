@@ -29,7 +29,6 @@ public class FileUpload extends BaseEntity<Long> {
 	}
 
 
-
 	public byte[] getFile() {
 		return file;
 	}

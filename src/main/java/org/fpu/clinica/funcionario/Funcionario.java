@@ -30,8 +30,8 @@ public class Funcionario extends Pessoa {
 	
 	
 	@NotNull(message="Não pode estar em branco")      //JSR 303 Validated ?
-	@Past (message="insira uma data valida")     //JSR 303 Validated ?
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	/*@Past (message="insira uma data valida")     //JSR 303 Validated ?
+*/	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "data_admissao")
 	private Date dataAdmissao;

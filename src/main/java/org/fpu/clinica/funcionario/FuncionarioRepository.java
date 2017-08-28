@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FuncionarioRepository extends JpaRepository<Funcionario,Long>{
 
 	public List<Funcionario> findByUser(Usuario user);
+	
+	public Funcionario findByMatricula(String matricula);
 }
