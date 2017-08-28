@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.fpu.clinica.bairro.Bairro;
 import org.fpu.clinica.bairro.BairroRepository;
-import org.fpu.clinica.bairro.Bairro;
-import org.fpu.clinica.bairro.Bairro;
 import org.fpu.clinica.cidade.Cidade;
 import org.fpu.clinica.cidade.CidadeRepository;
 import org.fpu.clinica.estado.Estado;

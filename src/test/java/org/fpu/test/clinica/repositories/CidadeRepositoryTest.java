@@ -2,7 +2,6 @@ package org.fpu.test.clinica.repositories;
 
 import java.util.List;
 
-import org.fpu.clinica.cargo.Cargo;
 import org.fpu.clinica.cidade.Cidade;
 import org.fpu.clinica.cidade.CidadeRepository;
 import org.fpu.clinica.estado.Estado;

@@ -3,7 +3,6 @@ package org.fpu.test.clinica.repositories;
 import java.util.List;
 
 import org.fpu.clinica.estado.Estado;
-import org.fpu.clinica.estado.Estado;
 import org.fpu.clinica.estado.EstadoRepository;
 import org.fpu.test.clinica.utils.AppContextTest;
 import org.junit.Test;
