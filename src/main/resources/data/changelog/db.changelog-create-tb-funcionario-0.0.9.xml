@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_funcionario">
+
+			<column name="data_admissao" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="matricula" type="varchar(20)">
+				<constraints unique="true" uniqueConstraintName="UK_bqn7bbsowmqv945cqwghqy2yy"
+					nullable="false" />
+			</column>
+			<column name="id_pessoa" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cargo_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="setor_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+
+		<addForeignKeyConstraint baseColumnNames="cargo_id"
+			baseTableName="tb_funcionario" constraintName="FK_43d9au5b8km80qexoe5vvge5g"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_cargo"
+			referencedTableName="tb_cargo" />
+
+		<addForeignKeyConstraint baseColumnNames="id_pessoa"
+			baseTableName="tb_funcionario" constraintName="FK_88wvln8x2wh70v6xq5ig9bb4j"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_pessoa" />
+
+		<addForeignKeyConstraint baseColumnNames="cargo_id"
+			baseTableName="tb_funcionario" constraintName="FK_e8b4os995itkginh6ydwxcdlu"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_setor"
+			referencedTableName="tb_setor" />
+	</changeSet>
+
+
+
+</databaseChangeLog>

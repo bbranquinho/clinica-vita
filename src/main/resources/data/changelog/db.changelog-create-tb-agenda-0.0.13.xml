@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_agenda">
+			<column name="id_agenda" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="data_agendamento" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_final_consulta" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_inicial_consulta" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="max_qtd_item_agenda" type="int" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+						
+		</createTable>
+	</changeSet>
+
+
+	<changeSet id="2" author="leonardo">
+		<!-- <insert tableName="tb_agenda">
+			<column name="id_agenda" value="1" />
+			<column name="nome_data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-05-28 16:30:00" />
+			<column name="data_inicial_consulta" value="2017-05-28 15:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+			
+		</insert> -->
+		
+				
+	</changeSet>
+
+</databaseChangeLog>

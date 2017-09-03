@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_setor">
+			<column name="id_setor" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="descricao" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="nome" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			
+			
+		</createTable>
+	</changeSet>
+
+
+	<changeSet id="2" author="leonardo">
+		<insert tableName="tb_setor">
+			<column name="descricao" value="Desc TI" />
+			<column name="nome" value="TI" />
+		</insert>
+		<insert tableName="tb_setor">
+			<column name="descricao" value="Desc Cirurgia" />
+			<column name="nome" value="Cirurgia" />
+		</insert>
+		<insert tableName="tb_setor">
+			<column name="descricao" value="Desc Administração" />
+			<column name="nome" value="Administração" />
+		</insert>
+		<insert tableName="tb_setor">
+			<column name="descricao" value="Desc Financeiro" />
+			<column name="nome" value="Financeiro" />
+		</insert>
+		<insert tableName="tb_setor">
+			<column name="descricao" value="Desc Gerencia" />
+			<column name="nome" value="Gerencia" />
+		</insert>
+				
+	</changeSet>
+
+</databaseChangeLog>

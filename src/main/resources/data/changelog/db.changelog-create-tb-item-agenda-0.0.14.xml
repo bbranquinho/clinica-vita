@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_item_agenda">
+			<column name="id_item_agenda" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="status_agenda" type="varchar(30)" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+			<column name="tipo_agenda" type="varchar(30)" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+			<column name="valor_consulta" type="decimal(10,2)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="id_agenda" type="bigint" >
+				<constraints  nullable="false" />
+			</column>
+			<column name="medico_id" type="bigint" >
+				<constraints  nullable="false" />
+			</column>
+			<column name="paciente_id" type="bigint" defaultValue="NULL" >
+				<constraints  nullable="true" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="id_agenda"
+			baseTableName="tb_item_agenda" constraintName="FK_287levrsd2cj520arbtdn6ali"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_agenda"
+			referencedTableName="tb_agenda" />
+			
+			<addForeignKeyConstraint baseColumnNames="medico_id"
+			baseTableName="tb_item_agenda" constraintName="FK_7cv4e4hyxjj8tk4mkvyp9o9s1"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_medico" />
+			
+					<addForeignKeyConstraint baseColumnNames="paciente_id"
+			baseTableName="tb_item_agenda" constraintName="FK_f4m8fygq35i5m5c0vtvbeta3x"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_paciente" />
+	</changeSet>
+	
+	
+
+	
+
+</databaseChangeLog>

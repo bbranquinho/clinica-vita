@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_cargo">
+			<column name="id_cargo" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="descricao" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="nome" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			
+			
+		</createTable>
+	</changeSet>
+
+
+	<changeSet id="2" author="leonardo">
+		<insert tableName="tb_cargo">
+			<column name="descricao" value="Desc TI" />
+			<column name="nome" value="Gerente TI" />
+		</insert>
+		<insert tableName="tb_cargo">
+			<column name="descricao" value="Desc Medico" />
+			<column name="nome" value="Médico" />
+		</insert>
+		<insert tableName="tb_cargo">
+			<column name="descricao" value="Desc Secretária" />
+			<column name="nome" value="Secretária" />
+		</insert>
+		<insert tableName="tb_cargo">
+			<column name="descricao" value="Desc TI" />
+			<column name="nome" value="Gerente TI" />
+		</insert>
+		<insert tableName="tb_cargo">
+			<column name="descricao" value="Desc Tercerizado" />
+			<column name="nome" value="Tercerizado" />
+		</insert>
+				
+	</changeSet>
+
+</databaseChangeLog>

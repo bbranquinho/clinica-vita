@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_pessoa">
+			<column name="tipo_pessoa" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_pessoa" type="bigint" autoIncrement="true">
+				<constraints primaryKey="true"  nullable="false" />
+			</column>
+			<column name="bairro" type="varchar(70)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cep" type="varchar(150)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cidade" type="varchar(70)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cpf" type="varchar(14)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="UK_n8mobknkuk6hwj7nqpfqgqx69" />
+			</column>
+			<column name="data_nascimento" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="estado" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="numero" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="rg" type="varchar(15)">
+				<constraints unique="true" uniqueConstraintName="UK_l584y750sna251pduax7nmrp4" nullable="false" />
+			</column>
+			<column name="rua" type="varchar(150)">
+				<constraints nullable="false" />
+			</column>
+			<column name="sexo" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="telefone" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="user_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+		
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="user_id"
+			baseTableName="tb_pessoa" constraintName="FK_icb0mibx1tqvqr7cb1b2gvj7f"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="tb_usuario" />
+	</changeSet>
+
+	
+
+</databaseChangeLog>

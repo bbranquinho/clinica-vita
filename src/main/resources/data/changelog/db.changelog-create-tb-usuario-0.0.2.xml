@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_usuario">
+			<column name="id" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="email" type="varchar(255)">
+				<constraints unique="true" uniqueConstraintName="UK_spmnyb4dsul95fjmr5kmdmvub" nullable="false" />
+			</column>
+			<column name="nome" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="password" type="varchar(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_file_upload_pessoa" type="bigint">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="id_file_upload_pessoa"
+			baseTableName="tb_usuario" constraintName="FK_icb0mibx1tqvqr7cb1b2gvj7f"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_file_upload"
+			referencedTableName="tb_file_upload" />
+	</changeSet>
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_usuario">
+			<column name="email" value="admin@admin.com" />
+			<column name="nome" value="Administrador" />
+			<column name="password"
+				value="9fe76e18dd29100230680fa6c812e26c4da4b3cf48a85850910e6f4400a6b3ff9ec05190c175f592" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="manoela@manoela.com" />
+			<column name="nome" value="Manoela Silvas" />
+			<column name="password"
+				value="32c88457c84d9b524f1394951819690225359c5ee7dd4d7515689fdf3a50e8606b091aa7406ab9fa" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="joao@joao.com" />
+			<column name="nome" value="Joao das Couves" />
+			<column name="password"
+				value="b6a2e6e934873b33a385c54c64205193dcf96c564c692db205ef949b5424c64578a9a42717e89bb9" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="pedro@pedro.com" />
+			<column name="nome" value="Pedro das Couves" />
+			<column name="password"
+				value="5064c6320751e83272176d2d1b9ecb0efafea125a87d83b6ba82a1e9d766730ef5af968ee7d0480f" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="maria@maria.com" />
+			<column name="nome" value="Maria das couves" />
+			<column name="password"
+				value="6ece1bcdd70fdf4881fac91d1a9afd76b819df44e738187bfed9affcc3b920be16e1571e71c7d4dc" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="carlos@carlos.com" />
+			<column name="nome" value="Carlos das Couves" />
+			<column name="password"
+				value="0cb89cb2b4369e8ad878faaf4b16923d20766f57e72210fe3d45d34744d2e456eb523e459f39f151" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="julia@julia.com" />
+			<column name="nome" value="Julia das Couvess" />
+			<column name="password"
+				value="aedd3e3ba16d1ab705ae2f1b6dd77ec2c7ef41a0ec4a672b85bf4a421401d978e348259e955a1341" />
+		</insert>
+		<insert tableName="tb_usuario">
+			<column name="email" value="carina@carina.com" />
+			<column name="nome" value="Carina Silva Duartee" />
+			<column name="password"
+				value="2341ace99dcb2a17be46d59ec5952e897e4ad12906efec269c52d169d009511d61339954806f4df7" />
+		</insert>
+		
+		
+		
+	</changeSet>
+
+</databaseChangeLog>

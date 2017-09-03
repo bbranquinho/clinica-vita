@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_usuario_permissao">
+			<column name="permissao_id" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="usuario_id" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="permissao_id"
+			baseTableName="tb_usuario_permissao" constraintName="FK_jnl5o71owccvew9rq2ghyajqa"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="pk_id"
+			referencedTableName="tb_permissao" />
+			
+			<addForeignKeyConstraint baseColumnNames="usuario_id"
+			baseTableName="tb_usuario_permissao" constraintName="FK_1bp29uyvc8krcma384u7qkbrp"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id"
+			referencedTableName="tb_usuario" />
+	</changeSet>
+	
+	
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="1" />
+			<column name="usuario_id" value="1" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
