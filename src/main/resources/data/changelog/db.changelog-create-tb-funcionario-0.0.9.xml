@@ -44,11 +44,45 @@
 			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
 			referencedTableName="tb_pessoa" />
 
-		<addForeignKeyConstraint baseColumnNames="cargo_id"
+		<addForeignKeyConstraint baseColumnNames="setor_id"
 			baseTableName="tb_funcionario" constraintName="FK_e8b4os995itkginh6ydwxcdlu"
 			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
 			onUpdate="RESTRICT" referencedColumnNames="id_setor"
 			referencedTableName="tb_setor" />
+	</changeSet>
+	
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_funcionario">
+			<column name="data_admissao" value="2015-04-03 21:00:00" />
+			<column name="matricula" value="MGXK-1495552259621" />
+			<column name="id_pessoa" value="1" />
+			<column name="cargo_id" value="1" />
+			<column name="setor_id" value="1" />
+			
+		</insert>
+		<insert tableName="tb_funcionario">
+			<column name="data_admissao" value="2017-05-22 21:00:00" />
+			<column name="matricula" value="MGXK-1496521573259" />
+			<column name="id_pessoa" value="4" />
+			<column name="cargo_id" value="1" />
+			<column name="setor_id" value="1" />			
+		</insert>
+		<insert tableName="tb_funcionario">
+			<column name="data_admissao" value="2017-05-21 21:00:00" />
+			<column name="matricula" value="MGXK-1496521973987" />
+			<column name="id_pessoa" value="5" />
+			<column name="cargo_id" value="3" />
+			<column name="setor_id" value="4" />			
+		</insert>
+		<insert tableName="tb_funcionario">
+			<column name="data_admissao" value="2017-05-02 21:00:00" />
+			<column name="matricula" value="MGXK-1496853241823" />
+			<column name="id_pessoa" value="8" />
+			<column name="cargo_id" value="1" />
+			<column name="setor_id" value="1" />			
+		</insert>
+		
+
 	</changeSet>
 
 

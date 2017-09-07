@@ -40,6 +40,30 @@
 			<column name="permissao_id" value="1" />
 			<column name="usuario_id" value="1" />
 		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="2" />
+			<column name="usuario_id" value="5" />
+		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="2" />
+			<column name="usuario_id" value="6" />
+		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="4" />
+			<column name="usuario_id" value="8" />
+		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="3" />
+			<column name="usuario_id" value="9" />
+		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="3" />
+			<column name="usuario_id" value="11" />
+		</insert>
+		<insert tableName="tb_usuario_permissao">
+			<column name="permissao_id" value="5" />
+			<column name="usuario_id" value="12" />
+		</insert>
 
 	</changeSet>
 

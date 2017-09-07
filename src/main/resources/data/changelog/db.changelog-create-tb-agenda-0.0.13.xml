@@ -5,9 +5,9 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	
 
-	
+
+
 	<changeSet id="1" author="leonardo">
 		<createTable tableName="tb_agenda">
 			<column name="id_agenda" type="bigint(20)" autoIncrement="true">
@@ -25,22 +25,161 @@
 			<column name="max_qtd_item_agenda" type="int" defaultValue="NULL">
 				<constraints nullable="true" />
 			</column>
-						
+
 		</createTable>
 	</changeSet>
 
 
 	<changeSet id="2" author="leonardo">
-		<!-- <insert tableName="tb_agenda">
+		<insert tableName="tb_agenda">
 			<column name="id_agenda" value="1" />
-			<column name="nome_data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
 			<column name="data_final_consulta" value="2017-05-28 16:30:00" />
 			<column name="data_inicial_consulta" value="2017-05-28 15:30:00" />
 			<column name="max_qtd_item_agenda" value="NULL" />
-			
-		</insert> -->
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="2" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-05-27 16:30:00" />
+			<column name="data_inicial_consulta" value="2017-05-27 15:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="3" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-13 15:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-13 14:20:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="4" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-15 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-15 10:20:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="5" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-15 10:10:00" />
+			<column name="data_inicial_consulta" value="2017-06-15 09:00:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="6" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-21 02:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-21 01:10:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="7" />
+			<column name="data_agendamento" value="2017-06-09 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-12 06:05:00" />
+			<column name="data_inicial_consulta" value="2017-06-12 05:05:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="8" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-30 11:50:00" />
+			<column name="data_inicial_consulta" value="2017-06-30 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="9" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-30 12:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-30 11:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="10" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-30 13:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-30 12:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="11" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-30 14:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-30 13:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="12" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-07-01 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-07-01 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="13" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-06-30 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-06-30 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="14" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-07-02 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-07-02 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="15" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-07-02 12:30:00" />
+			<column name="data_inicial_consulta" value="2017-07-02 11:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="16" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-07-02 13:30:00" />
+			<column name="data_inicial_consulta" value="2017-07-02 12:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="17" />
+			<column name="data_agendamento" value="2017-06-29 00:00:00" />
+			<column name="data_final_consulta" value="2017-07-02 14:30:00" />
+			<column name="data_inicial_consulta" value="2017-07-02 13:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="18" />
+			<column name="data_agendamento" value="2017-08-22 00:00:00" />
+			<column name="data_final_consulta" value="2017-08-23 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-08-23 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="19" />
+			<column name="data_agendamento" value="2017-08-23 00:00:00" />
+			<column name="data_final_consulta" value="2017-08-26 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-08-26 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="20" />
+			<column name="data_agendamento" value="2017-08-31 00:00:00" />
+			<column name="data_final_consulta" value="2017-09-01 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-09-01 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
+		<insert tableName="tb_agenda">
+			<column name="id_agenda" value="21" />
+			<column name="data_agendamento" value="2017-08-31 00:00:00" />
+			<column name="data_final_consulta" value="2017-09-01 11:30:00" />
+			<column name="data_inicial_consulta" value="2017-09-01 10:30:00" />
+			<column name="max_qtd_item_agenda" value="NULL" />
+		</insert>
 		
-				
+
 	</changeSet>
 
 </databaseChangeLog>

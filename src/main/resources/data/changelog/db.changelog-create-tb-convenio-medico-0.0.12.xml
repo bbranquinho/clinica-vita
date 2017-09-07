@@ -34,13 +34,25 @@
 	</changeSet>
 	
 	
-<!-- 
+
 	<changeSet id="3" author="leonardo">
 		<insert tableName="tb_convenio_medico">
-			<column name="medico_id" value="1" />
-			<column name="convenio_id" value="1" />
+			<column name="medico_id" value="2" />
+			<column name="convenio_id" value="2" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="3" />
+			<column name="convenio_id" value="2" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="2" />
+			<column name="convenio_id" value="3" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="3" />
+			<column name="convenio_id" value="4" />
 		</insert>
 
 	</changeSet>
- -->
+ 
 </databaseChangeLog>

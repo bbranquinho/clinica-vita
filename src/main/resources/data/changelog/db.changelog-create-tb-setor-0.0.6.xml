@@ -27,24 +27,34 @@
 
 	<changeSet id="2" author="leonardo">
 		<insert tableName="tb_setor">
+			<column name="id_setor" value="1" />
 			<column name="descricao" value="Desc TI" />
 			<column name="nome" value="TI" />
 		</insert>
 		<insert tableName="tb_setor">
+			<column name="id_setor" value="2" />
 			<column name="descricao" value="Desc Cirurgia" />
 			<column name="nome" value="Cirurgia" />
 		</insert>
 		<insert tableName="tb_setor">
+			<column name="id_setor" value="4" />
 			<column name="descricao" value="Desc Administração" />
 			<column name="nome" value="Administração" />
 		</insert>
 		<insert tableName="tb_setor">
+			<column name="id_setor" value="7" />
 			<column name="descricao" value="Desc Financeiro" />
 			<column name="nome" value="Financeiro" />
 		</insert>
 		<insert tableName="tb_setor">
+			<column name="id_setor" value="10" />
 			<column name="descricao" value="Desc Gerencia" />
 			<column name="nome" value="Gerencia" />
+		</insert>
+		<insert tableName="tb_setor">
+			<column name="id_setor" value="11" />
+			<column name="descricao" value="Desc Gerencia 2" />
+			<column name="nome" value="Gerencia 2" />
 		</insert>
 				
 	</changeSet>

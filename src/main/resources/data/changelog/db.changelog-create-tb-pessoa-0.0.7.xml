@@ -66,6 +66,148 @@
 			referencedTableName="tb_usuario" />
 	</changeSet>
 
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="2" />
+			<column name="id_pessoa" value="1" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="12901833411" />
+			<column name="data_nascimento" value="2018-04-03 21:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="12315" />
+			<column name="rg" value="55.132.131-3" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Masculino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="34645465465" />
+			<column name="user_id" value="1" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="3" />
+			<column name="id_pessoa" value="2" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="51542248418" />
+			<column name="data_nascimento" value="2008-02-05 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="1234" />
+			<column name="rg" value="12.312.341-2" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Feminino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="21341234123" />
+			<column name="user_id" value="5" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="3" />
+			<column name="id_pessoa" value="3" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="34677541477" />
+			<column name="data_nascimento" value="2006-12-31 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="3215" />
+			<column name="rg" value="34.343.333-3" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Masculino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="32165465466" />
+			<column name="user_id" value="6" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="2" />
+			<column name="id_pessoa" value="4" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="42677647192" />
+			<column name="data_nascimento" value="2008-04-02 21:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="154" />
+			<column name="rg" value="34.234.213-4" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Masculino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="35889879879" />
+			<column name="user_id" value="7" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="2" />
+			<column name="id_pessoa" value="5" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="81773446843" />
+			<column name="data_nascimento" value="2003-02-03 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="1547" />
+			<column name="rg" value="23.412.341-3" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Feminino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="32132132132" />
+			<column name="user_id" value="8" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="1" />
+			<column name="id_pessoa" value="6" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="97773115591" />
+			<column name="data_nascimento" value="2002-02-04 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="157" />
+			<column name="rg" value="12.344.123-4" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Masculino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="12341234123" />
+			<column name="user_id" value="9" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="1" />
+			<column name="id_pessoa" value="7" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="81244896616" />
+			<column name="data_nascimento" value="1996-02-01 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="9878" />
+			<column name="rg" value="13.412.341-2" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Feminino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="32165465465" />
+			<column name="user_id" value="11" />	
+		</insert>
+		<insert tableName="tb_pessoa">
+			<column name="tipo_pessoa" value="2" />
+			<column name="id_pessoa" value="8" />
+			<column name="bairro" value="Custódio Pereira" />
+			<column name="cep" value="38405211" />
+			<column name="cidade" value="Uberlândia" />
+			<column name="cpf" value="21548577367" />
+			<column name="data_nascimento" value="2008-01-01 22:00:00" />
+			<column name="estado" value="MG" />
+			<column name="numero" value="123" />
+			<column name="rg" value="33.434.343-4" />
+			<column name="rua" value="Rua Novo Sol" />
+			<column name="sexo" value="Feminino" />
+			<column name="status" value="Ativo" />
+			<column name="telefone" value="34654654646" />
+			<column name="user_id" value="12" />	
+		</insert>
+		
+				
+		
+	</changeSet>
+
 	
 
 </databaseChangeLog>

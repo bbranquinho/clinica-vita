@@ -20,11 +20,12 @@
 				<constraints nullable="false" />
 			</column>
 			<column name="registro_profissional" type="varchar(10)">
-				<constraints unique="true" uniqueConstraintName="UK_49unsh9cw676qsj4m91h134c5" nullable="false" />
+				<constraints unique="true" uniqueConstraintName="UK_49unsh9cw676qsj4m91h134c5"
+					nullable="false" />
 			</column>
 			<column name="tipo_registro" type="varchar(70)">
 				<constraints nullable="false" />
-			</column>		
+			</column>
 			<column name="id_pessoa" type="bigint">
 				<constraints primaryKey="true" nullable="false" />
 			</column>
@@ -59,6 +60,31 @@
 			referencedTableName="tb_setor" />
 	</changeSet>
 
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_medico">
+			<column name="data_admissao" value="2017-05-30 21:00:00" />
+			<column name="especialidade" value="Pediatria" />
+			<column name="estado_registro" value="Amazonas" />
+			<column name="registro_profissional" value="23452345" />
+			<column name="tipo_registro" value="CRF" />
+			<column name="id_pessoa" value="2" />
+			<column name="cargo_id" value="1" />
+			<column name="setor_id" value="1" />
+			
+		</insert>
+		<insert tableName="tb_medico">
+			<column name="data_admissao" value="2017-05-29 21:00:00" />
+			<column name="especialidade" value="Clinico Geral" />
+			<column name="estado_registro" value="Alagoas" />
+			<column name="registro_profissional" value="12341234" />
+			<column name="tipo_registro" value="CRF" />
+			<column name="id_pessoa" value="3" />
+			<column name="cargo_id" value="2" />
+			<column name="setor_id" value="2" />
+			
+		</insert>
+		
 
+	</changeSet>
 
 </databaseChangeLog>
