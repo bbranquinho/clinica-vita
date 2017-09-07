@@ -12,6 +12,8 @@ drop table if exists public.tb_convenio;
 drop table if exists public.tb_convenio_medico;
 drop table if exists public.tb_agenda;
 drop table if exists public.tb_item_agenda;
+drop table if exists public.tb_escala_atendimento;
+drop table if exists public.tb_item_escala_atendimento;
 
 CREATE TABLE public.tb_file_upload (
   id_file_upload bigint(20) NOT NULL AUTO_INCREMENT,
@@ -163,4 +165,28 @@ CREATE TABLE public.tb_item_agenda (
   FOREIGN KEY (id_agenda) REFERENCES public.tb_agenda (id_agenda),
   FOREIGN KEY (medico_id) REFERENCES public.tb_medico (id_pessoa),
   FOREIGN KEY (paciente_id) REFERENCES public.tb_paciente (id_pessoa)
-)
+);
+
+CREATE TABLE public.tb_escala_atendimento (
+  id_escala_atendimento bigint(20) NOT NULL AUTO_INCREMENT,
+  data_modificacao datetime NOT NULL,
+  id_escala_medico bigint(20) DEFAULT NULL,
+  PRIMARY KEY (id_escala_atendimento),
+  FOREIGN KEY (id_escala_medico) REFERENCES public.tb_medico (id_pessoa)
+);
+
+CREATE TABLE public.tb_item_escala_atendimento (
+  id_item_escala_atendimento bigint(20) NOT NULL AUTO_INCREMENT,
+  dia_semana varchar(30) NOT NULL,
+  hora_entrada time NOT NULL,
+  hora_saida time NOT NULL,
+  hora_pausa_entrada time DEFAULT NULL,
+  hora_pausa_termino time DEFAULT NULL,
+  periodo varchar(20) NOT NULL,
+  intervalo_agendamento bigint NOT NULL,
+  quantidade_vagas bigint NOT NULL,
+  tipo_atendimento varchar(30) NOT NULL,
+  id_escala_atendimento bigint(20) NOT NULL,
+  PRIMARY KEY (id_item_escala_atendimento),
+  FOREIGN KEY (id_escala_atendimento) REFERENCES public.tb_escala_atendimento (id_escala_atendimento)
+);

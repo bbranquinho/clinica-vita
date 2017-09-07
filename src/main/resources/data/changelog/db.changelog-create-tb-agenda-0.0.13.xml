@@ -16,10 +16,10 @@
 			<column name="data_agendamento" type="datetime">
 				<constraints nullable="false" />
 			</column>
-			<column name="data_final_consulta" type="varchar(255)">
+			<column name="data_final_consulta" type="datetime">
 				<constraints nullable="false" />
 			</column>
-			<column name="data_inicial_consulta" type="varchar(255)">
+			<column name="data_inicial_consulta" type="datetime">
 				<constraints nullable="false" />
 			</column>
 			<column name="max_qtd_item_agenda" type="int" defaultValue="NULL">

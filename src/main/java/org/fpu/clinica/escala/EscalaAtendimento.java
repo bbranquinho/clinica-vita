@@ -3,11 +3,12 @@ package org.fpu.clinica.escala;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,8 +26,8 @@ public class EscalaAtendimento extends BaseEntity<Long>{
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "medico_id", nullable = false)
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "id_escala_medico", nullable = true)
 	private Medico medico;
 	
 	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?

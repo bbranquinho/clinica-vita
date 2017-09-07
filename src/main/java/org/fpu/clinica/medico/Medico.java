@@ -1,7 +1,6 @@
 package org.fpu.clinica.medico;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
@@ -14,7 +13,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.fpu.clinica.cargo.Cargo;
-import org.fpu.clinica.convenio.Convenio;
 import org.fpu.clinica.pessoa.Pessoa;
 import org.fpu.clinica.setor.Setor;
 import org.hibernate.validator.constraints.NotBlank;

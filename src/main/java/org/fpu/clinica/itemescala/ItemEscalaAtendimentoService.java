@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemEscalaAtendimentoService extends GenericService<ItemEscalaAtendimento, Long> {
 
 	@Autowired
-	private ItemEscalaAtendimentoRepository escalaAtendimentoRepository;
+	private ItemEscalaAtendimentoRepository itemEscalaAtendimentoRepository;
 
 	
 }

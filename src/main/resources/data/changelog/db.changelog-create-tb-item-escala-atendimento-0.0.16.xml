@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_item_escala_atendimento">
+			<column name="id_item_escala_atendimento" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>	
+			<column name="dia_semana" type="varchar(30)" defaultValue="NULL">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_entrada" type="time">
+				<constraints nullable="false" />
+			</column>
+			<column name="hora_saida" type="time">
+				<constraints nullable="false" />
+			</column>		
+			<column name="hora_pausa_entrada" type="time">
+				<constraints nullable="true" />
+			</column>
+			<column name="hora_pausa_termino" type="time">
+				<constraints nullable="true" />
+			</column>
+			<column name="intervalo_agendamento" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="periodo" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="quantidade_vagas" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="tipo_atendimento" type="varchar(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_escala_atendimento" type="bigint">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="id_escala_atendimento"
+			baseTableName="tb_item_escala_atendimento" constraintName="FK_c24el7ii7xuvk943bli04ls2o"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_escala_atendimento"
+			referencedTableName="tb_escala_atendimento" />
+
+		
+	</changeSet>
+	
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_item_escala_atendimento">
+			<column name="id_item_escala_atendimento" value="1" />
+			<column name="dia_semana" value="Segunda-Feira" />
+			<column name="hora_entrada" value="08:00:00" />
+			<column name="hora_saida" value="18:00:00" />
+			<column name="hora_pausa_entrada" value="12:00:00" />
+			<column name="hora_pausa_termino" value="13:00:00" />
+			<column name="intervalo_agendamento" value="30" />
+			<column name="periodo" value="manhã/tarde" />
+			<column name="quantidade_vagas" value="3" />
+			<column name="tipo_atendimento" value="Agendamento" />
+			<column name="id_escala_atendimento" value="1" />
+		</insert>
+		<insert tableName="tb_item_escala_atendimento">
+			<column name="id_item_escala_atendimento" value="2" />
+			<column name="dia_semana" value="Terça-Feira" />
+			<column name="hora_entrada" value="08:00:00" />
+			<column name="hora_saida" value="18:00:00" />
+			<column name="hora_pausa_entrada" value="12:00:00" />
+			<column name="hora_pausa_termino" value="13:00:00" />
+			<column name="intervalo_agendamento" value="30" />
+			<column name="periodo" value="manhã/tarde" />
+			<column name="quantidade_vagas" value="3" />
+			<column name="tipo_atendimento" value="Agendamento" />
+			<column name="id_escala_atendimento" value="1" />
+		</insert>
+	</changeSet>
+
+
+
+</databaseChangeLog>
