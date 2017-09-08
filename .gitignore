@@ -26,3 +26,8 @@ hs_err_pid*
 target/
 *.idea/
 node_modules
+
+*.settings/
+.project
+.classpath
+.springBeans
