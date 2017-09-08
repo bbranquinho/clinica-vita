@@ -1,5 +1,5 @@
 'use strict';
-var BASE_URL = 'http://localhost:8080/api';
+var BASE_URL = window.location.origin + '/api';
 angular.module('clinica',[
     "ngCookies",
     'ngRoute',
