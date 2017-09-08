@@ -44,7 +44,7 @@ public class ItemEscalaAtendimento extends BaseEntity<Long> {
 	private String tipoAtendimento;
 
 	@NotBlank
-	@Column(name = "dia_semana", length = 30, nullable = false,unique = true)
+	@Column(name = "dia_semana", length = 30, nullable = false, unique = true)
 	private String diaSemana;
 
 	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
@@ -73,7 +73,7 @@ public class ItemEscalaAtendimento extends BaseEntity<Long> {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_pausa_termino")
-	private Date horaPausaSaida;
+	private Date horaPausaTermino;
 
 	public ItemEscalaAtendimento() {
 		// TODO Auto-generated constructor stub
@@ -151,13 +151,15 @@ public class ItemEscalaAtendimento extends BaseEntity<Long> {
 		this.horaPausaEntrada = horaPausaEntrada;
 	}
 
-	public Date getHoraPausaSaida() {
-		return horaPausaSaida;
+	public Date getHoraPausaTermino() {
+		return horaPausaTermino;
 	}
 
-	public void setHoraPausaSaida(Date horaPausaSaida) {
-		this.horaPausaSaida = horaPausaSaida;
+	public void setHoraPausaTermino(Date horaPausaTermino) {
+		this.horaPausaTermino = horaPausaTermino;
 	}
+	
+	
 
 	
 

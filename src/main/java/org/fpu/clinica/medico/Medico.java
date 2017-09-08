@@ -56,9 +56,6 @@ public class Medico extends Pessoa {
 	@ManyToOne
 	@JoinColumn(name = "cargo_id", nullable = false)
 	public Cargo cargo;
-	
-
-	
 
 	public Medico() {
 		// TODO Auto-generated constructor stub
@@ -119,8 +116,6 @@ public class Medico extends Pessoa {
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
-
-
 	
 	
 

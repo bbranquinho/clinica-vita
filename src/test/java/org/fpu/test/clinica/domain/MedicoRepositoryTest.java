@@ -164,12 +164,12 @@ public class MedicoRepositoryTest extends BaseTest {
 		this.usuarioRepository.delete(usuario);
 		LOGGER.info("Teste delete usuario :" + this.usuarioRepository.findByNome("Usuario Teste"));
 		assertNull(this.usuarioRepository.findByNome("Usuario Teste"));
-		
+
 		Cargo cargo = this.cargoRepository.findByNome("Cargo Teste");
 		this.cargoRepository.delete(cargo);
 		LOGGER.info("Teste delete setor :" + this.cargoRepository.findByNome("Cargo Teste"));
 		assertNull(this.cargoRepository.findByNome("Cargo Teste"));
-		
+
 		Setor setor = this.setorRepository.findByNome("Setor Teste");
 		this.setorRepository.delete(setor);
 		LOGGER.info("Teste delete setor :" + this.setorRepository.findByNome("Setor Teste"));
