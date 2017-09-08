@@ -3,7 +3,7 @@ spring:
   application:
     name: Clínica Vita
     description: Projeto desenvolvido pelos alunos da Faculdade UNA de Uberlândia, sob orientação do professor @bbranquinho.
-    version: @project.version@
+    version:  @project.version@
   profiles:
     active: dev
 
@@ -17,3 +17,6 @@ security:
     password: password
   password:
     secret: secret
+    
+
+  

@@ -1,0 +1,99 @@
+package org.fpu.test.clinica.domain;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.fpu.clinica.fileupload.FileUpload;
+import org.fpu.clinica.fileupload.FileUploadRepository;
+import org.fpu.test.clinica.utils.BaseTest;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+public class FileUploadRepositoryTest extends BaseTest {
+	
+	private final Logger LOGGER = Logger.getLogger(this.getClass());
+	
+	@Autowired
+	private FileUploadRepository fileUploadRepository;
+	
+	@Test
+	public void findAllTest() {
+		List<FileUpload> filesUpload= this.fileUploadRepository.findAll();
+
+		if (LOGGER.isInfoEnabled()) {
+			LOGGER.info("Test FindAll(): " + filesUpload);
+		}
+		
+		LOGGER.debug(filesUpload);
+
+		assertNotNull(filesUpload);
+		assertTrue(filesUpload.size() > 0);
+	}
+	
+	@Test
+	public void addTest(){
+		String strFile = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMTEhUTEhASEhMSGBUSFxUXEBAVFhcVFRUYFhUXFRUYHiggGBolHRUVITEhJSkrLi8uFyAzODMsNygtLisBCgoKDg0OGhAQGy4lIB4tLSs3LS0tLS0tLS0tLS0tLS0tLS0tLS0tLTcrLS0uLS0tLS0rKy0tLS0rLS0tLS0tLf/AABEIAOIA3wMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAAAwYCBAUBB//EAD4QAAIBAgMFBQYFAgQHAQAAAAABAgMRBCExBRJBUWEGInGBkRMyQqGxwQcjUtHwcuEUgqLCM0NTYmOS8ST/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAnEQEAAgICAgECBwEAAAAAAAAAAQIDESExBBJBMlETFCJhodHhgf/aAAwDAQACEQMRAD8A+4gAAAAAAAAAAAeNgeg52P2ioRbUlddU36FYh20hdxjvSkud2/QC8ArmC7QbyV8r521fyO5hcRv8LNcAJwAAAAAAAAAAAAAAAAAAAAAAAAAAAAArm3sbKV4U524NXtlzO/iZtQk1qotryR89xGIe9d6u3olkUyW9azLTFT3tENvAYBxk25b+9qmsv51I8Z2XhKXtIJxl8je2diM+Z2I1ehy0yzaHZbHFZ4hV4YK6kpxUXZ7soOUWn1aefjqOyG05LEyozburLNu7T0dvVP8A+MsVeMTizoRjWVVLvXUb8bOSv9DSuWfaIlnfFWazMLyDGnK6T5pMyOlxgAAAAAAAAAAAAAAAAAAAAAAAAAA1tpVFGlNv9LXm8l9Si4qKc7L9N/XQsXbqq44XeXCcW78syspt05TSa3pbmfC0VZP5nPmvGpq6sGOeLffhjhNq7nuUas7cUrL1Z3cBtqNRZpprVO10Vd9nZVbSnKq4rSMcRUpxXRwh73nc3uz+y40q+blK6tZyckraa8dfkc9Z1Eadc13vbs4rblGGUpW8m/oa6qQqWcZKSbWj6nE2hsOpKo506taKu21TlTTT8Jxaa8Te2dg5023O2+rO9km0mn3oxVr66FqzE2iZUvTVZ0vuF9yPgvoSmts2/sobys2k7cr52+Zsnc86Y1OgABAAAAAAAAAAAAAAAAAAAAAAAADmdo8H7XDzhu72j3bXuotNq3VJlPp05xpzVSDjmpK6a4OzzPoZW+1LW8lzh805fu/Qxy03+p0Yck/R++1Xp7QnuJJ2cs9dEay2xKlKMJ0nZZqrFuWv6ks/qauOwrq0FGNSdNxut6DtK8W15+BlsxTyVWnGdkk5RrShfNZuEk93jpJ6nNSkS9GZn7O1Ux853nBKDi7p397mmuCNzA4n2rT0vdO60eSa+fyK3PAzqVlKM5UqcE/y41XNTbeTk5JWsuC9WXPsphLylNpWjksviybfirForu0QzyW9ablZ0rZcj0A7XlAAAAAAAAAAAAAAAAAAAAAAAAABhKqvEDyvXjBXnJRV1G7aXek1GKXVtpJc2fNe1u2K0a7nOK9ldRptL3baxm/1byk0+TtwOrtqs6+18NQl/wAPC0J45Ru+9VnN0Kcn/SlUt/Ub+2sDFuSlFShUV2mrp/qTX81LxijJE16lX8acUxbW4U7CY1Nt/DPO3J8To4Xcer+ZXdtdn8RRftMI/aQ+KhN52/8AHP7S9TUwW1Zz7qi4yWUoSvGSfJpo4cuG2L6nqYPIplj9H+rtvxSe7q8kXfZmGVOlGK5Jvq3qfKMPXnvKCzm2lbXXj4LN+Rb9hdr4rFy2fiI+ynFJ4eo33a8FFXV3pUjmmuNrmnj03E2c/l31MV/6uQAN3KAAAAAAAAAAAAAAAAAAAAYzlZXA9lKxhvvgiHfu8+SfroSRlnbzLaRt7u8zxxM7njYQqGOpqG2cPPjWwtWiv8k1ULHjsHvxtezWcX1K32wqxp4vZ9Z37tWdF92TyrRtqln7uhaqNVSvZSVss4tcE8r+JaJmOYVmImNSrNSi07SWaON2nwmHjRlXrXi6a7s42U955RjF8bvKzyLptGirb3LXw5nxn8XK1WUqDT//ADxbajzlbKpL5pLq+Z201ljUxw4picVuJ1Ltdh8dh3VnBuX+Ja3k57veja7ULZJriuWfO3a2vsCeKVTcaVSEViMPLJOniaMrxalbKM092XRXPm+y9iVMVU9pQqSp1KMaVWE1f3rS9V3fn1PouzO01R7PxGIUPZ4ijTcZRcco1bpJ2esc1K3SxObDXHWYpHBizWyXi155W/svtr/FYWliI/8AMj3l+maymumaZ2YzTPldHZmM2XReIpY14qGeKrYadOklUUu/WlS3UnCerXBvgfScHiYVacKtNqUKkY1Ivg4ySlF+jR58w79t0EcJEhVYAAAAAAAAAAAAAAAANPFN76XBRcvP+fU3DnOpvTl4WRaqth1LS6OMSebzT6uPqv7I06nuX5Jr0zRP7W6flLy1+pbSsS2Ez16ESlmZvRkLKv8AiXh3LAzqRylh5Qrp8tyScv8ATc7+zsYqkIT0VSMakeqklLLqr6GW0MMqtGpTlmqkJQf+ZNfc4P4fz9ps6gpawUodU4Tko2fDKxKFlrQTTTV01ZrmmfN/xSpRp0YXim3NRjlwUJSv8kfSIN6PXnz/ALlU/EbYTxOG3o3dTD71SKXxR3Wpxtztmv6bcTbxr+uSN9MPIp7UnSkfhtiFGbi1rBJeEZW/3fJn0DEbKjVw+JpRSTqxdNu3Fxdn/qXofIdh4t0pQqL4ZZ/0tWkvQ+57MadPeWam97/Sl9js86vrz93J4U7nX2V7sns+pUwUYYpfnQdSnLvOSau9y/PuOMfI3OwmHdHCLDttrDVJ0Ytu79mnvQT8FNRz4RRv7PpOFWrG/dlL2kVyukpf7SbDw3atVWspblTxbTjJ+PdXyPNei3bk1OV0QElB6+RWVoSgAqsAAAAAAAAAAAAAMK0rRfp6nLoP8xrpZG1tOtupeKfzIMQrOMkXr0pbsov3kQ4Z27r+F28Ysn+Px++hr1F3r8Vk/sXUbFSp7svA2nx8DnJ/l25NryvkblGd1HqiJhMSli8iq/h3P8mvD/pYqvBeCat9yyVqqjGUnpFOT8Erv5IrnZjEKFarQeFlQlObnvOUH7SUlKpvWi38PG/FLwhZarXPE+D1+p6JEJfFe1uxv8NiqkErUqn5tPkoybvHylvK3K3PP6t2Zw7p4PDxeqpwb8ZLef1OP2/2T7ejGcV+ZRkl1cKjUZL13X5MtTiklFaKy8kdmfN+JipHz/Tjw4fTLafj+2ntKXs92q9IZy/peUn5LP8AyktRfmJ84uPzTX3Jq8N5NNXTyORs2o01Qlfeo3s38VLSEutvdfWN+KOR1Ou3kzLCyzZhPRnuHVvMT0R22wAZtAAAAAAAAAAAAABxNrSbn0Vl+/1Nib7q5SRFi1vKTXO6PcDU3o7r8v2Nfhl8vXnFPjH6GFd3SkvMkpceaNbGPci5JNxdrpZuOebty4loRJQn78fCXrdfY2MPLKPjY5uEf5r6wS81Jm7D3X0aYlES92liZRi3GCk1dbrzTTTWa5ZlZ2NjMRKrG6m2rxu2pQhC8XeLbbcnaUdLJMt1aN1cgo00n4kahbctxSM0yJGcWRKYZbt/p5HkpXfy/c9k9P5wZjSpKKsiEo8TTlJWUnHVZW4/RnOWz6iftJYiUqiVoycKdkuKcYpKV8r6aK1rI6x5JBCGjGe5+ZJSk3whuRS5KN2/Vv7E7eQquyIVNvhYkl0QYUnkjMyaAAAAAAAAAAAGM3k/BmRFiZWhJ9GBowhdI154dxe9EYebccnmuF7XXieTxEo6xl8mbQylsN37y5Z/uaW1MTuQve15RXq7EtDGQeW9Z8nkzm9o8OlRlbecZWTtmo3as3xSXMmO1Z6RbPxO9Jvhkl5cfqdmnnvdUVzY8bRXOOTLDh3n5FrIq2aDukYTya8T3D6NcmZV1lcoslMomEHkZR1IlaHsnnHz+hmyOa08fswiEslqeswlqYznoEM6608T2GZFjMTGNt+UYp6XaV7eIo4uD92Sl4NMnXBvlu0tDMiw8rolM57XgABCQAAAAAAAA0tr1N2k+tl9/sbpDi6e9Frz9CYRPSrQp1aj7t4R6anUw9qeUqiXRycpsieI3c3JvkjzDV5cI2T8F6mrJsVYUp605Pqqcl9jTr4iklKnBPfcWrO6smrXs/E6VOo+LuZ1aMZq0oqXlpxWY2lWcHTtl0t/6/2a9Dr4SWnoa2Iwfs5Oydr79+fwy+xLhnaVvNFp5Vb1L3miSSyI17/iiVcUVWYYeWRLxRBQ1aJpcAQzsZbh4Yzi7/fMqsMxfAykjHkShztuODcFL2e93mnOhKqlpe1slw1ZFRoYi16dejJclSUV8jr8TJ2Wen3J3xpX15292bvbve97jyNsjoaX5khlPbWOgAEJAAAAAAAADxo9AFWxGEkpNN5J+HgTU6sFk36M620sHvq8cpL59DhUqO78Lb8M7msTtlMadOlWjwuTQqrmcuKqX0UV1efob2HSXVkkNqtTUlY5M6TjZtaZHTpzvqSxpRzyWepETpMxtzpV1vR6m3J6M09o4W1pR0T9Cf2mRKC9prqiaeho4mrbclyaXrkbstAM1Ilsa0HkTU5ZLwKytBMivoK0syNy0JRLNSu2snbrmiW1+TNTDxjNuUcpRbi+tss+hJVofEsnxQQ6cVZHpHQleKbJDJqAAAAAAAAAAAAABq4rBqWaylz5+JtACt1G4tpqzRNQlfxOpjsGpr/uWj+xxd1xfVGkTtnMabilZ355M2oM01NS1JJYhU4tzeUeJKG1WqxjFuWa5WvfolxZxqWJU1eOSfC6dujayuVDbHaOWJqOnG6pLK1/f6N/o+vHKyPMJtGVJWT3Yrhu3XkuBzW8mlLa/l208O96+3X7LFjHJxnFPOza8dUdbA41Tpxl+qKZUIbc33nrblbTVG5s/bdOnG1m0r8ebv8ActHlUlWfCyRCx161o3RsYCreCfGyucTDbaoy/V6L9zo4HGwlFuKaSe756msXrbqWNsV68zDcrria7lx1/lyadVbjd8ranCx20FuPdqON1bfi1vJ56XVkLXiscopitf6VnpQsllnbMxrt2utVmfMqvavG4WomqqxlC/fpzVNVUudOpG130aenmfRdm42FeEKlKW9ColJPp15NZprmilMlb9LZMNqdw6VFZIzACAAAAAAAAAAAAAAAAA0do4TeW9HVarg/7m8Y1Fk/BkwiVeoprP5FW7Y7SlUXso5RldXXFK29n13kvC/M706spU5RWqyvxt/FbzK7tOhKa3ZdyekZcG+Cf2ZprcTClZiLRM/CtU0rJ6SWT+z+Rt08RzzLFsvs3QrwUm6kJruVIpx95LPVPnfzLBguzmGp6UlJ85tz+Ty+R5/5S0y9b89jiPlSsDgalZr2dOU78Uu6n1k8kWCl2TnGDk5xdR/Da8beOreWv1LZGSSsuHBHkqh0Y/GrXvlyZPMvbrhUsHsaG9nvL9SVk/Us+Fw8VBRirRV8vMOgm72PcM8muTZvFa16hz2y2v8AVKPbFC+HqwjrKDivFqyKhs/Y1WvTadqck/iTabSfmkXuUbkUI2vYrbHW3a1M1qRqr5PtzZdShU/Ni1e9paxk+ktPLUtP4URqKNaDjakpqdN34yi1USXBXin4uRasXGMoSUoKas+61vJ9LEfZfZs6Sk5JRUlFRivhSvw4aoxpgjHabbbZPJnJSKzDugA0YAAAAAAAAAAAAAAAAAAAp+H96fn9UYVoJpppNdUeA2hiYB/mxfGVCm5Pm76vm82dqLACUiB6AM4EdHWXj9kAQJyKfE8ASm2fr5G+AUt2vXoABVIAAAAAAAAAAP/Z" ;
+		byte[] bytes = strFile.getBytes();
+		String mimeType = "teste image/jpeg;base64";	
+		
+		FileUpload fileUpload = new FileUpload();
+		fileUpload.setFile(bytes);	
+		fileUpload.setMimeType(mimeType);
+		
+		
+		fileUpload = this.fileUploadRepository.save(fileUpload);
+		
+		LOGGER.info("Test Add fileUpload: "+ fileUpload);
+		
+		assertNotNull(fileUpload);
+		assertTrue(fileUpload.getId() != null);
+		assertThat(fileUpload.getMimeType()).isEqualTo(mimeType);
+		
+	}
+	
+	
+	@Test
+	public void updateTest(){
+		FileUpload fileUploadFind = this.fileUploadRepository.findByMimeType("teste image/jpeg;base64");
+		
+		if (fileUploadFind == null) {
+
+			addTest();
+			fileUploadFind = this.fileUploadRepository.findByMimeType("teste image/jpeg;base64");
+		}
+
+		/* Test Update */
+
+		assertNotNull(fileUploadFind);
+
+		fileUploadFind.setMimeType("teste image/jpeg;base64 Update");
+		LOGGER.info("Test update fileUpload" + this.fileUploadRepository.save(fileUploadFind));
+
+		assertNotNull(fileUploadFind);
+		assertTrue(fileUploadFind.getId() != null);
+		assertThat(fileUploadFind.getMimeType()).isEqualTo("teste image/jpeg;base64 Update");
+		
+	}
+	
+	@Test
+	public void deleteTest(){
+		FileUpload fileUpload = this.fileUploadRepository.findByMimeType("teste image/jpeg;base64 Update");
+
+		if (fileUpload == null) {
+			updateTest();
+		}
+		fileUpload = this.fileUploadRepository.findByMimeType("teste image/jpeg;base64 Update");
+		this.fileUploadRepository.delete(fileUpload);
+		LOGGER.info("Teste delete fileUpload :" + this.fileUploadRepository.findByMimeType("teste image/jpeg;base64 Update"));
+		
+		
+		assertNull(this.fileUploadRepository.findByMimeType("teste image/jpeg;base64 Update"));
+	}
+
+}

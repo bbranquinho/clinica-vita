@@ -16,4 +16,11 @@ spring:
   jpa:
     show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
+# LIQUIBASE
+liquibase:
+  enabled: true
+  change-log: classpath:data/changelog/db.changelog-master.xml
+  url: ${JDBC_DATABASE_URL}
+  user: ${JDBC_DATABASE_USERNAME}
+  password: ${JDBC_DATABASE_PASSWORD}

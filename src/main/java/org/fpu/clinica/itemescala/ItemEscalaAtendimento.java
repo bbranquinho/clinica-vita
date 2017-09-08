@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "tb_item_escala_atendimento")
 @AttributeOverride(name = "id", column = @Column(name = "id_item_escala_atendimento"))
-public class ItemEscalaAtendimento extends BaseEntity<Long>{
+public class ItemEscalaAtendimento extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,9 +33,8 @@ public class ItemEscalaAtendimento extends BaseEntity<Long>{
 	@Column(name = "periodo", length = 20, nullable = false)
 	private String periodo;
 
-	
-	@Column(name = "intervalo_atendimento")
-	private Integer intervaloAtendimento;
+	@Column(name = "intervalo_agendamento")
+	private Integer intervaloAgendamento;
 
 	@Column(name = "quantidade_vagas")
 	private Integer quantidadeVagas;
@@ -45,22 +44,36 @@ public class ItemEscalaAtendimento extends BaseEntity<Long>{
 	private String tipoAtendimento;
 
 	@NotBlank
-	@Column(name = "dia_semana", length = 30, nullable = false)
+	@Column(name = "dia_semana", length = 30, nullable = false, unique = true)
 	private String diaSemana;
 
 	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
 	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_entrada")
 	private Date horaEntrada;
 
 	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
 	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_saida")
 	private Date horaSaida;
+
+	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
+	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_pausa_entrada")
+	private Date horaPausaEntrada;
+
+	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
+	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
+	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_pausa_termino")
+	private Date horaPausaTermino;
 
 	public ItemEscalaAtendimento() {
 		// TODO Auto-generated constructor stub
@@ -82,12 +95,12 @@ public class ItemEscalaAtendimento extends BaseEntity<Long>{
 		this.periodo = periodo;
 	}
 
-	public Integer getIntervaloAtendimento() {
-		return intervaloAtendimento;
+	public Integer getIntervaloAgendamento() {
+		return intervaloAgendamento;
 	}
 
-	public void setIntervaloAtendimento(Integer intervaloAtendimento) {
-		this.intervaloAtendimento = intervaloAtendimento;
+	public void setIntervaloAgendamento(Integer intervaloAgendamento) {
+		this.intervaloAgendamento = intervaloAgendamento;
 	}
 
 	public Integer getQuantidadeVagas() {
@@ -130,10 +143,24 @@ public class ItemEscalaAtendimento extends BaseEntity<Long>{
 		this.horaSaida = horaSaida;
 	}
 
+	public Date getHoraPausaEntrada() {
+		return horaPausaEntrada;
+	}
+
+	public void setHoraPausaEntrada(Date horaPausaEntrada) {
+		this.horaPausaEntrada = horaPausaEntrada;
+	}
+
+	public Date getHoraPausaTermino() {
+		return horaPausaTermino;
+	}
+
+	public void setHoraPausaTermino(Date horaPausaTermino) {
+		this.horaPausaTermino = horaPausaTermino;
+	}
+	
 	
 
-	
-	
 	
 
 }

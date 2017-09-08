@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_item_agenda">
+			<column name="id_item_agenda" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="status_agenda" type="varchar(30)" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+			<column name="tipo_agenda" type="varchar(30)" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+			<column name="valor_consulta" type="decimal(10,2)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_agenda" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="medico_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="paciente_id" type="bigint" defaultValue="NULL">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="id_agenda"
+			baseTableName="tb_item_agenda" constraintName="FK_287levrsd2cj520arbtdn6ali"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_agenda"
+			referencedTableName="tb_agenda" />
+
+		<addForeignKeyConstraint baseColumnNames="medico_id"
+			baseTableName="tb_item_agenda" constraintName="FK_7cv4e4hyxjj8tk4mkvyp9o9s1"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_medico" />
+
+		<addForeignKeyConstraint baseColumnNames="paciente_id"
+			baseTableName="tb_item_agenda" constraintName="FK_f4m8fygq35i5m5c0vtvbeta3x"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_paciente" />
+	</changeSet>
+
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="1" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="1" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="2" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="15.00" />
+			<column name="id_agenda" value="2" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="3" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="20.00" />
+			<column name="id_agenda" value="3" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="4" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="30.00" />
+			<column name="id_agenda" value="4" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="5" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Exame" />
+			<column name="valor_consulta" value="40.00" />
+			<column name="id_agenda" value="5" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="6" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="40.00" />
+			<column name="id_agenda" value="6" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="7" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Pré-natal" />
+			<column name="valor_consulta" value="30.00" />
+			<column name="id_agenda" value="7" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="8" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="8" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="9" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="60.00" />
+			<column name="id_agenda" value="9" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="6" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="10" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="90.00" />
+			<column name="id_agenda" value="10" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="6" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="11" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="40.00" />
+			<column name="id_agenda" value="11" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="12" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="40.00" />
+			<column name="id_agenda" value="12" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="13" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="60.00" />
+			<column name="id_agenda" value="13" />
+			<column name="medico_id" value="2" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="14" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="40.00" />
+			<column name="id_agenda" value="14" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="15" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="60.00" />
+			<column name="id_agenda" value="15" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="16" />
+			<column name="status_agenda" value="Não-autorizado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="10.00" />
+			<column name="id_agenda" value="16" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="7" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="17" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="60.00" />
+			<column name="id_agenda" value="17" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="18" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Encaixe" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="18" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="19" />
+			<column name="status_agenda" value="Não-agendado" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="19" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="20" />
+			<column name="status_agenda" value="Disponivel" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="20" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+		<insert tableName="tb_item_agenda">
+			<column name="id_item_agenda" value="21" />
+			<column name="status_agenda" value="Disponivel" />
+			<column name="tipo_agenda" value="Consulta" />
+			<column name="valor_consulta" value="50.00" />
+			<column name="id_agenda" value="21" />
+			<column name="medico_id" value="3" />
+			<column name="paciente_id" value="NULL" />
+		</insert>
+
+
+
+
+
+
+	</changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<include file="data/changelog/db.changelog-create-tb-file-upload-0.0.1.xml" />
+	<include file="data/changelog/db.changelog-create-tb-usuario-0.0.2.xml" />
+	<include file="data/changelog/db.changelog-create-tb-permissao-0.0.3.xml" />
+	<include file="data/changelog/db.changelog-create-tb-usuario-permissao-0.0.4.xml" />
+	<include file="data/changelog/db.changelog-create-tb-cargo-0.0.5.xml" />
+	<include file="data/changelog/db.changelog-create-tb-setor-0.0.6.xml" />
+	<include file="data/changelog/db.changelog-create-tb-pessoa-0.0.7.xml" />
+	<include file="data/changelog/db.changelog-create-tb-paciente-0.0.8.xml" />
+	<include file="data/changelog/db.changelog-create-tb-funcionario-0.0.9.xml" />
+	<include file="data/changelog/db.changelog-create-tb-medico-0.0.10.xml" />
+	<include file="data/changelog/db.changelog-create-tb-convenio-0.0.11.xml" />
+	<include file="data/changelog/db.changelog-create-tb-convenio-medico-0.0.12.xml" />
+	<include file="data/changelog/db.changelog-create-tb-agenda-0.0.13.xml" />
+	<include file="data/changelog/db.changelog-create-tb-item-agenda-0.0.14.xml" />
+	<include file="data/changelog/db.changelog-create-tb-escala-atendimento-0.0.15.xml" />
+	<include file="data/changelog/db.changelog-create-tb-item-escala-atendimento-0.0.16.xml" />
+	
+</databaseChangeLog>

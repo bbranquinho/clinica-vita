@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_medico">
+
+			<column name="data_admissao" type="datetime">
+				<constraints nullable="false" />
+			</column>
+			<column name="especialidade" type="varchar(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="estado_registro" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="registro_profissional" type="varchar(10)">
+				<constraints unique="true" uniqueConstraintName="UK_49unsh9cw676qsj4m91h134c5"
+					nullable="false" />
+			</column>
+			<column name="tipo_registro" type="varchar(70)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_pessoa" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="cargo_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+			<column name="setor_id" type="bigint">
+				<constraints nullable="false" />
+			</column>
+
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+
+		<addForeignKeyConstraint baseColumnNames="cargo_id"
+			baseTableName="tb_medico" constraintName="FK_l1ks5mx90job068jd90m7gn4y"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_cargo"
+			referencedTableName="tb_cargo" />
+
+		<addForeignKeyConstraint baseColumnNames="id_pessoa"
+			baseTableName="tb_medico" constraintName="FK_t6f9bgv9j8kn63pnjrasvgtng"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_pessoa" />
+
+		<addForeignKeyConstraint baseColumnNames="cargo_id"
+			baseTableName="tb_medico" constraintName="FK_qepsehoqv02qnufbclxphf3sq"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_setor"
+			referencedTableName="tb_setor" />
+	</changeSet>
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_medico">
+			<column name="data_admissao" value="2017-05-30 21:00:00" />
+			<column name="especialidade" value="Pediatria" />
+			<column name="estado_registro" value="Amazonas" />
+			<column name="registro_profissional" value="23452345" />
+			<column name="tipo_registro" value="CRF" />
+			<column name="id_pessoa" value="2" />
+			<column name="cargo_id" value="1" />
+			<column name="setor_id" value="1" />
+			
+		</insert>
+		<insert tableName="tb_medico">
+			<column name="data_admissao" value="2017-05-29 21:00:00" />
+			<column name="especialidade" value="Clinico Geral" />
+			<column name="estado_registro" value="Alagoas" />
+			<column name="registro_profissional" value="12341234" />
+			<column name="tipo_registro" value="CRF" />
+			<column name="id_pessoa" value="3" />
+			<column name="cargo_id" value="2" />
+			<column name="setor_id" value="2" />
+			
+		</insert>
+		
+
+	</changeSet>
+
+</databaseChangeLog>

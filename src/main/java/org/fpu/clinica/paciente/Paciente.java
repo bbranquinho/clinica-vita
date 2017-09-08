@@ -3,11 +3,13 @@ package org.fpu.clinica.paciente;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import org.fpu.clinica.pessoa.Pessoa;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
+@Table(name = "tb_paciente")
 @DiscriminatorValue("1")
 public class Paciente extends Pessoa {
 

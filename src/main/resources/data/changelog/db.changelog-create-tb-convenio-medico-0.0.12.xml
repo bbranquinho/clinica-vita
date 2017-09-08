@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_convenio_medico">
+			<column name="medico_id" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="convenio_id" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="medico_id"
+			baseTableName="tb_convenio_medico" constraintName="FK_d2v6pffh8vpyhd5ds3bx77flg"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_medico" />
+			
+			<addForeignKeyConstraint baseColumnNames="convenio_id"
+			baseTableName="tb_convenio_medico" constraintName="FK_ev94oqt3n842nklyi38m702ok"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_convenio"
+			referencedTableName="tb_convenio" />
+	</changeSet>
+	
+	
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="2" />
+			<column name="convenio_id" value="2" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="3" />
+			<column name="convenio_id" value="2" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="2" />
+			<column name="convenio_id" value="3" />
+		</insert>
+		<insert tableName="tb_convenio_medico">
+			<column name="medico_id" value="3" />
+			<column name="convenio_id" value="4" />
+		</insert>
+
+	</changeSet>
+ 
+</databaseChangeLog>

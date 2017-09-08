@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	
+
+	
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_convenio">
+			<column name="id_convenio" type="bigint(20)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="nome_fantasia" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="razao_social" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="registro_ans" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			
+			
+		</createTable>
+	</changeSet>
+
+
+	<changeSet id="2" author="leonardo">
+		<insert tableName="tb_convenio">
+			<column name="id_convenio" value="1" />
+			<column name="nome_fantasia" value="ODONTOREAL" />
+			<column name="razao_social" value="A S ASSISTENCIA" />
+			<column name="registro_ans" value="413763" />
+		</insert>
+		<insert tableName="tb_convenio">
+			<column name="id_convenio" value="2" />
+			<column name="nome_fantasia" value="UNOESTE SAÚDE" />
+			<column name="razao_social" value="AASSOP - A" />
+			<column name="registro_ans" value="416738" />
+		</insert>
+		<insert tableName="tb_convenio">
+			<column name="id_convenio" value="3" />
+			<column name="nome_fantasia" value="DABBESS - ASSOCIAÇÃO BRASILEIRA" />
+			<column name="razao_social" value="ABBESS - A" />
+			<column name="registro_ans" value="417734" />
+		</insert>
+		<insert tableName="tb_convenio">
+			<column name="id_convenio" value="4" />
+			<column name="nome_fantasia" value="ABC ASSISTENCIAL" />
+			<column name="razao_social" value="ABC ASSIST" />
+			<column name="registro_ans" value="417408" />
+		</insert>
+		<insert tableName="tb_convenio">
+			<column name="id_convenio" value="5" />
+			<column name="nome_fantasia" value="ABS ASSISTÊNCIA BUCAL SERVIÇOS" />
+			<column name="razao_social" value="ABS-ASSISTÊNCIA BUCAL SERVIÇOS S/C LTDA." />
+			<column name="registro_ans" value="306347" />
+		</insert>
+				
+	</changeSet>
+
+</databaseChangeLog>

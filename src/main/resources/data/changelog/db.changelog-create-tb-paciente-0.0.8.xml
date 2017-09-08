@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+	<changeSet id="1" author="leonardo">
+		<createTable tableName="tb_paciente">
+
+
+			<column name="cns" type="varchar(20)">
+				<constraints nullable="false" unique="true"
+					uniqueConstraintName="UK_ok78slr6r5ngf4k31h4imrj4c" />
+			</column>
+			<column name="escolaridade" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="estado_civil" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="etnia" type="varchar(15)">
+				<constraints nullable="false" />
+			</column>
+			<column name="fator_sanguineo" type="varchar(4)">
+				<constraints nullable="false" />
+			</column>
+			<column name="hobbie" type="varchar(25)">
+				<constraints nullable="false" />
+			</column>
+			<column name="matricula" type="varchar(20)">
+				<constraints unique="true" uniqueConstraintName="UK_nljx0g14lqlph5yf0s2ds5fow"
+					nullable="false" />
+			</column>
+			<column name="nome_conjuge" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="nome_mae" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="nome_pai" type="varchar(80)">
+				<constraints nullable="false" />
+			</column>
+			<column name="profissao" type="varchar(30)">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_pessoa" type="bigint">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+
+		</createTable>
+	</changeSet>
+
+	<changeSet author="leonardo" id="2">
+		<addForeignKeyConstraint baseColumnNames="id_pessoa"
+			baseTableName="tb_paciente" constraintName="FK_fc1j6r97k5pwb3joeobrwjcxo"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="RESTRICT" referencedColumnNames="id_pessoa"
+			referencedTableName="tb_pessoa" />
+	</changeSet>
+
+	<changeSet id="3" author="leonardo">
+		<insert tableName="tb_paciente">
+			<column name="cns" value="12341234" />
+			<column name="escolaridade" value="Ensino Superior" />
+			<column name="estado_civil" value="Casado" />
+			<column name="etnia" value="Branca" />
+			<column name="fator_sanguineo" value="O+" />
+			<column name="hobbie" value="Caminhar" />
+			<column name="matricula" value="MGXK-1496527952738" />
+			<column name="nome_conjuge" value="Ana Silva" />
+			<column name="nome_mae" value="Maria Silva" />
+			<column name="nome_pai" value="Jose Silva" />
+			<column name="profissao" value="Motorista" />
+			<column name="id_pessoa" value="6" />
+		</insert>
+		<insert tableName="tb_paciente">
+			<column name="cns" value="23452134" />
+			<column name="escolaridade" value="Ensino Superior" />
+			<column name="estado_civil" value="Separado" />
+			<column name="etnia" value="Branca" />
+			<column name="fator_sanguineo" value="O+" />
+			<column name="hobbie" value="Natação" />
+			<column name="matricula" value="MGXK-1496528517707" />
+			<column name="nome_conjuge" value="Mateus Silva" />
+			<column name="nome_mae" value="Maria Silva" />
+			<column name="nome_pai" value="Jose Silva" />
+			<column name="profissao" value="Aposentada" />
+			<column name="id_pessoa" value="7" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
