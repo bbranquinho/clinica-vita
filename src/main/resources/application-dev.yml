@@ -18,7 +18,11 @@ spring:
     hibernate:
       ddl-auto: none
 
-      
+# SECURITY
+security:
+  password:
+    secret: secret
+
 # LIQUIBASE
 liquibase:
   enabled: true

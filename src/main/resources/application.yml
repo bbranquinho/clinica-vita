@@ -12,11 +12,6 @@ server:
   contextPath: /
   port: 8080
 
-security:
-  user:
-    password: password
-  password:
-    secret: secret
     
 
   
