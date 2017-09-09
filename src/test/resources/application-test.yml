@@ -24,6 +24,10 @@ spring:
     enabled: true
     path: /h2
 
+security:
+  password:
+    secret: secret
+
  
      
       
