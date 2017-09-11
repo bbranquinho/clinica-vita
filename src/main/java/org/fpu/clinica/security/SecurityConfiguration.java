@@ -64,28 +64,30 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 
 		
 		http.httpBasic().and().authorizeRequests()
-		.antMatchers("/*","/css/**", "/js/**", "/fonts/**", "/img/**","/src/**","/webjars/**").permitAll()
+		.antMatchers("/css/**", "/js/**", "/fonts/**", "/img/**","/appsrc/**").permitAll()
+		.antMatchers("/").permitAll()
+		.antMatchers("index.html").permitAll()
 		// Global Authority to OPTIONS (permit all).
 		.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		// Public (permit all).
 		.antMatchers(ServicePath.PUBLIC_ROOT_PATH + ServicePath.ALL).permitAll()
 		
 		// agenda Authorities.
-		.antMatchers(HttpMethod.GET, ServicePath.AGENDA_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, ServicePath.AGENDA_PATH).hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.POST, ServicePath.AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.PUT, ServicePath.AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA,AUTH_PACIENTE)
 		.antMatchers(HttpMethod.DELETE, ServicePath.AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 
 		// itemagenda Authorities
-		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/gerarhorario").permitAll()
-		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findagenda").permitAll()
-		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findByMedico/*").permitAll()
+		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/gerarhorario").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
+		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findagenda").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
+		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findByMedico/*").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/tipo_agenda").permitAll()
 		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/status_agenda").permitAll()
 		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/data_agendamento").hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findCompromissoPaciente/*").hasAnyAuthority(AUTH_ADMIN,AUTH_PACIENTE)
-		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/find_horario_agendamento/*").permitAll()
-		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/find_horario_agendamento/*").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
+		.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.POST, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 		.antMatchers(HttpMethod.PUT, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA,AUTH_PACIENTE)
 		.antMatchers(HttpMethod.DELETE, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)

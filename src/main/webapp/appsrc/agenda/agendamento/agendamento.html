@@ -1,0 +1,310 @@
+
+<!--<div class="inset" hide-sm></div>-->
+<div layout-gt-sm="row" ng-controller="AgendamentoController" layout-align="center center">
+
+    <!-- <pre>{{elements | json}}</pre>-->
+    <div flex-gt-sm="95" flex-gt-lg="80">
+        <md-card>
+
+            <form name="searchHorariosAgendamentos" ng-submit="searchHorarios()" >
+                <md-toolbar class="animate-show " >
+                    <md-list-item class="md-3-line">
+
+
+                        <div class="md-list-item-text">
+                            <div class="md-headline" style="padding-left: 10px;" ng-if="initParamenters.showPesquisa == true">Pesquisar Horários</div>
+                            <div class="md-headline" style="padding-left: 10px;" ng-if="initParamenters.showPesquisa == false">Agendar Horários</div>
+
+                        </div>
+                        <div class="md-list-item-text">
+                            <md-button  class=" md-raised"type="submit" class="md-primary md-raised" ng-disabled="searchHorariosAgendamentos.$invalid" ng-if="initParamenters.showPesquisa == true">
+                                <md-tooltip md-direction="top" >Pesquisar</md-tooltip>
+                                <span ><ng-md-icon icon="search"  ></ng-md-icon></span>
+                            </md-button>
+                            <md-button  class=" md-raised" ng-click="initParamenters.showPesquisa = true" >
+                                <md-tooltip md-direction="top">Show Pesquisa</md-tooltip>
+                                <span ><ng-md-icon icon="visibility"  ></ng-md-icon></span>
+                            </md-button>
+                            <md-button  class=" md-raised" ng-click="initParamenters.showPesquisa = false" >
+                                <md-tooltip md-direction="top">Hide Pesquisa</md-tooltip>
+                                <span ><ng-md-icon icon="visibility_off"  ></ng-md-icon></span>
+                            </md-button>
+                        </div>
+                    </md-list-item>
+
+                </md-toolbar>
+
+                <md-content layout="column" ng-if="initParamenters.showPesquisa ==true"  style="padding:30px;background: #fff;">
+
+                    <div>
+
+                        <div layout-gt-sm="row">
+
+                            <div flex-gt-xs>
+                                <h4>Médico*:</h4>
+
+                                <md-autocomplete  required
+                                                  md-input-name="autocompleteField"
+                                                  md-input-minlength="3"
+                                                  md-input-maxlength="60"
+
+                                                  md-selected-item="elements.medico"
+                                                  md-search-text="searchText"
+                                                  md-items="elements in medicos | filter:searchText"
+                                                  md-item-text="elements.user.nome"
+                                                  md-require-match
+                                                  md-floating-label="Filtar Médico">
+                                    <md-item-template>
+                                        <!--<span md-highlight-text="ctrl.searchText">{{item.display}}</span>-->
+
+                                        <span class="item-title">
+                                     <md-icon md-svg-icon="doutor" class="md-user-avatar" ng-click="setMedico(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Masculino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                    <md-icon md-svg-icon="doutora" class="md-user-avatar" ng-click="setMedico(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Feminino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                     <img class="md-user-avatar" ng-if="!!elements.user.fileUpload"  src="{{elements.user.fileUpload.mimeType}},{{elements.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+
+                                <span md-highlight-text="searchText"  md-highlight-flags="^i">{{elements.user.nome}}</span><span>/</span>
+                                     <span md-highlight-text="searchText"  md-highlight-flags="^i">
+                                     {{elements.especialidade}}/
+                                    </span>
+                                    <span md-highlight-text="searchText"  md-highlight-flags="^i">
+                                     {{elements.tipoRegistro}}: {{elements.registroProfissional}}
+                                    </span>
+                                </span>
+                                    </md-item-template>
+                                    <div ng-messages="searchHorariosAgendamentos.autocompleteField.$error" ng-if="searchHorariosAgendamentos.autocompleteField.$touched">
+                                        <div ng-message="required">Campo Obrigatório.</div>
+                                        <div ng-message="md-require-match">Não encontrado. Tente outro nome</div>
+                                        <div ng-message="minlength">Your entry is not long enough.</div>
+                                        <div ng-message="maxlength">Your entry is too long.</div>
+                                    </div>
+                                </md-autocomplete>
+
+                            </div>
+
+
+
+                            <div flex-gt-xs>
+                                <h4>Data*:</h4>
+                                <md-datepicker ng-model="elements.datasDiponiveis" name="datasDisponiveis"
+                                               md-placeholder="Data:" md-min-date="dataMinina" md-max-date="dataMaxima" required  class="date-row">
+
+
+                                </md-datepicker>
+
+                                <div ng-messages="searchHorariosAgendamentos.datasDisponiveis.$error" ng-if="searchHorariosAgendamentos.datasDisponiveis.$touched" style="color:#DD2C00">
+                                    <div ng-message="valid" >O valor Inserido não é uma data!</div>
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                    <div ng-message="mindate">Date is too early!</div>
+                                    <div ng-message="maxdate">Date is too late!</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+            </form>
+
+            </md-content>
+
+
+
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-3-line" ng-if="initParamenters.showResultHorarios == true">
+
+                <div class="md-list-item-text">
+                    <div class="md-headline" style="padding-left: 10px;">Horários Disponíveis</div>
+                </div>
+
+                <div class="md-list-item-text">
+                    <md-button  class="md-primary md-raised" ng-click="" >
+                        <md-tooltip md-direction="top">Refresh</md-tooltip>
+                        <span ><ng-md-icon icon="refresh"  ></ng-md-icon></span>
+                    </md-button>
+                    <md-button  class="md-primary md-raised" ng-click="initParamenters.showCardTable = true" >
+                        <md-tooltip md-direction="top">Visão Cards</md-tooltip>
+                        <span ><ng-md-icon icon="view_module"  ></ng-md-icon></span>
+                    </md-button>
+                    <md-button  class="md-primary md-raised" ng-click="initParamenters.showCardTable = false" >
+                        <md-tooltip md-direction="top">Visão Lista</md-tooltip>
+                        <span ><ng-md-icon icon="view_list"  ></ng-md-icon></span>
+                    </md-button>
+                </div>
+            </md-list-item>
+
+            <md-divider ng-if="initParamenters.showResultHorarios == true"></md-divider>
+
+
+
+            <md-content layout="column" layout-fill ng-if ="itensAgenda.length == 0 && !data_loading && initParamenters.showResultHorarios == true"  >
+
+                <div class="inset" hide-sm ng-if="initParamenters.showCardTable == false"></div>
+                <div layout-gt-sm="row" layout-align="center center">
+
+
+                    <span>Nenhum Horário Encontrado. Pesquise Novamente</span>
+
+                </div>
+            </md-content>
+
+
+            <md-content layout="column" layout-fill ng-if="initParamenters.showCardTable == true && initParamenters.showResultHorarios == true">
+
+                <div class="inset" hide-sm></div>
+                <div layout="row" flex layout-xs="column">
+                    <div layout="column" flex-gt-xs="33"
+                         flex-xs="100" ng-repeat="itemAgenda in itensAgenda">
+                        <md-card>
+                            <md-toolbar class="animate-show md-hue-2" style="padding:20px">
+                                <md-list-item class="md-3-line" >
+
+                                    <div class="mrgn-b-md" flex layout="row" flex layout-align="start center" style="box-sizing: border-box; max-height: 100%; display: flex; flex-direction: row; -moz-box-orient: horizontal; -moz-box-direction: normal; place-content: center flex-start; align-items: center; -moz-box-pack: start; -moz-box-align: center;">
+                                        <div flex layout="column" style="display: flex; box-sizing: border-box; flex-direction: column; -moz-box-orient: vertical; -moz-box-direction: normal;">
+                                            <div class="user-thumb">
+                                                <h4 class="headline">{{itemAgenda.medico.user.nome}}</h4>
+                                                <h5><ng-md-icon icon="info"   ></ng-md-icon>Especialidade: {{itemAgenda.medico.especialidade}}</h5>
+                                                <h5><ng-md-icon icon="info"  ></ng-md-icon>{{itemAgenda.medico.tipoRegistro}}: {{itemAgenda.medico.registroProfissional}}</h5>
+                                                <!-- <img alt="user list image" class="img-responsive img-circle" src="assets/img/user-1.jpg" width="107" height="107">-->
+                                            </div>
+                                        </div><div class="pad-wrap"></div>
+
+                                        <md-icon md-svg-icon="doutor" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Masculino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                        <md-icon md-svg-icon="doutora" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Feminino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                        <img class="md-user-avatar" ng-if="!!itemAgenda.medico.user.fileUpload"  src="{{itemAgenda.medico.user.fileUpload.mimeType}},{{itemAgenda.medico.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+                                     </div>
+
+                                </md-list-item>
+
+
+
+                            </md-toolbar>
+
+                            <div class="user-content" style="padding:20px">
+
+
+                                <span class="gene-block "> <ng-md-icon icon="date_range" style="fill:#757575"  ></ng-md-icon>Data/Hora Inicial: {{itemAgenda.agenda.dataHoraInicialConsulta}}</span>
+                                <span class="gene-block "> <ng-md-icon icon="date_range" style="fill:#757575"  ></ng-md-icon>Data/Hora Final: {{itemAgenda.agenda.dataHoraFinalConsulta}}</span>
+                                <span class="gene-block "> <ng-md-icon icon="airline_seat_angled" style="fill:#757575"  ></ng-md-icon>Tipo de Agendamento: {{itemAgenda.tipoAgenda}}</span>
+                                <span class="gene-block "> <ng-md-icon icon="monetization_on" style="fill:#757575"  ></ng-md-icon>Valor: {{itemAgenda.valorConsulta | currency:'R$'}}</span>
+                                <span class="gene-block "> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Status: <a class="mat-blue-800 gene-btn-sm">{{itemAgenda.statusAgenda}}</a></span>
+                                <span class="gene-block mrgn-b-md"> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Convênios:
+                                     <md-tooltip md-direction="top">Mostrar Convênios</md-tooltip>
+                                <!--Show/Hide Butom columns-->
+
+
+                                        <md-button aria-label="menu" class="md-icon-button" ng-click="showConvenio(itemAgenda.medico,$event)">
+                                            <ng-md-icon icon="more_vert"></ng-md-icon>
+                                        </md-button>
+
+
+
+                                <!--Fim Show/Hide Butom columns-->
+                                </span>
+                                                <span class="gene-block mrgn-b-md">
+                                                    <!--<md-button  class=" md-raised" ng-click="" style="width:100%">-->
+                                                        <md-tooltip md-direction="top">Agendar</md-tooltip>
+                                                        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                                                            <ng-md-icon icon="event_available" ng-click="novoAgendamento($event,itemAgenda)"  size="48px" ></ng-md-icon>
+
+                                                        </section>
+                                                    <!--</md-button>-->
+                                                </span>
+
+
+
+                            </div>
+
+                        </md-card>
+                    </div>
+                </div>
+            </md-content>
+
+
+
+
+
+
+            <md-content layout="column" layout-fill ng-if="initParamenters.showCardTable == false && initParamenters.showResultHorarios == true">
+
+                <div class="inset" hide-sm></div>
+                <div layout-gt-sm="row" layout-align="center center">
+                    <div flex-gt-sm="95" flex-gt-lg="80">
+                        <md-card>
+
+
+
+                            <md-table-container>
+                                <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+                                    <thead md-head md-order="order" md-on-reorder="getDesserts">
+                                    <tr md-row>
+
+                                        <th md-column md-column >
+                <span>id:
+                    <i class="material-icons" ng-click="reorder('id')">arrow_downward</i><i class="material-icons"  ng-click="reorder('-id')">arrow_upward</i>
+                </span></th>
+                                        <th md-column md-column ><span>Foto:</span></th>
+
+                                        <th md-column md-column>Medico:</th>
+                                        <th md-column md-column>Especialidade:</th>
+                                        <th md-column md-column>CRM:</th>
+                                        <th md-column md-column>Data/Hora Inicial: </th>
+                                        <th md-column md-column>Data/Hora Final: </th>
+                                        <th md-column md-column>Tipo Agendamento: </th>
+                                        <th md-column md-column>Valor: </th>
+                                        <th md-column md-column>Status: </th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+
+                                    <tr md-row md-select="itemAgenda" md-select-id="nome"  md-auto-select ng-repeat="itemAgenda in itensAgenda | filter:searchText | orderBy: order| limitTo: myLimit: (myPage - 1) * myLimit">
+                                        <!--<pre>{{selected | json}}</pre>-->
+                                        <td md-cell>{{itemAgeda.agenda.id}}</td>
+                                        <td md-cell> <img class="md-user-avatar" ng-if="!itemAgenda.medico.user.fileUpload"  src="../../../img/user.jpg" class="avatar" style="width: 60px; height: 60px;border-radius:50%"><img class="md-user-avatar" ng-if="!!itemAgenda.medico.user.fileUpload"  src="{{itemAgenda.medico.user.fileUpload.mimeType}},{{itemAgenda.medico.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px;border-radius:50%"></td>
+                                        <td md-cell>{{itemAgenda.medico.user.nome}}</td>
+                                        <td md-cell>{{itemAgenda.medico.especialidade}}</td>
+                                        <td md-cell>{{itemAgenda.medico.registoProfissional}}</td>
+                                        <td md-cell>{{itemAgenda.agenda.dataHoraInicialConsulta}}</td>
+                                        <td md-cell>{{itemAgenda.agenda.dataHoraFinalConsulta}}</td>
+                                        <td md-cell>{{itemAgenda.tipoAgenda}}</td>
+                                        <td md-cell>{{itemAgenda.valorConsulta | currency:'R$'}}</td>
+                                        <td md-cell>{{itemAgenda.statusAgenda}}</td>
+
+                                    <tr md-row ng-show ="data_loading">
+
+                                        <td class="text-center" colspan="6" >   <div layout="row" layout-sm="column" layout-align="space-around"><md-progress-circular class="center center" ng-if="data_loading" class="md-accent" md-mode="indeterminate" md-diameter="100px"></md-progress-circular></div></td>
+                                    </tr>
+                                    </tr>
+                                    <tr md-row ng-show ="itensAgenda.length == 0 && !data_loading">
+                                        <td class="text-center" colspan="6" >Nenhum Horário disponível.</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+
+                            <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{desserts.length}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+                        </md-card>
+                    </div>
+                </div>
+            </md-content>
+
+        </md-card>
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

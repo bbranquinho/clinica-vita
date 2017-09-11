@@ -1,0 +1,39 @@
+<div class="dashboards page-container "  layout="column" flex>
+
+
+  <div ng-repeat="row in dashboardModelTest.rows" layout="row" flex>
+    <div ng-repeat="column in row.columns" layout="{{column.layout}}" flex
+    >
+      <div ng-repeat="gadget in column.gadgets track by gadget.id" flex>
+        <div gadgetheader="{{gadget.template}}" ></div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div flex layout="column" class="animated fadeIn">
+    <div  layout="row" flex ng-repeat="row in dashboardModelGrafic.rows" layout-xs="column">
+      <div  layout="column" flex-gt-xs="50" flex-gt-xs="33" flex- ng-repeat="column in row.columns" layout="{{column.layout}}"
+            flex-xs="100">
+
+
+
+        <div  layout="column" flex="auto" ng-repeat="gadget in column.gadgets track by gadget.id">
+
+          <div gadgetgrafic="{{gadget.template}}" ></div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,78 @@
+
+<md-dialog aria-label="Cadastro de Médicos">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Cadastro de Cargos</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <form name="newMedicoForm" ng-submit="salvar()" ng-init="setFormNewCargoScope(this)">
+        <md-dialog-content>
+            <md-tabs md-dynamic-height md-stretch-tabs="always" md-border-bottom>
+                <md-tab>
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Informações Pessoais</md-tooltip>
+                        <ng-md-icon icon="person" class="material-icons  md-24">
+                    </md-tab-label>
+                    <md-tab-body>
+
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                            <div layout="column" layout-padding>
+                                <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                                <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                            </div></div>
+                        </div>
+
+                        <div layout="column" layout-padding>
+                            <div layout-gt-sm="row">
+                                <div flex-gt-xs>
+                                    <h4>Nome*:</h4>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Nome</label>
+                                        <input ng-model="cargo.nome" name="nome" md-autofocus required="required">
+                                        <div ng-messages="newCargoForm.firstName.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+
+                                <div flex-gt-xs>
+                                    <h4>Descricao*:</h4>
+                                    <md-input-container class="md-block" flex-gt-sm>
+                                        <label>Descricao</label>
+                                        <input ng-model="cargo.descricao" name="descricao"  required="required">
+                                        <div ng-messages="newCargoForm.descricao.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancelar()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="newCargoForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>
+

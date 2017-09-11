@@ -1,0 +1,67 @@
+<md-sidenav  class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-md')"  >
+
+    <md-toolbar class="toolbar-sidernav">
+        <md-icon md-svg-icon="logo" class="logo"></md-icon>
+
+
+
+    </md-toolbar >
+
+
+    <md-content class="scrollable-nav-content">
+
+        <md-accordion>
+            <md-accordion-group>
+                <md-subheader class="md-no-sticky"></md-subheader>
+                <md-accordion-button    href="#!/home"> <md-icon md-svg-icon="home" class="menu-svg"></md-icon>Home</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"  href="#!/setores"> <md-icon md-svg-icon="setor" class="menu-svg"></md-icon>Setores</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"  href="#!/cargos"> <md-icon md-svg-icon="cargo" class="menu-svg"></md-icon>Cargos</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"  href="#!/agendas"> <md-icon md-svg-icon="agenda" class="menu-svg"></md-icon>Agendas</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"  href="#!/convenios"> <md-icon md-svg-icon="convenio" class="menu-svg"></md-icon>Convênios</md-accordion-button>
+
+                <md-divider ng-show="hasAnyPermission(['ROLE_PACIENTE'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_PACIENTE'])"  href="#!/compromissos"> <md-icon md-svg-icon="compromisso" class="menu-svg"></md-icon>Compromissos</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_PACIENTE'])"></md-divider>
+                <md-divider ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"></md-divider>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"   href="#!/medicos"> <md-icon md-svg-icon="medico" class="menu-svg"></md-icon>Médicos</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"   href="#!/funcionarios"> <md-icon md-svg-icon="funcionario" class="menu-svg"></md-icon>Funcionários</md-accordion-button>
+
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"  href="#!/pacientes"> <md-icon md-svg-icon="paciente" class="menu-svg"></md-icon>Pacientes</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
+                <!--<md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"   href="#!/prontuarios"> <md-icon md-svg-icon="prontuario" class="menu-svg"></md-icon>Prontuários</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"   href="#!/medicamentos"> <md-icon md-svg-icon="medicamento" class="menu-svg"></md-icon>Médicamentos</md-accordion-button>
+                <md-divider></md-divider>-->
+                <md-accordion-button    href="#!/notificacoes"> <md-icon md-svg-icon="notificacoes" class="menu-svg"></md-icon>Notificações</md-accordion-button>
+                <md-divider></md-divider>
+                <md-accordion-button    href="#!/configuracoes"> <md-icon md-svg-icon="settings" class="menu-svg"></md-icon>Configurações</md-accordion-button>
+                <md-divider></md-divider>
+               <!-- <md-accordion-content  md-icon="home" md-heading="Configurações" md-arrow="true">
+
+                    <md-accordion-button href="#">Submenu 1</md-accordion-button>
+                    <md-accordion-button href="#">Submenu 2</md-accordion-button>
+                    <md-accordion-button href="#">Submenu 3</md-accordion-button>
+                </md-accordion-content>-->
+            </md-accordion-group>
+
+           <!-- <md-accordion-group>
+                <md-divider></md-divider>
+
+                <md-subheader class="md-no-sticky">Caption</md-subheader>
+
+                <md-accordion-button href="#">Menu 4</md-accordion-button>
+            </md-accordion-group>-->
+        </md-accordion>
+
+    </md-content>
+
+
+</md-sidenav>
