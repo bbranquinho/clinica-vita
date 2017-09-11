@@ -1,0 +1,62 @@
+<md-dialog class="event-detail-dialog" aria-label="New Message">
+    <md-toolbar >
+        <div class="md-toolbar-tools">
+            <span class="title">Agendamento</span>
+            <span flex></span>
+
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+
+        <div class="event-details" layout="column">
+
+            <div class="event-detail-row" layout="row" layout-align="start start">
+
+                <md-icon md-font-icon="icon-clock"></md-icon>
+
+                <div layout="column" flex>
+
+
+                    <!--<img class="md-user-avatar" ng-if="!calendarEvent.agenda.medico.user.fileUpload"  src="../../../img/user.jpg" class="avatar" style="width: 60px; height: 60px;"><img class="md-user-avatar" ng-if="!!calendarEvent.medico.user.fileUpload"  src="{{calendarEvent.agenda.medico.user.fileUpload.mimeType}},{{calendarEvent.medico.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px;">-->
+
+                    <md-icon md-svg-icon="doutor" class="md-user-avatar" ng-if="!calendarEvent.agenda.medico.user.fileUpload && calendarEvent.agenda.medico.sexo.indexOf('Masculino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                    <md-icon md-svg-icon="doutora" class="md-user-avatar" ng-if="!calendarEvent.agenda.medico.user.fileUpload && calendarEvent.agenda.medico.sexo.indexOf('Feminino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                    <img class="md-user-avatar" ng-if="!!calendarEvent.agenda.medico.user.fileUpload"  src="{{calendarEvent.agenda.medico.user.fileUpload.mimeType}},{{calendarEvent.agenda.medico.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px;">
+
+                    <h4 class="headline">Médico:{{calendarEvent.agenda.medico.user.nome}}</h4>
+                    <span><ng-md-icon icon="info"   ></ng-md-icon>Especialidade: {{calendarEvent.agenda.medico.especialidade}}</span>
+                    <span><ng-md-icon icon="info"  ></ng-md-icon>{{calendarEvent.agenda.medico.tipoRegistro}}: {{calendarEvent.agenda.medico.registroProfissional}}</span>
+                    <!--<span class="secondary-text">{{calendarEvent.repeat || 'Does not repeat'}}</span>-->
+                </div>
+
+                <div layout="column" flex>
+
+                    <md-icon md-svg-icon="user_m" class="md-user-avatar"  ng-if="!calendarEvent.agenda.paciente.user.fileUpload && calendarEvent.agenda.paciente.sexo.indexOf('Masculino') !== -1 && calendarEvent.agenda.paciente.id" style="width: 60px; height: 60px;"></md-icon>
+                    <md-icon md-svg-icon="user_f" class="md-user-avatar"  ng-if="!calendarEvent.agenda.paciente.user.fileUpload && calendarEvent.agenda.paciente.sexo.indexOf('Feminino') !== -1 && calendarEvent.agenda.paciente.id" style="width: 60px; height: 60px;"></md-icon>
+                    <img class="md-user-avatar" ng-if="!!calendarEvent.agenda.paciente.user.fileUpload"  src="{{calendarEvent.agenda.paciente.user.fileUpload.mimeType}},{{calendarEvent.agenda.paciente.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+                    <h4 class="headline" ng-if="calendarEvent.agenda.paciente">Paciente:{{calendarEvent.agenda.paciente.user.nome}}</h4>
+                    <span ng-if="calendarEvent.agenda.paciente.id"><ng-md-icon icon="info"   ></ng-md-icon>CPF: {{calendarEvent.agenda.paciente.cpf}}</span>
+                    <span ng-if="calendarEvent.agenda.paciente.id"><ng-md-icon icon="info"   ></ng-md-icon>Matricula: {{calendarEvent.agenda.paciente.matricula}}</span>
+                </div>
+            </div>
+
+            <div class="event-detail-row" layout="row" layout-align="start start">
+                <md-icon md-font-icon="icon-bell-ring-outline"></md-icon>
+                <div layout="column" flex>
+                    <span class="gene-block "> <ng-md-icon icon="date_range" style="fill:#757575"  ></ng-md-icon>Data/Hora Inicial: {{calendarEvent.agenda.agenda.dataHoraInicialConsulta}}</span>
+                    <span class="gene-block "> <ng-md-icon icon="date_range" style="fill:#757575"  ></ng-md-icon>Data/Hora Final: {{calendarEvent.agenda.agenda.dataHoraFinalConsulta}}</span>
+                    <span class="gene-block "> <ng-md-icon icon="airline_seat_angled" style="fill:#757575"  ></ng-md-icon>Tipo de Agendamento: {{calendarEvent.agenda.tipoAgenda}}</span>
+                    <span class="gene-block "> <ng-md-icon icon="monetization_on" style="fill:#757575"  ></ng-md-icon>Valor: {{calendarEvent.agenda.valorConsulta| currency:'R$'}}</span>
+                    <span class="gene-block mrgn-b-md"> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Status: <a class="mat-blue-800 gene-btn-sm">{{calendarEvent.agenda.statusAgenda}}</a></span>
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </md-dialog-content>
+</md-dialog>

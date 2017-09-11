@@ -1,0 +1,206 @@
+
+<div id="calendar" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header" >
+
+        <div class="header-content" layout="column" layout-align="space-between">
+
+            <div class="header-bottom" layout="row" layout-align="center center">
+                    <div class="title" layout-gt-sm="row">
+                        <md-icon md-svg-icon="home" style="width: 200px; height: 200px;" class="logo profile-image avatar huge"></md-icon>
+                    </div>
+                </div>
+                <div class="header-bottom" layout="row" layout-align="center center">
+                    <div class="title" layout-gt-sm="row">
+                        <span style="width: 200px; "class="logo-text" >Home</span>
+                    </div>
+                </div>
+                <!-- / HEADER BOTTOM -->
+            </div>
+
+
+        <md-button class="add-event-button md-fab md-warn" ng-click="editMedico($event)" ng-if="hasAnyPermission(['ROLE_MEDICO'])"
+                   aria-label="Editar Perfil" >
+            <md-tooltip md-direction="bottom">Editar Perfil</md-tooltip>
+            <ng-md-icon icon="edit" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+        <md-button class="add-event-button md-fab md-warn" ng-click="editFuncionario($event)" ng-if="hasAnyPermission(['ROLE_ADMIN','ROLE_FUNCIONARIO','ROLE_SECRETARIA'])"
+                   aria-label="Editar Perfil" >
+            <md-tooltip md-direction="bottom">Editar Perfil</md-tooltip>
+            <ng-md-icon icon="edit" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+
+        <md-button class="add-event-button md-fab md-warn" ng-click="editPaciente($event)" ng-if="hasAnyPermission(['ROLE_PACIENTE'])"
+                   aria-label="Editar Perfil" >
+            <md-tooltip md-direction="bottom">Editar Perfil</md-tooltip>
+            <ng-md-icon icon="edit" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+
+    </div>
+    <!-- / HEADER -->
+
+
+    <!-- CONTENT -->
+    <div class="content" flex>
+
+        <md-progress-linear md-mode="determinate" value="{{determinateValue}}"></md-progress-linear>
+        <md-tabs md-dynamic-height md-stretch-tabs="always"  md-selected="tabIndex" md-border-bottom>
+
+            <md-tab>
+                <md-tab-label>
+                    <span >Estatisticas</span>
+                </md-tab-label>
+                <md-tab-body>
+                    <!--<md-content class="timeline-tab"
+                                ng-include="'app/main/pages/profile/tabs/timeline/timeline.html'">
+                    </md-content>-->
+
+
+                    <dashboard dashboard-model="model"  dashboard-model-test="modelTeste" dashboard-model-grafic="modelGrafic" widgets-list="allWidgets" on-save="save"></dashboard>
+                </md-tab-body>
+            </md-tab>
+            <md-tab>
+                <md-tab-label>
+                    <span >Perfil</span>
+                </md-tab-label>
+                <md-tab-body>
+
+                            <md-list ng-if="medico.length > 0">
+                            <!--<md-list ng-if="keys(medico).length">-->
+
+                                <md-subheader class="md-primary">Perfil: Informações Pessoais</md-subheader>
+                                <list-perfil objectkey="Tipo Registro" valuelist="{{medico[0].tipoRegistro}}"  ></list-perfil>
+                                <list-perfil objectkey="Estado Registro" valuelist="{{medico[0].estadoRegistro}}"  ></list-perfil>
+                                <list-perfil objectkey="Registro Profissional" valuelist="{{medico[0].registroProfissional}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome" valuelist="{{medico[0].user.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="RG" valuelist="{{medico[0].rg}}"  ></list-perfil>
+                                <list-perfil objectkey="CPF" valuelist="{{medico[0].cpf}}"  ></list-perfil>
+                                <list-perfil objectkey="Data de Nascimento" valuelist="{{medico[0].dataNascimento}}"  ></list-perfil>
+                                <list-perfil objectkey="Cargo" valuelist="{{medico[0].cargo.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="Setor" valuelist="{{medico[0].setor.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="Especialidade" valuelist="{{medico[0].especialidade}}"  ></list-perfil>
+                                <list-perfil objectkey="Data de Admissão" valuelist="{{medico[0].dataAdmissao}}"  ></list-perfil>
+                                <list-perfil objectkey="Telefone" valuelist="{{medico[0].telefone}}"  ></list-perfil>
+                                <list-perfil objectkey="Sexo" valuelist="{{medico[0].sexo}}"  ></list-perfil>
+                                <list-perfil objectkey="Cep" valuelist="{{medico[0].cep}}"  ></list-perfil>
+                                <list-perfil objectkey="Rua" valuelist="{{medico[0].rua}}"  ></list-perfil>
+                                <list-perfil objectkey="Bairro" valuelist="{{medico[0].bairro}}"  ></list-perfil>
+                                <list-perfil objectkey="Cidade" valuelist="{{medico[0].cidade}}"  ></list-perfil>
+                                <list-perfil objectkey="Estado" valuelist="{{medico[0].estado}}"  ></list-perfil>
+                                <list-perfil objectkey="Numero" valuelist="{{medico[0].numero}}"  ></list-perfil>
+
+
+                                <md-subheader class="md-primary">Perfil: Informações de Acesso</md-subheader>
+
+                                <list-perfil objectkey="Email" valuelist="{{medico[0].user.email}}"  ></list-perfil>
+                                <list-perfil objectkey="Status" valuelist="{{medico[0].status}}"  ></list-perfil>
+
+                            </md-list>
+
+                            <md-list ng-if="funcionario.length > 0">
+                                <!--<md-list ng-if="keys(funcionario).length">-->
+
+                                <md-subheader class="md-primary">Perfil: Informações Pessoais</md-subheader>
+                                <list-perfil objectkey="Registro Profissional" valuelist="{{funcionario[0].matricula}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome" valuelist="{{funcionario[0].user.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="RG" valuelist="{{funcionario[0].rg}}"  ></list-perfil>
+                                <list-perfil objectkey="CPF" valuelist="{{funcionario[0].cpf}}"  ></list-perfil>
+                                <list-perfil objectkey="Data de Nascimento" valuelist="{{funcionario[0].dataNascimento}}"  ></list-perfil>
+                                <list-perfil objectkey="Cargo" valuelist="{{funcionario[0].cargo.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="Setor" valuelist="{{funcionario[0].setor.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="Data de Admissão" valuelist="{{funcionario[0].dataAdmissao}}"  ></list-perfil>
+                                <list-perfil objectkey="Telefone" valuelist="{{funcionario[0].telefone}}"  ></list-perfil>
+                                <list-perfil objectkey="Sexo" valuelist="{{funcionario[0].sexo}}"  ></list-perfil>
+                                <list-perfil objectkey="Cep" valuelist="{{funcionario[0].cep}}"  ></list-perfil>
+                                <list-perfil objectkey="Rua" valuelist="{{funcionario[0].rua}}"  ></list-perfil>
+                                <list-perfil objectkey="Bairro" valuelist="{{funcionario[0].bairro}}"  ></list-perfil>
+                                <list-perfil objectkey="Cidade" valuelist="{{funcionario[0].cidade}}"  ></list-perfil>
+                                <list-perfil objectkey="Estado" valuelist="{{funcionario[0].estado}}"  ></list-perfil>
+                                <list-perfil objectkey="Numero" valuelist="{{funcionario[0].numero}}"  ></list-perfil>
+
+
+                                <md-subheader class="md-primary">Perfil: Informações de Acesso</md-subheader>
+
+                                <list-perfil objectkey="Email" valuelist="{{funcionario[0].user.email}}"  ></list-perfil>
+                                <list-perfil objectkey="Status" valuelist="{{funcionario[0].status}}"  ></list-perfil>
+
+                            </md-list>
+
+                            <md-list ng-if="paciente.length">
+                                <!--<md-list ng-if="keys(paciente).length">-->
+
+                                <md-subheader class="md-primary">Perfil: Informações Pessoais</md-subheader>
+                                <list-perfil objectkey="Registro Profissional" valuelist="{{paciente[0].matricula}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome" valuelist="{{paciente[0].user.nome}}"  ></list-perfil>
+                                <list-perfil objectkey="RG" valuelist="{{paciente[0].rg}}"  ></list-perfil>
+                                <list-perfil objectkey="CPF" valuelist="{{paciente[0].cpf}}"  ></list-perfil>
+                                <list-perfil objectkey="Data de Nascimento" valuelist="{{paciente[0].dataNascimento}}"  ></list-perfil>
+                                <list-perfil objectkey="Telefone" valuelist="{{paciente[0].telefone}}"  ></list-perfil>
+                                <list-perfil objectkey="Sexo" valuelist="{{paciente[0].sexo}}"  ></list-perfil>
+                                <list-perfil objectkey="Cep" valuelist="{{paciente[0].cep}}"  ></list-perfil>
+                                <list-perfil objectkey="Rua" valuelist="{{paciente[0].rua}}"  ></list-perfil>
+                                <list-perfil objectkey="Bairro" valuelist="{{paciente[0].bairro}}"  ></list-perfil>
+                                <list-perfil objectkey="Cidade" valuelist="{{paciente[0].cidade}}"  ></list-perfil>
+                                <list-perfil objectkey="Estado" valuelist="{{paciente[0].estado}}"  ></list-perfil>
+                                <list-perfil objectkey="Numero" valuelist="{{paciente[0].numero}}"  ></list-perfil>
+
+
+                                <md-subheader class="md-primary">Perfil: Informações de Acesso</md-subheader>
+
+                                <list-perfil objectkey="Email" valuelist="{{paciente[0].user.email}}"  ></list-perfil>
+                                <list-perfil objectkey="Status" valuelist="{{paciente[0].status}}"  ></list-perfil>
+
+                                <md-subheader class="md-primary">Perfil: Informações Adicionais</md-subheader>
+
+                                <list-perfil objectkey="CNS" valuelist="{{paciente[0].cns}}"  ></list-perfil>
+                                <list-perfil objectkey="Fator Sanguíneo" valuelist="{{paciente[0].fatorSanguineo}}"  ></list-perfil>
+                                <list-perfil objectkey="Estado Civil" valuelist="{{paciente[0].estadoCivil}}"  ></list-perfil>
+                                <list-perfil objectkey="Etnia" valuelist="{{paciente[0].etnia}}"  ></list-perfil>
+                                <list-perfil objectkey="Escolaridade" valuelist="{{paciente[0].escolaridade}}"  ></list-perfil>
+                                <list-perfil objectkey="Profissão" valuelist="{{paciente[0].profissao}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome do Pai" valuelist="{{paciente[0].nomePai}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome da Mãe" valuelist="{{paciente[0].nomeMae}}"  ></list-perfil>
+                                <list-perfil objectkey="Nome do Conjuge" valuelist="{{paciente[0].nomeConjuge}}"  ></list-perfil>
+                                <list-perfil objectkey="Hobbie" valuelist="{{paciente[0].hobbie}}"  ></list-perfil>
+
+                            </md-list>
+
+                    <md-list ng-if="admin.length > 0">
+                        <!--<md-list ng-if="keys(medico).length">-->
+
+                        <md-subheader class="md-primary">Perfil: Informações Pessoais</md-subheader>
+                        <list-perfil objectkey="Nome" valuelist="{{admin[0].nome}}"  ></list-perfil>
+                        <list-perfil objectkey="Email" valuelist="{{admin[0].email}}"  ></list-perfil>
+
+
+
+
+
+
+                    </md-list>
+
+
+
+                </md-tab-body>
+            </md-tab>
+
+
+        </md-tabs>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+<md-button class="md-fab md-fab-bottom-right docs-scroll-fab"
+           docs-scroll-class="scrolling"
+           ng-click="scrollTop()"
+           aria-label="Back to Top">
+    <md-tooltip md-direction="top">Back to Top</md-tooltip>
+    <ng-md-icon icon="keyboard_arrow_up"  size="32" style="margin-bottom: 10px;
+margin-right: 10px;
+"></ng-md-icon>
+
+</md-button>
+

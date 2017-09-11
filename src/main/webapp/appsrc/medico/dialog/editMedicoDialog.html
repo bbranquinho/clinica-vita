@@ -1,0 +1,426 @@
+<md-dialog>
+    <!--  <pre>{{ editarMedico.dataNascimento| json}}</pre>-->
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edição de Medicos</h2>
+            <span flex></span>
+
+        </div>
+    </md-toolbar>
+    <form name="editMedicoForm" ng-submit="salvar()" ng-init="setFormEditMedicoScope(this)">
+
+        <md-dialog-content layout-padding data-ng-init="getEnuns()">
+            <md-tabs md-dynamic-height md-stretch-tabs="always"   md-selected="tabIndex" md-border-bottom>
+                <md-tab>
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Informações Pessoais</md-tooltip>
+                        <ng-md-icon icon="person" class="material-icons  md-24"></ng-md-icon>
+                    </md-tab-label>
+                    <md-tab-body>
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                            <div layout="column" layout-padding>
+                                <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                                <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                            </div></div>
+                        </div>
+
+                        <div layout="column" layout-padding>
+
+
+
+                            <div layout="column" layout-align="center center" flex>
+
+                                <foto model="editarMedico.user.fileUpload" mimetypefile="{{editarMedico.user.fileUpload.mimeType}},{{editarMedico.user.fileUpload.file}}" showfoto="{{editarMedico.user.fileUpload}}"></foto>
+                            </div>
+
+
+                            <div>
+                                <div layout-gt-sm="row">
+
+                                    <div flex-gt-xs>
+                                        <h4>Tipo de Registro*:</h4>
+                                        <md-input-container class="md-block" layout-gt-sm>
+                                            <!--<label>Tipo de Registro:</label>-->
+                                            <md-select ng-model="editarMedico.tipoRegistro" md-autofocus name="tipoRegistro" required="required" placeholder="tipoRegistro">
+                                                <md-option ng-repeat="tipoRegistro in registrosProfissionais" ng-value="tipoRegistro" ng-bind="tipoRegistro">
+                                                    <!--<md-icon md-svg-icon="{{avatar}}"></md-icon>-->
+                                                </md-option>
+                                            </md-select>
+                                            <div ng-messages="medicoForm.tipoRegistro.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div flex-gt-xs>
+                                        <h4>Estado do Registro*:</h4>
+                                        <md-input-container class="md-block"  layout-gt-sm>
+                                            <!--<label>Estado do Registro</label>-->
+                                            <md-select ng-model="editarMedico.estadoRegistro" name="estadoRegistro" required="required" placeholder="Estado Registro">
+                                                <md-option ng-repeat="estadoRegistro in estados" ng-value="estadoRegistro"  ng-bind="estadoRegistro">
+                                                    <!-- <md-icon md-svg-icon="{{avatar}}"></md-icon>-->
+                                                </md-option>
+                                            </md-select>
+                                            <div ng-messages="userForm.estadoRegistro.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div flex-gt-xs>
+                                        <h4>Registro Profissional*:</h4>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Registro Profissional</label>
+                                            <input ng-model="editarMedico.registroProfissional" name="registroProfissional" required="required">
+                                            <div ng-messages="newMedicoForm.registroProfissional.$error">
+                                                <div ng-message="required">This is required.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+
+                                <div flex-gt-xs>
+                                    <h4>Nome*:</h4>
+                                    <md-input-container  class="md-block" >
+                                        <label>Nome:</label>
+                                        <input ng-model="editarMedico.user.nome" name="nome" required="required">
+                                        <div ng-messages="newMedicoForm.nome.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>RG*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>RG:</label>
+                                                <input ng-model="editarMedico.rg" name="rg" required="required">
+                                                <div ng-messages="newMedicoForm.rg.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+                                        <div flex-gt-xs>
+                                            <h4>CPF*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>CPF:</label>
+                                                <input ng-model="editarMedico.cpf" name="cpf" required="required"  ui-br-cpf-mask>
+                                                <div ng-messages="newMedicoForm.cpf.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+                                        <div flex-gt-xs>
+                                            <h4>Data de Nascimento*:</h4>
+                                            <md-datepicker ng-model="dataNascimento" ng-change="formattedDate('dataNascimento')"
+                                                           md-placeholder="Data Nascimento" class="date-row">
+
+                                            </md-datepicker>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div>
+
+                                    <div layout-gt-md="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4><md-icon md-svg-src="circle_plus" ng-if="hasAnyPermission(['ROLE_ADMIN'])" ng-click="addCargo($event)"></md-icon> Cargo*:</h4>
+                                            <md-input-container class="md-block" layout-gt-sm>
+
+                                                <md-select ng-model="editarMedico.cargo" aria-label="cargo" ng-if="hasAnyPermission(['ROLE_ADMIN'])"  ng-model-options="{trackBy: '$value.value'}"  name="tipoCargo" required="required" placeholder="Cargo">
+                                                    <md-option ng-repeat="(index, type)  in tipoCargos" ng-value="type" ng-selected="index == 0" ng-bind="type.nome">
+                                                        <md-icon md-svg-icon="{{avatar}}"></md-icon>
+                                                    </md-option>
+                                                </md-select>
+
+
+
+                                                <md-select ng-model="editarMedico.cargo" aria-label="cargo" ng-disabled="true" ng-if="hasAnyPermission(['ROLE_MEDICO'])"  ng-model-options="{trackBy: '$value.value'}"  name="tipoCargo" required="required" placeholder="Setor">
+                                                    <md-option ng-repeat="(index, type)  in tipoCargos" ng-value="type" ng-selected="index == 0" ng-bind="type.nome">
+                                                        <md-icon md-svg-icon="{{avatar}}"></md-icon>
+                                                    </md-option>
+                                                </md-select>
+
+
+
+
+                                                <div ng-messages="editMedicoForm.tipoCargo.$error">
+                                                    <div ng-message="required">This is required.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+                                            <div flex-gt-xs>
+                                                <h4><md-icon md-svg-src="circle_plus"  ng-click="addSetor($event)" ng-if="hasAnyPermission(['ROLE_ADMIN'])"></md-icon> Setor*:</h4>
+                                                <md-input-container class="md-block" layout-gt-sm>
+
+                                                    <!--<label>Setor:</label>-->
+                                                    <md-select ng-model="editarMedico.setor" aria-label="setor" ng-if="hasAnyPermission(['ROLE_ADMIN'])"  ng-model-options="{trackBy: '$value.value'}"   name="tipoSetor" required="required">
+                                                        <md-option ng-repeat="(index, type) in tipoSetores" ng-value="type" ng-bind="type.nome" ng-selected="index == 0">
+
+                                                        </md-option>
+                                                    </md-select>
+
+                                                    <md-select ng-model="editarMedico.setor" aria-label="setor"  ng-disabled="true" ng-if="hasAnyPermission(['ROLE_MEDICO'])"  ng-model-options="{trackBy: '$value.value'}"   name="tipoSetor" required="required">
+                                                        <md-option ng-repeat="(index, type) in tipoSetores" ng-value="type" ng-bind="type.nome" ng-selected="index == 0">
+
+                                                        </md-option>
+                                                    </md-select>
+
+                                                    <div ng-messages="editMedicoForm.tipoSetor.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+
+                                            <div flex-gt-xs>
+                                                <h4>Especialidade*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Especialidade:</label>
+                                                    <input ng-model="editarMedico.especialidade" name="especialidade" required="required">
+                                                    <div ng-messages="newMedicoForm.especialidade.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+
+                                    </div>
+                                </div>
+                                    <div>
+
+                                        <div layout-gt-sm="row">
+                                            <div flex-gt-xs>
+                                                <h4>Data de Admissão*:</h4>
+                                                <md-datepicker ng-model="dataAdmissao"
+                                                               md-placeholder="Data Admissao" class="date-row" ng-change="formattedDate('dataAdmissao')">
+
+                                                </md-datepicker>
+                                            </div>
+                                            <div flex-gt-xs>
+                                                <h4>Telefone*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <!--<md-icon md-svg-src="phone_form"></md-icon>-->
+                                                    <label>Telefone:</label>
+                                                    <input ng-model="editarMedico.telefone" name="telefone" required="required" ui-br-phone-number>
+                                                    <div ng-messages="newMedicoForm.telefone.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+                                            <div flex-gt-xs>
+                                                <h4>Sexo*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <md-radio-group  ng-model="editarMedico.sexo" class="md-padding" layout="row" layout-sm="column" layout-align="left center"
+                                                                     style="padding-top: 0;">
+
+                                                        <!--<md-radio-button ng-repeat="sexo in sexos" value="{{sexo}}" ng-bind="sexo" aria-label="{{sexo}}" flex class="md-primary"></md-radio-button>-->
+                                                        <md-radio-button ng-repeat="sexo in sexos" value="{{sexo}}" flex>{{sexo}}</md-radio-button>
+
+
+
+                                                    </md-radio-group>
+                                                </md-input-container>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div layout-gt-sm="row">
+
+                                            <div flex-gt-xs>
+                                                <h4>Cep*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Cep(*):</label>
+                                                    <input ng-model="editarMedico.cep"  name="cep" required="required">
+                                                    <div ng-messages="newMedicoForm.cep.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+
+                                                </md-input-container>
+                                            </div>
+
+                                            <div flex-gt-xs>
+                                                <h4>Rua*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Rua(*):</label>
+                                                    <input ng-model="editarMedico.rua" ng-disabled="true"  name="rua" required="required">
+                                                    <div ng-messages="newMedicoForm.rua.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div layout-gt-sm="row">
+
+                                            <div flex-gt-xs>
+                                                <h4>Bairro*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Bairro(*):</label>
+                                                    <input ng-model="editarMedico.bairro" ng-disabled="true" name="bairro" required="required">
+                                                    <div ng-messages="newMedicoForm.bairro.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+                                            <div flex-gt-xs>
+                                                <h4>Cidade*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <label>Cidade(*):</label>
+                                                    <input ng-model="editarMedico.cidade" ng-disabled="true" name="cidade" required="required">
+                                                    <div ng-messages="newMedicoForm.cidade.$error">
+                                                        <div ng-message="required">This is required.</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                        <div>
+
+                                            <div layout-gt-sm="row">
+
+
+                                                <div flex-gt-xs>
+                                                    <h4>Estado*:</h4>
+                                                    <md-input-container class="md-block" flex-gt-sm>
+                                                        <label>Estdo(*):</label>
+                                                        <input ng-model="editarMedico.estado" ng-disabled="true" name="estado" required="required">
+                                                        <div ng-messages="newMedicoForm.estado.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+
+                                                <div flex-gt-xs>
+                                                    <h4>Número*:</h4>
+                                                    <md-input-container class="md-block" >
+                                                        <label>Número(*):</label>
+                                                        <input ng-model="editarMedico.numero" name="numero" required="required">
+                                                        <div ng-messages="newMedicoForm.numero.$error">
+                                                            <div ng-message="required">This is required.</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab >
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Informações de acesso</md-tooltip>
+                        <ng-md-icon icon="lock_open" class="material-icons  md-24"></ng-md-icon>
+                    </md-tab-label>
+                    <md-tab-body>
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                            <div layout="column" layout-padding>
+                                <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                                <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                            </div></div>
+                        </div>
+
+                        <div layout="column" layout-padding>
+
+
+
+                            <div>
+
+
+                                <div flex-gt-xs>
+                                    <h4>Email*:</h4>
+                                    <md-input-container  class="md-block" >
+
+                                        <label>Email:</label>
+                                        <input ng-model="editarMedico.user.email" name="email" required="required">
+                                        <md-icon md-svg-src="email_form"></md-icon>
+                                        <div ng-messages="newMedicoForm.email.$error">
+                                            <div ng-message="required">This is required.</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div>
+
+                                    <div layout-gt-sm="row">
+
+
+                                            <div flex-gt-xs>
+                                                <h4>Status*:</h4>
+                                                <md-input-container class="md-block" flex-gt-sm>
+                                                    <md-radio-group ng-model="editarMedico.status"  class="md-padding" layout="row" layout-sm="column" layout-align="left center"
+                                                                    style="padding-top: 0;">
+
+                                                        <md-radio-button value="Ativo" flex class="md-primary">Ativo</md-radio-button>
+                                                        <md-radio-button value="Inativo" flex> Inativo</md-radio-button>
+
+
+
+                                                    </md-radio-group>
+                                                </md-input-container>
+                                            </div>
+
+                                        </div>
+
+                                </div>
+                                </div>
+                            </div>
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+
+            <md-button  class="md-primary md-raised" ng-click="tabIndexControll()" >
+                <md-tooltip md-direction="top">{{tabToolTip}}</md-tooltip>
+                <span ng-bind="tabControl" ></span>
+            </md-button>
+            <md-button ng-click="cancelar()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="newMedicoForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

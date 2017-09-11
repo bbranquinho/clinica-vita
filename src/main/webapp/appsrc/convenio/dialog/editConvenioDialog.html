@@ -1,0 +1,236 @@
+<md-dialog>
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edição de Convenios</h2>
+            <span flex></span>
+
+        </div>
+    </md-toolbar>
+    <form name="editConvenioForm" ng-submit="salvar()" ng-init="setFormEditConvenioScope(this)">
+
+
+
+        <md-dialog-content layout-padding data-ng-init="getEnuns()">
+            <md-tabs md-dynamic-height md-stretch-tabs="always"   md-selected="tabIndex" md-border-bottom>
+                <md-tab>
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Informações Pessoais</md-tooltip>
+                        <ng-md-icon icon="person" class="material-icons  md-24"></ng-md-icon>
+                    </md-tab-label>
+                    <md-tab-body>
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'"><div class="error-toast-content">
+                            <div layout="column" layout-padding>
+                                <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="mensagem"></span></span></span>
+                                <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i class="material-icons">error</i> Erro - <span ng-bind="message"></span></span></span>
+
+                            </div></div>
+                        </div>
+
+                        <div layout="column" layout-padding>
+
+
+
+
+                            <div>
+                                <div layout-gt-sm="row">
+
+
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Registro(Ans)*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <label>Registro(Ans):</label>
+                                                <input ng-model="editarConvenio.registroAns"   name="registroAns" minlength="4" maxlength="255" required="required">
+                                                <div ng-messages="editConvenioForm.registroAns.$error">
+                                                    <div ng-message="required">Campo Obrigatório.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+
+
+                                    <div flex-gt-xs>
+                                        <h4>Razão Social*:</h4>
+                                        <md-input-container class="md-block" flex-gt-sm>
+                                            <label>Razão Social:</label>
+                                            <input ng-model="editarConvenio.razaoSocial"   name="razaoSocial" minlength="4" maxlength="255" required="required">
+                                            <div ng-messages="editConvenioForm.razaoSocial.$error">
+                                                <div ng-message="required">Campo Obrigatório.</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div>
+                                    <div layout-gt-sm="row">
+
+
+                                    </div>
+                                    <div layout-gt-sm="row">
+                                        <div flex-gt-xs>
+                                            <h4>Nome Fantasia*:</h4>
+                                            <md-input-container  class="md-block" >
+                                                <label>Nome Fantasia:</label>
+                                                <input ng-model="editarConvenio.nomeFantasia" name="nomeFantasia" minlength="4" maxlength="80" required="required">
+                                                <div ng-messages="editConvenioForm.nomeFantasia.$error">
+                                                    <div ng-message="required">Campo Obrigatório.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                    <md-card style="max-height: 400px;">
+
+                                        <div layout="row">
+
+                                            <md-toolbar>
+
+
+
+
+
+
+                                                <md-toolbar class="md-menu-toolbar" class="scrollable-nav-content">
+
+
+
+                                                    <md-toolbar>
+                                                        <div class="md-toolbar-tools">
+                                                            <h2 hide-xs>Filtrar Médicos</h2>
+                                                            <span flex></span>
+                                                            <md-autocomplete
+                                                                    md-search-text="searchText"
+                                                                    md-items="elements in medicos | filter:searchText"
+                                                                    md-selected-item="elements.nome"
+
+                                                                    md-item-text="elements.user.nome"
+                                                                    md-min-length="3"
+                                                                    placeholder="Filtrar Médicos">
+                                                                <md-item-template>
+
+                                                                    <md-icon md-svg-icon="doutor" class="md-user-avatar" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Masculino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                                                    <md-icon md-svg-icon="doutora" class="md-user-avatar" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Feminino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                                                    <img class="md-user-avatar" ng-if="!!elements.user.fileUpload"  src="{{elements.user.fileUpload.mimeType}},{{elements.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;">
+
+                                                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.user.nome}}</span><span>/</span>
+                                                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.especialidade}}</span>
+                                                                </md-item-template>
+                                                                <md-not-found>
+                                                                    No user matching "{{searchText}}" were found.
+                                                                </md-not-found>
+                                                            </md-autocomplete>
+
+
+
+
+
+
+                                                        </div>
+                                                    </md-toolbar>
+
+                                                    <md-content  md-theme="altTheme">
+
+                                                        <section>
+                                                            <md-subheader class="md-primary">Selecione os médicos que atendem este convênio</md-subheader>
+                                                        </section>
+                                                    </md-content>
+
+
+
+                                                </md-toolbar>
+
+
+
+
+
+
+                                        </div>
+
+
+                                        </md-toolbar>
+
+
+                                        <md-divider></md-divider>
+
+
+
+                                        <md-table-container>
+                                            <table data-md-table >
+
+                                                <thead  md-head>
+                                                <tr md-row>
+                                                    <th md-column><span>Selected:</span></th>
+                                                    <th md-column><span>Id:</span></th>
+                                                    <th md-column><span>Foto:</span></th>
+                                                    <th md-column><span>Nome:</span></th>
+                                                    <th md-column><span>Especialidade:</span></th>
+                                                    <th md-column><span>Tipo Registro:</span></th>
+                                                    <th md-column><span>Registro Profissional:</span></th>
+                                                    <th md-column><span>Sexo:</span></th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody md-body>
+                                                <tr md-row ng-repeat="medico in medicos | filter:searchText ">
+                                                    <td md-cell> <md-checkbox id="{{medico.id}}" type="checkbox" checklist-model="editarConvenio.medicos" checklist-value="medico" aria-label="Médicos do Convênio" ></md-checkbox></td>
+                                                    <td md-cell>{{medico.id}}</td>
+                                                    <td md-cell>
+                                                        <md-icon md-svg-icon="doutor" class="md-user-avatar" ng-if="!medico.user.fileUpload && medico.sexo.indexOf('Masculino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                                        <md-icon md-svg-icon="doutora" class="md-user-avatar" ng-if="!medico.user.fileUpload && medico.sexo.indexOf('Feminino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                                        <img class="md-user-avatar" ng-if="!!medico.user.fileUpload"  src="{{medico.user.fileUpload.mimeType}},{{medico.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px;">
+                                                    </td>
+                                                    <td md-cell><span>{{medico.user.nome}}</span></td>
+                                                    <td md-cell> <span>{{medico.especialidade}}</span></td>
+                                                    <td md-cell><span>{{medico.tipoRegistro}}</span></td>
+                                                    <td md-cell><span>{{medico.registroProfissional}}</span></td>
+                                                    <td md-cell><span>{{medico.sexo}}</span></td>
+
+
+
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <md-divider></md-divider>
+                                        </md-table-container>
+
+
+                                    </md-card>
+
+
+                                </div>
+
+                                    </div>
+                                </div>
+                    </md-tab-body>
+                </md-tab>
+              
+
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+
+            <md-button ng-click="cancelar()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="editConvenioForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
