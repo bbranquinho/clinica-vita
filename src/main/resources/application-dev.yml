@@ -13,6 +13,7 @@ spring:
     username: clinica
     password: vita
     driverClassName: org.postgresql.Driver
+
   jpa:
     show-sql: false
     hibernate:

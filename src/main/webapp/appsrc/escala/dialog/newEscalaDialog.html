@@ -1,0 +1,66 @@
+
+
+<md-card class="md-whiteframe-1dp md-padding">
+    <div class="table-responsive-vertical">
+        <table id="table" class="table table-hover">
+            <thead>
+            <tr>
+
+                <th width="5%">Hora(Entrada)</th>
+                <th width="5%">Hora Saida</th>
+                <th width="5%">Intervalo(Inicio)</th>
+                <th width="5%">Intervalo(Termino)</th>
+                <th width="1%">Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+
+
+                <td data-title="Category">08:00</td>
+                <td data-title="Date Create">19:00</td>
+                <td data-title="Category">12:00</td>
+                <td data-title="Date Create">13:00</td>
+
+                <td data-title="Action" style="padding: 0rem 0rem 0rem 1rem;">
+                    <md-menu md-position-mode="target-right target">
+                        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                            <md-icon>more_vert</md-icon>
+                        </md-button>
+                        <md-menu-content width=3>
+                            <md-title class="md-padding">MENU - {{r.name}}</md-title>
+                            <md-menu-item>
+                                <md-button layout-fill md-ink-ripple ng-click="detailsRecipe($event, r)">
+                                    <md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>
+                                    Details
+                                </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                                <md-button layout-fill md-ink-ripple ng-click="editRecipe($event, r)">
+                                    <md-icon md-class="md-primary" md-menu-align-target>create</md-icon>
+                                    Edit
+                                </md-button>
+                            </md-menu-item>
+
+                            <md-menu-item>
+                                <md-button layout-fill md-ink-ripple ng-click="deleteRecipe($event, r)">
+                                    <md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>
+                                    Delete
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </td>
+            </tr>
+            <tr ng-if="loading">
+                <td style="text-align:center;" colspan="10">Loading...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</md-card>

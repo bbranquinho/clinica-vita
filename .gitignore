@@ -31,3 +31,4 @@ node_modules
 .project
 .classpath
 .springBeans
+/bin/

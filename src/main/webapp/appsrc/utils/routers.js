@@ -56,6 +56,11 @@ angular.module('clinica')
             controller: 'ConvenioCtrl'
         })
 
+        .when('/escalas', {
+                    templateUrl: 'appsrc/escala/escala.html',
+                    controller: 'EscalaCtrl'
+        })
+
         .when('/socket', {
             templateUrl: 'appsrc/socket/socket.html',
             controller: 'SocketCtrl'
