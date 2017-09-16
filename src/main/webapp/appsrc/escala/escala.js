@@ -13,6 +13,11 @@ angular.module('clinica')
         
         $scope.tabIndex = 0;
 
+        /*Escala View*/
+        $scope.escala = [];
+        $scope.escalas = [];
+
+
         /*Scroll*/
         $scope.scrollTop = function() {
 
@@ -35,6 +40,34 @@ angular.module('clinica')
         var mdDialog = $mdDialog;
         this.cancel = $mdDialog.cancel;
 
+
+
+
+        $scope.addEscala = function($event) {
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            mdDialog.show({
+                templateUrl: 'appsrc/escala/dialog/newEscalaDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                controller: 'NewEscalaDialogController',
+                controllerAs: 'ctrl',
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen
+
+
+            }).then(function(escala) {
+
+                $scope.escalas.push(escala);
+
+
+            }, function () {
+                console.log('You cancelled the dialog.');
+
+            });
+
+
+        };
 
 
 

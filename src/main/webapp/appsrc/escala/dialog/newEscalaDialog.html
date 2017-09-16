@@ -1,66 +1,280 @@
+<md-dialog aria-label="Cadastro de Escalas">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Cadastro de Escalas</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelar()">
+                <md-icon aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
 
 
-<md-card class="md-whiteframe-1dp md-padding">
-    <div class="table-responsive-vertical">
-        <table id="table" class="table table-hover">
-            <thead>
-            <tr>
+    <form name="newMedicoForm" ng-submit="salvar()" ng-init="setFormNewCargoScope(this)">
+        <md-dialog-content>
+            <md-tabs md-dynamic-height md-stretch-tabs="always" md-border-bottom>
+                <md-tab>
+                    <md-tab-label>
+                        <md-tooltip md-direction="bottom">Informações Pessoais</md-tooltip>
+                        <ng-md-icon icon="person" class="material-icons  md-24">
+                    </md-tab-label>
+                    <md-tab-body>
 
-                <th width="5%">Hora(Entrada)</th>
-                <th width="5%">Hora Saida</th>
-                <th width="5%">Intervalo(Inicio)</th>
-                <th width="5%">Intervalo(Termino)</th>
-                <th width="1%">Action</th>
-            </tr>
-            </thead>
+                        <md-card class="md-whiteframe-1dp md-padding">
+                        <md-list>
+                            <md-subheader class="md-primary">Dia Semana: Segunda-Feira</md-subheader>
+                        </md-list>
 
-            <tbody>
-            <tr>
+                            <div layout="row" layout-wrap flex>
+                                <div flex="50" ng-repeat="item in columns">
+                                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+                                        {{ item.name }} <span ng-if="exists(item, selected)"></span>
+                                    </md-checkbox>
+                                </div>
+                            </div>
 
+                        <!--<pre>{{selected | json}}</pre>-->
 
-                <td data-title="Category">08:00</td>
-                <td data-title="Date Create">19:00</td>
-                <td data-title="Category">12:00</td>
-                <td data-title="Date Create">13:00</td>
+                        </md-card>
 
-                <td data-title="Action" style="padding: 0rem 0rem 0rem 1rem;">
-                    <md-menu md-position-mode="target-right target">
-                        <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                            <md-icon>more_vert</md-icon>
-                        </md-button>
-                        <md-menu-content width=3>
-                            <md-title class="md-padding">MENU - {{r.name}}</md-title>
-                            <md-menu-item>
-                                <md-button layout-fill md-ink-ripple ng-click="detailsRecipe($event, r)">
-                                    <md-icon md-class="md-primary" md-menu-align-target>launch</md-icon>
-                                    Details
-                                </md-button>
-                            </md-menu-item>
+                        <md-card ng-if="exists(columns[0], selected)">
+                            <md-toolbar class="md-hue-2">
+                                <div class="md-toolbar-tools">
+                                    <span>Segunda Feira</span>
+                                    <span flex></span>
 
-                            <md-menu-item>
-                                <md-button layout-fill md-ink-ripple ng-click="editRecipe($event, r)">
-                                    <md-icon md-class="md-primary" md-menu-align-target>create</md-icon>
-                                    Edit
-                                </md-button>
-                            </md-menu-item>
-
-                            <md-menu-item>
-                                <md-button layout-fill md-ink-ripple ng-click="deleteRecipe($event, r)">
-                                    <md-icon md-class="md-primary" md-menu-align-target>delete</md-icon>
-                                    Delete
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                </td>
-            </tr>
-            <tr ng-if="loading">
-                <td style="text-align:center;" colspan="10">Loading...</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                                </div>
+                            </md-toolbar>
+                            <div class="md-whiteframe-1dp md-padding">
 
 
 
-</md-card>
+
+                                <!--Inputs Form-->
+                                <div layout="column" layout-padding>
+                                    <div layout-gt-sm="row">
+
+
+                                        <div flex-gt-xs>
+                                            <h4>Periodo*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <md-select ng-model="escala.horaEntrada" placeholder="Periodo">
+
+                                                    <md-optgroup label="Periodos">
+                                                        <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                   ng-value="horaEntrada"
+                                                                   ng-disabled="$index === 1">
+                                                            {{horaEntrada}}
+                                                        </md-option>
+                                                    </md-optgroup>
+
+                                            </md-input-container>
+                                        </div>
+
+                                        <div flex-gt-xs>
+                                            <h4>Intervalo(Agendamento)*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <md-select ng-model="escala.horaEntrada" placeholder="Intervalo">
+
+                                                    <md-optgroup label="Intervalo">
+                                                        <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                   ng-value="horaEntrada"
+                                                                   ng-disabled="$index === 1">
+                                                            {{horaEntrada}}
+                                                        </md-option>
+                                                    </md-optgroup>
+
+                                            </md-input-container>
+                                        </div>
+                                        <div flex-gt-xs>
+                                            <h4>Quantidade Vagas*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <md-select ng-model="escala.horaEntrada" placeholder="Quantidade Vagas">
+
+                                                    <md-optgroup label="Vagas">
+                                                        <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                   ng-value="horaEntrada"
+                                                                   ng-disabled="$index === 1">
+                                                            {{horaEntrada}}
+                                                        </md-option>
+                                                    </md-optgroup>
+
+                                            </md-input-container>
+                                        </div>
+                                        <div flex-gt-xs>
+                                            <h4>Ordem de Atendimento*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+                                                <md-select ng-model="escala.horaEntrada" placeholder="Ordem Atendimento">
+
+                                                    <md-optgroup label="Atendimento">
+                                                        <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                   ng-value="horaEntrada"
+                                                                   ng-disabled="$index === 1">
+                                                            {{horaEntrada}}
+                                                        </md-option>
+                                                    </md-optgroup>
+
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!--Fim Inputs Form-->
+                                <md-divider></md-divider>
+                                <div class="table-responsive-vertical">
+                                    <table id="table" class="table table-hover">
+                                        <thead>
+                                        <tr>
+
+                                            <th  width="5%">Hora(Entrada)</th>
+                                            <th width="5%">Hora(Saida)</th>
+                                            <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                            <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                            <th width="1%">Intervalo</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+
+
+                                            <td  data-title="Hora(Entrada)">
+                                                <md-input-container>
+
+                                                    <md-select ng-model="escala.horaEntrada" placeholder="Hora Entrada">
+
+                                                        <md-optgroup label="Manhã">
+                                                            <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                       ng-value="horaEntrada"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntrada}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                        <md-optgroup label="Tarde">
+                                                            <md-option ng-repeat="horaEntradaTarde in horarios.tarde"
+                                                                       ng-value="horaEntradaTarde"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntradaTarde}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </td>
+                                            <td data-title="Hora(Saída)">
+                                                <md-input-container>
+
+                                                    <md-select ng-model="escala.horaEntrada" placeholder="Hora Saida">
+
+                                                        <md-optgroup label="Saída">
+                                                            <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                       ng-value="horaEntrada"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntrada}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                        <md-optgroup label="Tarde">
+                                                            <md-option ng-repeat="horaEntradaTarde in horarios.tarde"
+                                                                       ng-value="horaEntradaTarde"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntradaTarde}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </td>
+                                            <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+                                                <md-input-container>
+
+                                                    <md-select ng-model="escala.horaEntrada" placeholder="Intervalo Inicio">
+
+                                                        <md-optgroup label="Intervalo">
+                                                            <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                       ng-value="horaEntrada"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntrada}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                        <md-optgroup label="Tarde">
+                                                            <md-option ng-repeat="horaEntradaTarde in horarios.tarde"
+                                                                       ng-value="horaEntradaTarde"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntradaTarde}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </td>
+                                            <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                <md-input-container>
+
+                                                    <md-select ng-model="escala.horaEntrada" placeholder="Intervalo Termino">
+
+                                                        <md-optgroup label="Manhã">
+                                                            <md-option ng-repeat="horaEntrada in horarios.manha"
+                                                                       ng-value="horaEntrada"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntrada}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                        <md-optgroup label="Tarde">
+                                                            <md-option ng-repeat="horaEntradaTarde in horarios.tarde"
+                                                                       ng-value="horaEntradaTarde"
+                                                                       ng-disabled="$index === 1">
+                                                                {{horaEntradaTarde}}
+                                                            </md-option>
+                                                        </md-optgroup>
+                                                    </md-select>
+                                                </md-input-container>
+                                            </td>
+
+                                            <td  style="padding: 0rem 0rem 0rem 1rem;">
+                                                <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                </md-switch>
+                                            </td>
+                                        </tr>
+                                        <tr ng-if="loading">
+                                            <td style="text-align:center;" colspan="10">Loading...</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </md-card>
+
+
+                        <!--Show errors-->
+                        <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'">
+                            <div class="error-toast-content">
+                                <div layout="column" layout-padding>
+                                    <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "
+                                          style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span
+                                            ng-bind="mensagem"></span></span></span>
+                                    <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i
+                                            class="material-icons">error</i> Erro - <span
+                                            ng-bind="message"></span></span></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </md-tab-body>
+                </md-tab>
+
+            </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="cancelar()">
+                Cancel
+            </md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="newEscalaForm.$invalid">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>
