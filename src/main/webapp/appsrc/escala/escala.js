@@ -14,7 +14,7 @@ angular.module('clinica')
         $scope.tabIndex = 0;
 
         /*Escala View*/
-        $scope.escala = [];
+        $scope.escala = {};
         $scope.escalas = [];
 
 

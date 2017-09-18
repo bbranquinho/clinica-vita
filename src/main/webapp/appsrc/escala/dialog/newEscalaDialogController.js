@@ -82,6 +82,13 @@ angular.module('clinica')
 
         $scope.selected = [];
 
+        $scope.escala = {};
+        $scope.escala.itemEscalaAtendimento = [
+            {diaSemana : 'Segunda Feira'}
+        ];
+        $scope.teste = "leonardo";
+
+
         $scope.toggle = function (item, list) {
             var idx = list.indexOf(item);
             if (idx > -1) {
