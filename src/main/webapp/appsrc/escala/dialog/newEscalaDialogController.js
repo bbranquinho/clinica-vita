@@ -12,12 +12,16 @@ angular.module('clinica')
 
         $scope.selectedStep = 0;
         $scope.stepProgress = 1;
-        $scope.maxStep = 3;
+        $scope.maxStep = 7;
         $scope.showBusyText = false;
         $scope.stepData = [
             { step: 1, completed: false, optional: false, data: {} },
             { step: 2, completed: false, optional: false, data: {} },
             { step: 3, completed: false, optional: false, data: {} },
+            { step: 4, completed: false, optional: false, data: {} },
+            { step: 5, completed: false, optional: false, data: {} },
+            { step: 6, completed: false, optional: false, data: {} },
+            { step: 7, completed: false, optional: false, data: {} },
         ];
 
          $scope.enableNextStep = function nextStep() {

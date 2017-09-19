@@ -17,7 +17,7 @@ public class ItemEscalaAtendimento extends BaseEntity<Long> {
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "id_escala_atendimento")
+	@JoinColumn(name = "escala_atendimento_id")
 	public EscalaAtendimento escalaAtendimento;
 
 	@NotBlank

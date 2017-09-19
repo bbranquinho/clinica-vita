@@ -18,7 +18,7 @@
             <md-stepper-card-content class="md-no-padding">
                 <md-steppers md-dynamic-height md-disable-tabs-behavior="true" md-stretch-steppers="always"
                              md-selected="selectedStep" md-busy-text="'Processing...'" md-busy="showBusyText">
-                    <md-step label="Escolher os Dias" md-complete="stepData[0].data.completed"
+                    <md-step label="Dias" md-complete="columns[0].data.completed"
                              ng-disabled="stepProgress < 1">
                         <md-step-body>
                             <md-content>
@@ -42,7 +42,7 @@
 
                         </md-step-body>
                     </md-step>
-                    <md-step label="Preencher Horários" md-complete="step2.completed" ng-disabled="step2.disabled">
+                    <md-step label="S" ng-if="exists(columns[0], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
                         <md-content>
 
                             <md-card ng-if="exists(columns[0], selected)">
@@ -153,10 +153,590 @@
 
 
 
+
+
+
+                        </md-content>
+                    </md-step>
+                    <md-step label="T" ng-if="exists(columns[1], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
                             <md-card ng-if="exists(columns[1], selected)">
                                 <md-toolbar class="md-hue-2">
                                     <div class="md-toolbar-tools">
                                         <span>Terça-Feira</span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+                                <div class="md-whiteframe-1dp md-padding">
+
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Periodo</th>
+                                                <th width="5%">Intervalo(Agendamento)</th>
+                                                <th  width="5%">Quantidade Vagas</th>
+                                                <th  width="5%">Ordem Atendimento</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Periodo">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Agendamento)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']" field="Intervalo(Agendamento)" label="Intervalo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Quantidade Vagas" >
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].quantidadeVagas" options="['1','2','3','4','5','6']" field="Quantidade Vagas" label="Vagas"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Ordem Atendimento" >
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].ordemAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" label="Atendimento"></md-form-select-escala-td>
+
+                                                </td>
+
+
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--Fim Inputs Form-->
+                                    <md-divider></md-divider>
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Hora(Entrada)</th>
+                                                <th width="5%">Hora(Saida)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                <th width="1%">Intervalo</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Hora(Entrada)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaEntrada" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Entrada" label="Entrada"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Hora(Saída)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaSaida" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Saida" label="Saída"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloInicio" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Inicio" label="Inicio"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloFim" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Termin" label="Termino"></md-form-select-escala-td>
+
+                                                </td>
+
+                                                <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                    </md-switch>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+                    <md-step label="Q" ng-if="exists(columns[2], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[2], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span>Quarta-Feira</span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+                                <div class="md-whiteframe-1dp md-padding">
+
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Periodo</th>
+                                                <th width="5%">Intervalo(Agendamento)</th>
+                                                <th  width="5%">Quantidade Vagas</th>
+                                                <th  width="5%">Ordem Atendimento</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Periodo">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Agendamento)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']" field="Intervalo(Agendamento)" label="Intervalo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Quantidade Vagas" >
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].quantidadeVagas" options="['1','2','3','4','5','6']" field="Quantidade Vagas" label="Vagas"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Ordem Atendimento" >
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].ordemAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" label="Atendimento"></md-form-select-escala-td>
+
+                                                </td>
+
+
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--Fim Inputs Form-->
+                                    <md-divider></md-divider>
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Hora(Entrada)</th>
+                                                <th width="5%">Hora(Saida)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                <th width="1%">Intervalo</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Hora(Entrada)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaEntrada" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Entrada" label="Entrada"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Hora(Saída)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaSaida" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Saida" label="Saída"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloInicio" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Inicio" label="Inicio"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloFim" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Termin" label="Termino"></md-form-select-escala-td>
+
+                                                </td>
+
+                                                <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                    </md-switch>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+                    <md-step label="Q" ng-if="exists(columns[3], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[3], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span>Quinta-Feira</span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+                                <div class="md-whiteframe-1dp md-padding">
+
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Periodo</th>
+                                                <th width="5%">Intervalo(Agendamento)</th>
+                                                <th  width="5%">Quantidade Vagas</th>
+                                                <th  width="5%">Ordem Atendimento</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Periodo">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Agendamento)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']" field="Intervalo(Agendamento)" label="Intervalo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Quantidade Vagas" >
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].quantidadeVagas" options="['1','2','3','4','5','6']" field="Quantidade Vagas" label="Vagas"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Ordem Atendimento" >
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].ordemAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" label="Atendimento"></md-form-select-escala-td>
+
+                                                </td>
+
+
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--Fim Inputs Form-->
+                                    <md-divider></md-divider>
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Hora(Entrada)</th>
+                                                <th width="5%">Hora(Saida)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                <th width="1%">Intervalo</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Hora(Entrada)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaEntrada" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Entrada" label="Entrada"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Hora(Saída)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaSaida" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Saida" label="Saída"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloInicio" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Inicio" label="Inicio"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloFim" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Termin" label="Termino"></md-form-select-escala-td>
+
+                                                </td>
+
+                                                <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                    </md-switch>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+
+                    <md-step label="S" ng-if="exists(columns[4], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[4], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span>Sexta-Feira</span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+                                <div class="md-whiteframe-1dp md-padding">
+
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Periodo</th>
+                                                <th width="5%">Intervalo(Agendamento)</th>
+                                                <th  width="5%">Quantidade Vagas</th>
+                                                <th  width="5%">Ordem Atendimento</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Periodo">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Agendamento)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']" field="Intervalo(Agendamento)" label="Intervalo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Quantidade Vagas" >
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].quantidadeVagas" options="['1','2','3','4','5','6']" field="Quantidade Vagas" label="Vagas"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Ordem Atendimento" >
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].ordemAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" label="Atendimento"></md-form-select-escala-td>
+
+                                                </td>
+
+
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--Fim Inputs Form-->
+                                    <md-divider></md-divider>
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Hora(Entrada)</th>
+                                                <th width="5%">Hora(Saida)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                <th width="1%">Intervalo</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Hora(Entrada)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaEntrada" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Entrada" label="Entrada"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Hora(Saída)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaSaida" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Saida" label="Saída"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloInicio" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Inicio" label="Inicio"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloFim" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Termin" label="Termino"></md-form-select-escala-td>
+
+                                                </td>
+
+                                                <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                    </md-switch>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+
+                    <md-step label="S" ng-if="exists(columns[5], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[5], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span>Sabádo</span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+                                <div class="md-whiteframe-1dp md-padding">
+
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Periodo</th>
+                                                <th width="5%">Intervalo(Agendamento)</th>
+                                                <th  width="5%">Quantidade Vagas</th>
+                                                <th  width="5%">Ordem Atendimento</th>
+
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Periodo">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Agendamento)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']" field="Intervalo(Agendamento)" label="Intervalo"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Quantidade Vagas" >
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].quantidadeVagas" options="['1','2','3','4','5','6']" field="Quantidade Vagas" label="Vagas"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Ordem Atendimento" >
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].ordemAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" label="Atendimento"></md-form-select-escala-td>
+
+                                                </td>
+
+
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!--Fim Inputs Form-->
+                                    <md-divider></md-divider>
+                                    <div class="table-responsive-vertical">
+                                        <table  class="table table-hover">
+                                            <thead>
+                                            <tr>
+
+                                                <th width="5%">Hora(Entrada)</th>
+                                                <th width="5%">Hora(Saida)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                <th width="1%">Intervalo</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+
+
+                                                <td data-title="Hora(Entrada)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaEntrada" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Entrada" label="Entrada"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Hora(Saída)">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].horaSaida" options="['08:00','08:30','09:00','10:00','10:30']" field="Hora Saida" label="Saída"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloInicio" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Inicio" label="Inicio"></md-form-select-escala-td>
+
+                                                </td>
+                                                <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                    <md-form-select-escala-td  model="escala.itemEscalaAtendimento[1].intervaloFim" options="['08:00','08:30','09:00','10:00','10:30']" field="Intervalo Termin" label="Termino"></md-form-select-escala-td>
+
+                                                </td>
+
+                                                <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                    </md-switch>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="loading">
+                                                <td style="text-align:center;" colspan="10">Loading...</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+                    <md-step label="D" ng-if="exists(columns[6], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[6], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span>Domingo</span>
                                         <span flex></span>
 
                                     </div>
@@ -293,10 +873,10 @@
                 Save
             </md-button>-->
 
-            <md-button ng-click="moveToPreviousStep()" ng-if="selectedStep == 1">Voltar</md-button>
+            <md-button ng-click="moveToPreviousStep()" ng-if="selectedStep > 0">Voltar</md-button>
 
-            <md-button ng-click="submitCurrentStep(stepData[0].data)" ng-if="selectedStep  == 0" ng-disabled="selected.length == 0">Proximo</md-button>
-            <md-button type="submit" class="md-primary md-raised" ng-if="selectedStep == 1" ng-disabled="newEscalaForm.$invalid">
+            <md-button ng-click="submitCurrentStep(stepData[0].data)" ng-if="selectedStep < selected.length || selected.length == 0" ng-disabled="selected.length == 0">Proximo</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-if="selectedStep == selected.length && selected.length > 0" ng-disabled="newEscalaForm.$invalid">
                 Save
             </md-button>
 

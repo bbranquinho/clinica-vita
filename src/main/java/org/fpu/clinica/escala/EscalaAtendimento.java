@@ -1,6 +1,7 @@
 package org.fpu.clinica.escala;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.fpu.clinica.itemescala.ItemEscalaAtendimento;
 import org.fpu.clinica.medico.Medico;
 import org.fpu.clinica.utils.BaseEntity;
@@ -12,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
 @Table(name = "tb_escala_atendimento")
 @AttributeOverride(name = "id", column = @Column(name = "id_escala_atendimento"))
@@ -22,6 +24,7 @@ public class EscalaAtendimento extends BaseEntity<Long> {
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "id_escala_medico", nullable = true)
     private Medico medico;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "escalaAtendimento")
     @Fetch(FetchMode.SUBSELECT)
@@ -46,6 +49,7 @@ public class EscalaAtendimento extends BaseEntity<Long> {
         this.medico = medico;
     }
 
+    @JsonIgnore
     public List<ItemEscalaAtendimento> getItemEscalaAtendimento() {
         return itemEscalaAtendimento;
     }
