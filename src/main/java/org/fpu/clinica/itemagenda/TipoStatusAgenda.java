@@ -3,13 +3,15 @@ package org.fpu.clinica.itemagenda;
 public enum TipoStatusAgenda {
 	DISPONIVEL("Disponivel"),
 	AGUARDANDOAUTORIZACAO("Aguardando Autorização"),
+	NAOAUTORIZADO("Não-autorizado"),
+	NAOAGENDADO("Não-agendado"),
 	AGENDADO("Agendado"),
 	FINALIZADO("Finalizado"),
 	PREATENDIMENTO("Pré-atendimento"),
 	REMARCOU("Remarcou"),
 	FALTOU("Faltou"),
 	CANCELADO("Cancelado");
-	
+
 
 	private String descricao;
 	

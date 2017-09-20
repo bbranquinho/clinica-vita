@@ -186,7 +186,7 @@ CREATE TABLE public.tb_item_escala_atendimento (
   intervalo_agendamento bigint NOT NULL,
   quantidade_vagas bigint NOT NULL,
   tipo_atendimento varchar(30) NOT NULL,
-  id_escala_atendimento bigint(20) NOT NULL,
+  escala_atendimento_id bigint(20) NOT NULL,
   PRIMARY KEY (id_item_escala_atendimento),
-  FOREIGN KEY (id_escala_atendimento) REFERENCES public.tb_escala_atendimento (id_escala_atendimento)
+  FOREIGN KEY (escala_atendimento_id) REFERENCES public.tb_escala_atendimento (id_escala_atendimento)
 );

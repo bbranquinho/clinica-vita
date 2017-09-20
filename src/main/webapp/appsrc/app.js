@@ -21,7 +21,8 @@ angular.module('clinica',[
     'ModalDatePicker',
     'smDateTimeRangePicker',*/
     'material.components.eventCalendar',
-    'checklist-model'
+    'checklist-model',
+    'md-steppers'
 
 ]).constant('SERVICE_PATH', {
     'ROOT_PATH': BASE_URL,

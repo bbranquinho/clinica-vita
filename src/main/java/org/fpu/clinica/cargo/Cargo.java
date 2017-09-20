@@ -1,13 +1,13 @@
 package org.fpu.clinica.cargo;
 
+import org.fpu.clinica.utils.BaseEntity;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
-import org.fpu.clinica.utils.BaseEntity;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_cargo")

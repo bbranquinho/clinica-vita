@@ -1,0 +1,93 @@
+<div id="calendar" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="header-content" layout="column" layout-align="space-between">
+
+            <div class="header-top" layout="row" layout-align="space-between center" layout-xs="column">
+
+            </div>
+            <!-- / TOOLBAR -->
+
+            <!-- HEADER BOTTOM -->
+            <div class="header-bottom" layout="row" layout-align="center center">
+
+
+                <div class="title" layout-gt-sm="row">
+                    <md-icon md-svg-icon="escala" style="width: 200px; height: 200px;"
+                             class="logo profile-image avatar huge"></md-icon>
+
+                </div>
+
+
+            </div>
+            <div class="header-bottom" layout="row" layout-align="center center">
+
+
+                <div class="title" layout-gt-sm="row">
+
+                    <span style="width: 200px; " class="logo-text">Escala de Atendimento</span>
+
+                </div>
+
+
+            </div>
+            <!-- / HEADER BOTTOM -->
+        </div>
+
+        <!-- ADD EVENT BUTTON -->
+        <md-button class="add-event-button md-fab" ng-click="addEscala($event)"
+                   aria-label="Editar Perfil">
+            <md-tooltip md-direction="top">Nova Escala de Atendimento</md-tooltip>
+            <ng-md-icon icon="work" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+        <!-- / ADD EVENT BUTTON -->
+    </div>
+    <!-- / HEADER -->
+
+
+    <div class="content" flex>
+
+        <md-progress-linear md-mode="determinate" value="{{determinateValue}}"></md-progress-linear>
+        <md-tabs md-dynamic-height md-stretch-tabs="always" md-selected="tabIndex" md-border-bottom>
+
+
+            <md-tab>
+                <md-tab-label>
+
+                    <!--<ng-md-icon icon="event_available" style="color: #757575; cursor:pointer" class="material-icons  md-24"></ng-md-icon>-->
+                    Escala
+                </md-tab-label>
+                <md-tab-body>
+
+
+                    <md-content layout="column" layout-fill
+                                ng-include="'appsrc/escala/grid/showEscala.html'"></md-content>
+
+
+                </md-tab-body>
+            </md-tab>
+
+
+        </md-tabs>
+
+
+    </div>
+
+
+
+
+</div>
+
+
+<md-button class="md-fab md-fab-bottom-right docs-scroll-fab"
+           docs-scroll-class="scrolling"
+           ng-click="scrollTop()"
+           aria-label="Back to Top">
+    <md-tooltip md-direction="top">Back to Top</md-tooltip>
+    <ng-md-icon icon="keyboard_arrow_up" size="32" style="margin-bottom: 10px;
+margin-right: 10px;
+"></ng-md-icon>
+
+</md-button>

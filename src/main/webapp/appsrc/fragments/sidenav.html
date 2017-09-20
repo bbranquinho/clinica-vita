@@ -23,6 +23,9 @@
                 <md-accordion-button  ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"  href="#!/agendas"> <md-icon md-svg-icon="agenda" class="menu-svg"></md-icon>Agendas</md-accordion-button>
                 <md-divider ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"></md-divider>
                 <md-accordion-button  ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"  href="#!/convenios"> <md-icon md-svg-icon="convenio" class="menu-svg"></md-icon>Convênios</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_MEDICO'])"></md-divider>
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_MEDICO'])"  href="#!/escalas"> <md-icon md-svg-icon="escala" class="menu-svg"></md-icon>Escala</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_MEDICO'])"></md-divider>
 
                 <md-divider ng-show="hasAnyPermission(['ROLE_PACIENTE'])"></md-divider>
                 <md-accordion-button  ng-show="hasAnyPermission(['ROLE_PACIENTE'])"  href="#!/compromissos"> <md-icon md-svg-icon="compromisso" class="menu-svg"></md-icon>Compromissos</md-accordion-button>
