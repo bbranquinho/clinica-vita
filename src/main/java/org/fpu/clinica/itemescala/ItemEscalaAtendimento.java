@@ -52,14 +52,14 @@ public class ItemEscalaAtendimento extends BaseEntity<Long> {
 	@Column(name = "hora_saida")
 	private Date horaSaida;
 
-	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
+
 	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
 	@Temporal(TemporalType.TIME)
 	@Column(name = "hora_pausa_entrada")
 	private Date horaPausaEntrada;
 
-	@NotNull(message = "Não pode estar em branco") // JSR 303 Validated ?
+
 	// @Past(message = "insira uma data valida") // JSR 303 Validated ?
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
 	@Temporal(TemporalType.TIME)

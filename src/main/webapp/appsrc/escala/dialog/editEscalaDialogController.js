@@ -3,7 +3,26 @@
 
 angular.module('clinica')
 
-    .controller('NewEscalaDialogController', function ( $scope,$mdDialog,FormatDate, $mdMedia,SERVICE_PATH,  $timeout, RestSrv,  $mdToast, $q,$rootScope, $mdUtil) {
+    .controller('EditEscalaDialogController', function ( $scope,$mdDialog,FormatDate, $mdMedia,SERVICE_PATH,  $timeout, RestSrv,  $mdToast, $q,$rootScope, $mdUtil,_itens_escala) {
+
+        /*show/hide columns*/
+        $scope.indeter = false;
+        $scope.columns = [
+            {status: true, name: 'Segunda-Feira'},
+            {status: true, name: 'Terça-Feira'},
+            {status: true, name: 'Quarta-Feira'},
+            {status: true, name: 'Quinta-Feira'},
+            {status: true, name: 'Sexta-Feira'},
+            {status: true, name: 'Sábado'},
+            {status: true, name: 'Domingo'}
+
+
+        ];
+
+
+        let teste = _itens_escala;
+        console.log('escala:')
+        console.log(_itens_escala);
 
 
 
@@ -25,13 +44,13 @@ angular.module('clinica')
         $scope.maxStep = 7;
         $scope.showBusyText = false;
         $scope.stepData = [
-            { step: 1, completed: false, optional: false, data: {} },
-            { step: 2, completed: false, optional: false, data: {} },
-            { step: 3, completed: false, optional: false, data: {} },
-            { step: 4, completed: false, optional: false, data: {} },
-            { step: 5, completed: false, optional: false, data: {} },
-            { step: 6, completed: false, optional: false, data: {} },
-            { step: 7, completed: false, optional: false, data: {} },
+            { step: 1, completed: false, optional: false, data: {}, diaSemana: 'Segunda-Feira' },
+            { step: 2, completed: false, optional: false, data: {}, diaSemana: 'Terça-Feira' },
+            { step: 3, completed: false, optional: false, data: {}, diaSemana: 'Quarta-Feira' },
+            { step: 4, completed: false, optional: false, data: {}, diaSemana: 'Quinta-Feira' },
+            { step: 5, completed: false, optional: false, data: {}, diaSemana: 'Sexta-Feira' },
+            { step: 6, completed: false, optional: false, data: {}, diaSemana: 'Sabado' },
+            { step: 7, completed: false, optional: false, data: {}, diaSemana: 'Domingo' },
         ];
 
         $scope.enableNextStep = function nextStep() {
@@ -148,7 +167,6 @@ angular.module('clinica')
         };
 
 
-
         /*Show Toasts*/
         function showCustomErrorToast(status, mensagem) {
             $mdToast.show({
@@ -163,15 +181,11 @@ angular.module('clinica')
         };
         /* End Show Toasts*/
 
-
-
-
-
         $scope.cancelar = function () {
             return $mdDialog.cancel();
         }
 
-        let itemEscalaUrl = SERVICE_PATH.PRIVATE_PATH + '/item_escala_atendimento/post_list_item_escala';
+        let itemEscalaUrl = SERVICE_PATH.PRIVATE_PATH + '/item_escala_atendimento/update_list_item_escala';
 
 
         $scope.salvar = function () {
@@ -180,6 +194,7 @@ angular.module('clinica')
 
             } else {
                 if( $scope.itensEscalaAtendimento.length > 0){
+
                     for(let i in  $scope.itensEscalaAtendimento) {
 
                         if($scope.itensEscalaAtendimento[i] != null)
@@ -191,14 +206,13 @@ angular.module('clinica')
 
 
 
-                RestSrv.add(itemEscalaUrl, $scope.itensEscalaAtendimentoAux, function (status, data) {
+                RestSrv.edit(itemEscalaUrl, $scope.itensEscalaAtendimentoAux, function (status, data) {
                     if (status === 'ok') {
 
                         $scope.statusError = 'success';
                         $scope.message = data.atributeMessage.Message;
 
-
-                        showCustomSuccessToast('Sucesso','Escala  adicionada.');
+                        showCustomSuccessToast('Sucesso','Escala  atualizada.');
                         return $mdDialog.hide(data.data);
 
                     } else {
@@ -221,5 +235,30 @@ angular.module('clinica')
             $scope.medico = data[0];
             $scope.dataModificacao = FormatDate.format(new Date());
 
+            $scope.initEditItens();
+
         });
+
+
+        $scope.initEditItens = function(){
+
+            if( _itens_escala.length > 0){
+                for(let i = 0; i < _itens_escala.length;i++) {
+                    for(let j = 0; j < $scope.columns.length; j++){
+                        console.log(_itens_escala[i].diaSemana + ':'+ $scope.columns[j].name);
+                        if(_itens_escala[i].diaSemana === $scope.columns[j].name){
+                            console.log('entrou');
+                            $scope.toggle($scope.columns[j], $scope.selected);
+                            angular.extend( $scope.itensEscalaAtendimento[j],_itens_escala[i]);
+                        }
+
+                    }
+                }
+
+            }
+
+
+        }
+
+
     });

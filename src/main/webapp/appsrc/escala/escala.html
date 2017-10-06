@@ -37,10 +37,17 @@
         </div>
 
         <!-- ADD EVENT BUTTON -->
-        <md-button class="add-event-button md-fab" ng-click="addEscala($event)"
+        <md-button class="add-event-button md-fab" ng-if="itensEscala.length ==0" ng-click="addEscala($event)"
                    aria-label="Editar Perfil">
             <md-tooltip md-direction="top">Nova Escala de Atendimento</md-tooltip>
             <ng-md-icon icon="work" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+        <!-- / ADD EVENT BUTTON -->
+        <!-- ADD EVENT BUTTON -->
+        <md-button class="add-event-button md-fab" ng-if="itensEscala.length > 0" ng-click="editEscala($event)"
+                   aria-label="Editar Perfil">
+            <md-tooltip md-direction="top">Editar Escala de Atendimento</md-tooltip>
+            <ng-md-icon icon="edit" class="material-icons  md-24"></ng-md-icon>
         </md-button>
         <!-- / ADD EVENT BUTTON -->
     </div>

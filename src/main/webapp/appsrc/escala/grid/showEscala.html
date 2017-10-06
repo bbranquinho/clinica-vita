@@ -5,11 +5,10 @@
 
 
 
-<!--<div class="inset" hide-sm></div>-->
+<!-- <pre>{{elements | json}}</pre>-->
 <div layout-gt-sm="row"  layout-align="center center">
-
-    <!-- <pre>{{elements | json}}</pre>-->
     <div flex-gt-sm="95" flex-gt-lg="80">
+
         <!--<md-card>-->
 
 
@@ -25,10 +24,11 @@
             <!--<md-list ng-if="keys(medico).length">-->
 
             <md-subheader class="md-primary">Escala de Atendimento: </md-subheader>
-            <list-perfil objectkey="Ultima Modificação:" valuelist="13/09/2017"  ></list-perfil>
+            <list-perfil objectkey="Ultima Modificação:" ng-if ="escala != null" valuelist="{{escala.dataModificacao}}"  ></list-perfil>
 
-        </md-list>
-        <div class="md-list-item-text">
+
+        </md-list >
+        <!--<div class="md-list-item-text" ng-if="itensEscala.length > 0">
             <md-button  class="md-primary md-raised" ng-click="initParamenters.showCardTable = true" >
                 <md-tooltip md-direction="top">Visão Cards</md-tooltip>
                 <span ><ng-md-icon icon="view_module"  ></ng-md-icon></span>
@@ -38,50 +38,40 @@
                 <span ><ng-md-icon icon="view_list"  ></ng-md-icon></span>
             </md-button>
         </div>
-            <md-divider ></md-divider>
+            <md-divider ></md-divider>-->
 
 
 
-            <md-content layout="column" layout-fill ng-if ="itensAgenda.length == 0 && !data_loading && initParamenters.showResultHorarios == true"  >
-
-                <div class="inset" hide-sm ng-if="initParamenters.showCardTable == false"></div>
-                <div layout-gt-sm="row" layout-align="center center">
+        <md-content layout="column" layout-fill ng-if ="itensEscala.length == 0"  >
 
 
-                    <span>Nenhum Horário Encontrado. Pesquise Novamente</span>
+            <div layout-gt-sm="row" layout-align="center center">
 
 
-
-
-
-
-                </div>
-            </md-content>
+                <span>Nenhuma Escala Encontrada.</span>
 
 
 
 
 
 
+            </div>
+        </md-content>
 
 
 
+        <div class='md-padding' layout="row" layout-wrap>
+            <md-card style="width: 300px;" ng-repeat="item in itensEscala">
 
-            <md-content layout="column" layout-fill >
 
-                <div class="inset" hide-sm></div>
-                <div layout="row" flex layout-xs="column">
-                    <div layout="column" flex-gt-xs="33"
-                         flex-xs="100" ng-repeat="item in itensEscala" ><!--ngrepeat-->
-                        <md-card>
-                            <md-toolbar class="animate-show md-hue" style="padding:20px">
-                                <md-list-item class="md-3-line" >
+                <md-toolbar class="animate-show md-hue" style="padding:20px">
+                    <md-list-item class="md-3-line" >
 
-                                    <div class="mrgn-b-md" flex layout="row" flex layout-align="start center" style="box-sizing: border-box; max-height: 100%; display: flex; flex-direction: row; -moz-box-orient: horizontal; -moz-box-direction: normal; place-content: center flex-start; align-items: center; -moz-box-pack: start; -moz-box-align: center;">
-                                        <div flex layout="column" style="display: flex; box-sizing: border-box; flex-direction: column; -moz-box-orient: vertical; -moz-box-direction: normal;">
-                                            <div class="user-thumb">
-                                                <h4 class="headline">Dia: {{item.diaSemana}}</h4>
-                                                <span class="gene-block ">
+                        <div class="mrgn-b-md" flex layout="row" flex layout-align="start center" style="box-sizing: border-box; max-height: 100%; display: flex; flex-direction: row; -moz-box-orient: horizontal; -moz-box-direction: normal; place-content: center flex-start; align-items: center; -moz-box-pack: start; -moz-box-align: center;">
+                            <div flex layout="column" style="display: flex; box-sizing: border-box; flex-direction: column; -moz-box-orient: vertical; -moz-box-direction: normal;">
+                                <div class="user-thumb">
+                                    <h4 class="headline">Dia: {{item.diaSemana}}</h4>
+                                    <span class="gene-block ">
                                                     <!--<md-button  class=" md-raised" ng-click="" style="width:100%">-->
 
                                                         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
@@ -90,11 +80,11 @@
                                                             <md-icon md-svg-icon="escala_atendimento" style="width: 200px; border:0; height: 110px;" class="  "></md-icon>
 
                                                         </section>
-    <!--</md-button>-->
+                                        <!--</md-button>-->
                                                 </span>
 
 
-                                                <span class="gene-block " >
+                                    <span class="gene-block " >
                                                     <!--<md-button  class=" md-raised" ng-click="" style="width:100%">-->
 
 
@@ -102,27 +92,30 @@
                                                                <span flex></span>
                                                               <div>
                                                                   <md-tooltip md-direction="top">Editar Escala</md-tooltip>
-                                                                    <ng-md-icon icon="border_color" ng-click="novoAgendamento($event,itemAgenda)"  size="32px" style="margin-right:20px" ></ng-md-icon>
+                                                                    <ng-md-icon icon="border_color" ng-click="editItemEscala($event,item)"  size="32px" style="margin-right:20px" ></ng-md-icon>
                                                               </div>
                                                               <div>
                                                                   <md-tooltip md-direction="top">Deletar Escala</md-tooltip>
-                                                                    <ng-md-icon icon="delete" ng-click="novoAgendamento($event,itemAgenda)"  size="32px" ></ng-md-icon>
+                                                                    <ng-md-icon icon="delete" ng-click="showConfirm($event,item)"  size="32px" ></ng-md-icon>
                                                               </div>
 
 
                                                           </div>
-    <!--</md-button>-->
+                                        <!--</md-button>-->
                                                 </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </md-list-item>
+                                </div>
+                            </div>
+                        </div>
+                    </md-list-item>
 
 
 
-                            </md-toolbar>
+                </md-toolbar>
 
-                            <div class="user-content"  style="padding:20px">
+
+
+                <md-card-content>
+                    <div class="user-content"  style="padding:20px">
 
                                 <span class="gene-block mrgn-b-md">
                                                     <!--<md-button  class=" md-raised" ng-click="" style="width:100%">-->
@@ -133,11 +126,13 @@
                                                                     <span class="gene-block" > <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Entrada: {{item.horaEntrada}}</span>
                                                                     <span class="gene-block mrgn-b-md" > <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Saida: {{item.horaSaida}}</span>
 
-                                                                    <span class="gene-block " > <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Entrada): {{item.horaPausaEntrada}}</span>
-                                                                    <span class="gene-block mrgn-b-md" > <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Saida): {{item.horaPausaTermino}}</span>
+                                                                    <span class="gene-block " ng-if="item.horaPausaEntrada != null"> <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Entrada): {{item.horaPausaEntrada}}</span>
+                                                                    <span class="gene-block mrgn-b-md" ng-if="item.horaPausaTermino != null"> <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Saida): {{item.horaPausaTermino}}</span>
+                                                                    <span class="gene-block " ng-if="item.horaPausaEntrada == null"> <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Entrada): Não</span>
+                                                                    <span class="gene-block mrgn-b-md" ng-if="item.horaPausaTermino == null"> <ng-md-icon icon="timelapse" style="fill:#757575"  ></ng-md-icon>Intervalo(Saida): Não</span>
                                                                     <md-divider style="margin-bottom:10px"></md-divider>
-                                                                    <span class="gene-block mrgn-b-md" > <ng-md-icon icon="timer" style="fill:#757575"  ></ng-md-icon>Intervalo de Agendamento: {{item.intervaloAgendamento}}</span>
-                                                                    <span class="gene-block" > <ng-md-icon icon="airline_seat_angled" style="fill:#757575"  ></ng-md-icon>Quantidade de vagas por Intervalo(agendamento online): {{item.quantidadeVagas}}</span>
+                                                                    <span class="gene-block " > <ng-md-icon icon="timer" style="fill:#757575"  ></ng-md-icon>Intervalo de Agendamento: {{item.intervaloAgendamento}}</span>
+                                                                    <span class="gene-block" > <ng-md-icon icon="airline_seat_angled" style="fill:#757575"  ></ng-md-icon>Quantidade de vagas: {{item.quantidadeVagas}}</span>
                                                                     <span class="gene-block mrgn-b-md" > <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Ordem de Atendimento: <a class="mat-blue-800 gene-btn-sm">{{item.tipoAtendimento}}</a></span>
 
                                                                 </div>
@@ -145,20 +140,12 @@
                                                         </section>
                                     <!--</md-button>-->
                                 </span>
-
-                                <md-divider style="margin-bottom:10px"></md-divider>
-
-
-
-
-
-                            </div>
-
-                        </md-card>
                     </div>
-                </div>
-            </md-content>
+                    <md-divider style="margin-bottom:10px"></md-divider>
+                </md-card-content>
 
+            </md-card>
+        </div>
 
 
 
@@ -172,7 +159,6 @@
 
     </div>
 </div>
-
 
 
 

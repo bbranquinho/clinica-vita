@@ -50,7 +50,7 @@ angular.module('clinica')
 
 
         $scope.reorder = function(campo) {
-                $scope.order = campo;
+            $scope.order = campo;
         };
 
 
@@ -137,7 +137,7 @@ angular.module('clinica')
         /* Fim show/hide columns*/
 
 
-
+        /*Dialog Delete Confirm*/
         $scope.showConfirm = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.confirm()
@@ -161,7 +161,7 @@ angular.module('clinica')
                 $scope.status = 'You decided to keep your debt.';
             });
         };
-
+        /* Fim Dialog Delete Confirm*/
 
 
 
@@ -241,7 +241,7 @@ angular.module('clinica')
                 }
 
                 $scope.selected = [];
-               // openToast("Paciente added");
+                // openToast("Paciente added");
             }, function () {
                 console.log('You cancelled the dialog.');
 
@@ -285,7 +285,7 @@ angular.module('clinica')
 
 
 
-                    $scope.pacientes.push(paciente);
+                $scope.pacientes.push(paciente);
 
 
 
@@ -299,7 +299,7 @@ angular.module('clinica')
         };
 
 
-     
+
 
 
         $scope.data_loading = true;
@@ -318,10 +318,10 @@ angular.module('clinica')
 
 
         });
-        
-        
 
-       
+
+
+
 
     });
 
