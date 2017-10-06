@@ -43,11 +43,11 @@
 
 
                                     <md-autocomplete
-                                                     md-search-text="searchText"
-                                                     md-items="elements in cargos | filter:searchText"
-                                                     md-item-text="elements.nome"
-                                                     md-min-length="3"
-                                                     placeholder="filter">
+                                            md-search-text="searchText"
+                                            md-items="elements in cargos | filter:searchText"
+                                            md-item-text="elements.nome"
+                                            md-min-length="3"
+                                            placeholder="filter">
                                         <md-item-template>
                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.nome}}</span>
                                         </md-item-template>
@@ -93,13 +93,13 @@
                                     <!--Show/Hide Butom columns-->
                                     <div>
                                         <md-tooltip md-direction="bottom">Mostrar/Esconder Colunas</md-tooltip>
-                                        <md-menu>
 
-                                            <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
-                                                <ng-md-icon icon="more_vert"></ng-md-icon>
-                                            </md-button>
 
-                                        </md-menu>
+                                        <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
+                                            <ng-md-icon icon="more_vert"></ng-md-icon>
+                                        </md-button>
+
+
                                     </div>
                                     <!--Fim Show/Hide Butom columns-->
 
@@ -122,7 +122,7 @@
                             </md-content>
 
 
-                            <md-button class="md-fab md-fab-bottom-right" aria-label="addUser"
+                            <md-button class="md-fab md-fab-bottom-right" aria-label="addCargo"  ng-click="addCargo($event)"
                             >
                                 <md-tooltip md-direction="bottom">Novo Cargo</md-tooltip>
                                 <ng-md-icon icon="add"></ng-md-icon>

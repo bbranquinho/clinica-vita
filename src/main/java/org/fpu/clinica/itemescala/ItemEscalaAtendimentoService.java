@@ -95,7 +95,7 @@ public class ItemEscalaAtendimentoService extends GenericService<ItemEscalaAtend
 
             message.AddField("mensagem", "Não encontrado");
             message.setData(itemEscalaAtendimento);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+            return ResponseEntity.status(HttpStatus.OK).body(message);
         }
 
 

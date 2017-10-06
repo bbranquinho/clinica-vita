@@ -47,11 +47,11 @@
 
 
                                     <md-autocomplete
-                                                     md-search-text="searchText"
-                                                     md-items="elements in setores | filter:searchText"
-                                                     md-item-text="elements.nome"
-                                                     md-min-length="3"
-                                                     placeholder="filter">
+                                            md-search-text="searchText"
+                                            md-items="elements in setores | filter:searchText"
+                                            md-item-text="elements.nome"
+                                            md-min-length="3"
+                                            placeholder="filter">
                                         <md-item-template>
                                             <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.nome}}</span>
                                         </md-item-template>
@@ -105,13 +105,13 @@
                                     <!--Show/Hide Butom columns-->
                                     <div>
                                         <md-tooltip md-direction="bottom">Mostrar/Esconder Colunas</md-tooltip>
-                                        <md-menu>
 
-                                            <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
-                                                <ng-md-icon icon="more_vert"></ng-md-icon>
-                                            </md-button>
 
-                                        </md-menu>
+                                        <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
+                                            <ng-md-icon icon="more_vert"></ng-md-icon>
+                                        </md-button>
+
+
                                     </div>
                                     <!--Fim Show/Hide Butom columns-->
 
@@ -127,7 +127,7 @@
                             <md-content layout="column" flex>
 
 
-                               <!-- <pre>{{setores | json}}</pre>-->
+                                <!-- <pre>{{setores | json}}</pre>-->
 
 
                                 <md-card ng-include="'../appsrc/setor/tables/table.html'" ></md-card>
@@ -137,7 +137,7 @@
                             </md-content>
 
 
-                            <md-button class="md-fab md-fab-bottom-right" aria-label="addUser" ng-click="addSetor($event)">
+                            <md-button class="md-fab md-fab-bottom-right" aria-label="addSetor" ng-click="addSetor($event)">
                                 <md-tooltip md-direction="bottom">Novo Setor</md-tooltip>
                                 <ng-md-icon icon="add"></ng-md-icon>
                             </md-button>

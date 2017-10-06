@@ -42,7 +42,7 @@
 
 
 
-        <md-content layout="column" layout-fill ng-if ="itensEscala.length == 0"  >
+        <md-content layout="column" layout-fill ng-if ="itensEscala.length == 0 && !data_loading"  >
 
 
             <div layout-gt-sm="row" layout-align="center center">
@@ -57,6 +57,18 @@
 
             </div>
         </md-content>
+
+        <md-divider ng-if="itensEscala.length == 0 && !data_loading"></md-divider>
+
+
+        <div layout-gt-sm="row" layout-align="center center" ng-if="data_loading">
+
+
+                <span> <md-progress-circular class="center center"  class="md-accent" md-mode="indeterminate"
+                                             md-diameter="70px"></md-progress-circular></span>
+
+        </div>
+
 
 
 
@@ -92,11 +104,14 @@
                                                                <span flex></span>
                                                               <div>
                                                                   <md-tooltip md-direction="top">Editar Escala</md-tooltip>
-                                                                    <ng-md-icon icon="border_color" ng-click="editItemEscala($event,item)"  size="32px" style="margin-right:20px" ></ng-md-icon>
+                                                                    <ng-md-icon icon="border_color"
+                                                                                ng-click="editItemEscala($event,item)"  size="32px" style="margin-right:20px;cursor:pointer" ></ng-md-icon>
                                                               </div>
                                                               <div>
                                                                   <md-tooltip md-direction="top">Deletar Escala</md-tooltip>
-                                                                    <ng-md-icon icon="delete" ng-click="showConfirm($event,item)"  size="32px" ></ng-md-icon>
+                                                                    <ng-md-icon icon="delete"
+                                                                                ng-click="showConfirm($event,item)"
+                                                                                size="32px" style="cursor:pointer" ></ng-md-icon>
                                                               </div>
 
 

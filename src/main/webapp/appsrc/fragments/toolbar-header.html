@@ -10,7 +10,7 @@
         <label id="User_Profile_icon" hide-xs ng-show="authDetails.authenticated" ng-bind = "authDetails.name"></label>
         <md-icon md-svg-icon="generic_user" class="md-user-avatar"  ng-if="!authenticated.file" style="width: 50px; height: 50px;"></md-icon>
 
-        <img class="md-user-avatar" ng-if="!authenticated.file"  src="{{authenticated.file.mimeType}},{{authenticated.file.file}}" class="avatar" style="width: 50px; height: 50px;" />
+        <img class="md-user-avatar" ng-if="!authenticated.file && authenticated.file.mimeType != null "  src="{{authenticated.file.mimeType}},{{authenticated.file.file}}" class="avatar" style="width: 50px; height: 50px;" />
 
     </div>
 

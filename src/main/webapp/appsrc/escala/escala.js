@@ -4,7 +4,7 @@
 
 angular.module('clinica')
 
-    .controller('EscalaCtrl',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH, $rootScope,$mdUtil)  {
+    .controller('EscalaCtrl',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH, $rootScope,$mdUtil,$timeout)  {
         /*show Menu*/
         $rootScope.statusMenu = true;
 
@@ -201,21 +201,33 @@ angular.module('clinica')
         var userUrl = SERVICE_PATH.PRIVATE_PATH + '/usuario/findCurrentUser';
         var currentMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/findCurrentUser';
 
+        $scope.data_loading = true;
 
         RestSrv.find(userUrl, function (status, data) {
             $scope.user = data;
             console.log($scope.user);
 
+
+
             if($scope.user != null && $scope.user != undefined){
 
                 if($scope.user[0].permissoes[0].role === "ROLE_MEDICO"){
                     RestSrv.find(currentMedicoUrl, function (status, data) {
+
+
                         $scope.medico = data[0];
                         console.log($scope.medico);
                         var itemEscalaMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/item_escala_atendimento/findByMedico/'+ $scope.medico.id;
                         RestSrv.find(itemEscalaMedicoUrl, function (status, data) {
-                            $scope.itensEscala = data.data;
-                            console.log(data);
+                            $timeout(function(){ // give delay for good UI
+
+                                $scope.data_loading = true;
+                                $scope.itensEscala = data.data;
+                                console.log(data);
+
+                                $scope.data_loading = false;
+
+                            }, 1000);
 
                             var escalaMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/escala_atendimento/findByMedico/'+ $scope.medico.id;
                             RestSrv.find(escalaMedicoUrl, function (status, data) {
