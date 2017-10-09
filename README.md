@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/bbranquinho/clinica-vita.svg?branch=master)](https://travis-ci.org/bbranquinho/clinica-vita) [![codecov](https://codecov.io/gh/bbranquinho/clinica-vita/branch/master/graph/badge.svg)](https://codecov.io/gh/bbranquinho/clinica-vita)
 
+***
+
+<img src="https://user-images.githubusercontent.com/13081442/31358161-e21b360c-ad1a-11e7-9863-3f9d36075352.gif" width="500" height="500">
 ## 1. Requisitos
 
 Para executar o projeto é necessária a instalação das seguintes ferramentas:
