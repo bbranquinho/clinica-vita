@@ -28,23 +28,23 @@
                 <div class="md-toolbar-tools">
 
 
-                        <md-autocomplete
-                                         md-search-text="searchText"
-                                         md-items="elements in convenios | filter:searchText"
-                                         md-item-text="elements.nomeFantasia"
-                                         md-min-length="3"
-                                         placeholder="filter">
-                            <md-item-template>
-                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.registroAns}}</span>/
-                                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.nomeFantasia}}</span>
-                            </md-item-template>
-                            <md-not-found>
-                                Registro"{{searchText}}" não encontrado.
-                            </md-not-found>
-                        </md-autocomplete>
+                    <md-autocomplete
+                            md-search-text="searchText"
+                            md-items="elements in convenios | filter:searchText"
+                            md-item-text="elements.nomeFantasia"
+                            md-min-length="3"
+                            placeholder="filter">
+                        <md-item-template>
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.registroAns}}</span>/
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{elements.nomeFantasia}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            Registro"{{searchText}}" não encontrado.
+                        </md-not-found>
+                    </md-autocomplete>
 
 
-                        <h2 flex md-truncate></h2>
+                    <h2 flex md-truncate></h2>
 
 
 
@@ -86,13 +86,13 @@
                     <!--Show/Hide Butom columns-->
                     <div>
                         <md-tooltip md-direction="bottom">Mostrar/Esconder Colunas</md-tooltip>
-                        <md-menu>
 
-                            <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
-                                <ng-md-icon icon="more_vert"></ng-md-icon>
-                            </md-button>
 
-                        </md-menu>
+                        <md-button aria-label="menu" class="md-icon-button" ng-click="showColumns($event)">
+                            <ng-md-icon icon="more_vert"></ng-md-icon>
+                        </md-button>
+
+
                     </div>
                     <!--Fim Show/Hide Butom columns-->
 

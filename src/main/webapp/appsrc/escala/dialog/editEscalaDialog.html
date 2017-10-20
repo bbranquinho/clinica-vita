@@ -1,0 +1,515 @@
+<md-dialog aria-label="Cadastro de Escalas">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Cadastro de Escalas</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelar()">
+                <md-icon aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+
+    <form name="editEscalaForm" ng-submit="salvar()" ng-init="setFormNewEscalaScope(this)">
+        <md-dialog-content>
+
+
+            <md-stepper-card-content class="md-no-padding">
+                <md-steppers md-dynamic-height md-disable-tabs-behavior="true" md-stretch-steppers="always"
+                             md-selected="selectedStep" md-busy-text="'Processing...'" md-busy="showBusyText">
+                    <md-step label="Dias" md-complete="columns[0].data.completed"
+                             ng-disabled="stepProgress < 1">
+                        <md-step-body>
+                            <md-content>
+                                <md-card class="md-whiteframe-1dp md-padding">
+
+
+                                    <div layout="row" layout-wrap flex>
+                                        <div flex="50" ng-repeat="item in columns">
+                                            <md-checkbox ng-checked="exists(item, selected)"
+                                                         ng-click="toggle(item, selected)">
+                                                {{ item.name }} <span ng-if="exists(item, selected)"></span>
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+
+                                    <!--<pre>{{selected | json}}</pre>-->
+
+                                </md-card>
+
+                            </md-content>
+
+                        </md-step-body>
+                    </md-step>
+                    <md-step label="S" ng-if="exists(columns[0], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+                            <!-- <md-card ng-if="exists(columns[0], selected)">
+                                 <md-toolbar class="md-hue-2">
+                                     <div class="md-toolbar-tools">
+                                         <span>Segunda Feira</span>
+                                         <span flex></span>
+
+                                     </div>
+                                 </md-toolbar>
+                                 <div class="md-whiteframe-1dp md-padding">
+
+                                     <div class="table-responsive-vertical">
+                                         <table  class="table table-hover">
+                                             <thead>
+                                             <tr>
+
+                                                 <th width="5%">Periodo</th>
+                                                 <th width="5%">Intervalo(Agendamento)</th>
+                                                 <th  width="5%">Quantidade Vagas</th>
+                                                 <th  width="5%">Ordem Atendimento</th>
+
+                                             </tr>
+                                             </thead>
+
+                                             <tbody>
+                                             <tr>
+
+
+                                                 <td data-title="Periodo">
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].periodo" options="['Manhã','Tarde','Tarde/Noite','Manha/Tarde']" name="periodoSegunda" messages="editEscalaForm.periodoSegunda.$error" required="required" field="Periodo" label="Periodo"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Intervalo(Agendamento)">
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].intervaloAgendamento" options="['30Min','35Min','45Min', '1H','1H30Min']"  field="Intervalo(Agendamento)" name="intervaloAgendamentoSegunda" messages="editEscalaForm.intervaloAgendamentoSegunda.$error" required="required" label="Intervalo"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Quantidade Vagas" >
+
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].quantidadeVagas" options="[1,2,3,4,5,6]" field="Quantidade Vagas" name="quantidadeVagasSegunda" messages="editEscalaForm.quantidadeVagasSegunda.$error"  required="required" label="Vagas"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Ordem Atendimento" >
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].tipoAtendimento" options="['Agendamento','Chegada']" field="Ordem Atendimento" name="ordemAgendamentoSegunda" messages="editEscalaForm.ordemAgendamentoSegunda.$error"  required="required" label="Atendimento"></md-form-select-escala-td>
+
+                                                 </td>
+
+
+                                             </tr>
+                                             <tr ng-if="loading">
+                                                 <td style="text-align:center;" colspan="10">Loading...</td>
+                                             </tr>
+                                             </tbody>
+                                         </table>
+                                     </div>
+                                     &lt;!&ndash;Fim Inputs Form&ndash;&gt;
+                                     <md-divider></md-divider>
+                                     <div class="table-responsive-vertical">
+                                         <table id="table" class="table table-hover">
+                                             <thead>
+                                             <tr>
+
+                                                 <th width="5%">Hora(Entrada)</th>
+                                                 <th width="5%">Hora(Saida)</th>
+                                                 <th ng-if="intervalo == true" width="5%">Intervalo(Inicio)</th>
+                                                 <th ng-if="intervalo == true" width="5%">Intervalo(Termino)</th>
+                                                 <th width="1%">Intervalo</th>
+                                             </tr>
+                                             </thead>
+
+                                             <tbody>
+                                             <tr>
+
+
+                                                 <td data-title="Hora(Entrada)">
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].horaEntrada" options="horas" field="Hora Entrada" name="horaEntradaSegunda" messages="editEscalaForm.horaEntradaSegunda.$error"  required="required" label="Entrada"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Hora(Saída)">
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].horaSaida" options="horas" field="Hora Saida" name="horaSaidaSegunda" messages="editEscalaForm.horaSaidaSegunda.$error"  required="required" label="Saída"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Intervalo(Inicio)" ng-if="intervalo == true">
+
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].intervaloInicio" options="horas" field="Intervalo Inicio" name="intervaloInicioSegunda"    label="Inicio"></md-form-select-escala-td>
+
+                                                 </td>
+                                                 <td data-title="Intervalo(Termino)" ng-if="intervalo == true">
+                                                     <md-form-select-escala-td  model="escala.itemEscalaAtendimento[0].intervaloFim" options="horas" field="Intervalo Termino" name="intervaloInicioSegunda" label="Termino"></md-form-select-escala-td>
+
+                                                 </td>
+
+                                                 <td style="padding: 0rem 0rem 0rem 1rem;">
+                                                     <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                                                     </md-switch>
+                                                 </td>
+                                             </tr>
+                                             <tr ng-if="loading">
+                                                 <td style="text-align:center;" colspan="10">Loading...</td>
+                                             </tr>
+                                             </tbody>
+                                         </table>
+                                     </div>
+
+                                 </div>
+
+
+
+                             </md-card>-->
+                            <md-card ng-if="exists(columns[0], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[0].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[0].diaSemana" dia-semana-name="DiaSemanaSegunda"
+                                                            periodo-model="itensEscalaAtendimento[0].periodo"  periodo-name="PeriodoSegunda" periodo-messages="editEscalaForm.periodoSegunda.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[0].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoSegunda" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoSegunda.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[0].quantidadeVagas" quantidade-vagas-name="quantidadeVagasSegunda" quantidade-vagas-messages="editEscalaForm.quantidadeVagasSegunda.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[0].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoSegunda" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoSegunda.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[0].horaEntrada" hora-entrada-name="horaEntradaSegunda" hora-entrada-messages="editEscalaForm.horaEntradaSegunda.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[0].horaSaida" hora-saida-name="horaSaidaSegunda" hora-saida-messages="editEscalaForm.horaSaidaSegunda.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[0].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaSegunda" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[0].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoSegunda" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+                    <md-step label="T" ng-if="exists(columns[1], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[1], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[1].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[1].diaSemana" dia-semana-name="DiaSemanaTerca"
+                                                            periodo-model="itensEscalaAtendimento[1].periodo"  periodo-name="PeriodoTerca" periodo-messages="editEscalaForm.periodoTerca.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[1].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoTerca" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoTerca.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[1].quantidadeVagas" quantidade-vagas-name="quantidadeVagasTerca" quantidade-vagas-messages="editEscalaForm.quantidadeVagasTerca.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[1].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoTerca" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoTerca.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[1].horaEntrada" hora-entrada-name="horaEntradaTerca" hora-entrada-messages="editEscalaForm.horaEntradaTerca.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[1].horaSaida" hora-saida-name="horaSaidaTerca" hora-saida-messages="editEscalaForm.horaSaidaTerca.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[1].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaTerca" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[1].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoTerca" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+                    <md-step label="Q" ng-if="exists(columns[2], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[2], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[2].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[2].diaSemana" dia-semana-name="DiaSemanaQuarta"
+                                                            periodo-model="itensEscalaAtendimento[2].periodo"  periodo-name="PeriodoQuarta" periodo-messages="editEscalaForm.periodoQuarta.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[2].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoQuarta" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoQuarta.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[2].quantidadeVagas" quantidade-vagas-name="quantidadeVagasQuarta" quantidade-vagas-messages="editEscalaForm.quantidadeVagasQuarta.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[2].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoQuarta" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoQuarta.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[2].horaEntrada" hora-entrada-name="horaEntradaQuarta" hora-entrada-messages="editEscalaForm.horaEntradaQuarta.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[2].horaSaida" hora-saida-name="horaSaidaQuarta" hora-saida-messages="editEscalaForm.horaSaidaQuarta.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[2].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaQuarta" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[2].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoQuarta" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+                    <md-step label="Q" ng-if="exists(columns[3], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[3], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[3].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[3].diaSemana" dia-semana-name="DiaSemanaQuinta"
+                                                            periodo-model="itensEscalaAtendimento[3].periodo"  periodo-name="PeriodoQuinta" periodo-messages="editEscalaForm.periodoQuinta.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[3].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoQuinta" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoQuinta.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[3].quantidadeVagas" quantidade-vagas-name="quantidadeVagasQuinta" quantidade-vagas-messages="editEscalaForm.quantidadeVagasQuinta.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[3].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoQuinta" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoQuinta.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[3].horaEntrada" hora-entrada-name="horaEntradaQuinta" hora-entrada-messages="editEscalaForm.horaEntradaQuinta.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[3].horaSaida" hora-saida-name="horaSaidaQuinta" hora-saida-messages="editEscalaForm.horaSaidaQuinta.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[3].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaQuinta" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[3].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoQuinta" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+
+                    <md-step label="S" ng-if="exists(columns[4], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[4], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[4].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[4].diaSemana" dia-semana-name="DiaSemanaSexta"
+                                                            periodo-model="itensEscalaAtendimento[4].periodo"  periodo-name="PeriodoSexta" periodo-messages="editEscalaForm.periodoSexta.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[4].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoSexta" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoSexta.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[4].quantidadeVagas" quantidade-vagas-name="quantidadeVagasSexta" quantidade-vagas-messages="editEscalaForm.quantidadeVagasSexta.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[4].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoSexta" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoSexta.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[4].horaEntrada" hora-entrada-name="horaEntradaSexta" hora-entrada-messages="editEscalaForm.horaEntradaSexta.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[4].horaSaida" hora-saida-name="horaSaidaSexta" hora-saida-messages="editEscalaForm.horaSaidaSexta.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[4].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaSexta" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[4].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoSexta" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+
+                    <md-step label="S" ng-if="exists(columns[5], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[5], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[5].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[5].diaSemana" dia-semana-name="DiaSemanaSabado"
+                                                            periodo-model="itensEscalaAtendimento[5].periodo"  periodo-name="PeriodoSabado" periodo-messages="editEscalaForm.periodoSabado.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[5].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoSabado" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoSabado.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[5].quantidadeVagas" quantidade-vagas-name="quantidadeVagasSabado" quantidade-vagas-messages="editEscalaForm.quantidadeVagasSabado.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[5].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoSabado" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoSabado.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[5].horaEntrada" hora-entrada-name="horaEntradaSabado" hora-entrada-messages="editEscalaForm.horaEntradaSabado.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[5].horaSaida" hora-saida-name="horaSaidaSabado" hora-saida-messages="editEscalaForm.horaSaidaSabado.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[5].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaSabado" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[5].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoSabado" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+                    <md-step label="D" ng-if="exists(columns[6], selected)" md-complete="step2.completed" ng-disabled="step2.disabled">
+                        <md-content>
+
+
+                            <md-card ng-if="exists(columns[6], selected)">
+                                <md-toolbar class="md-hue-2">
+                                    <div class="md-toolbar-tools">
+                                        <span ng-bind="itensEscalaAtendimento[6].diaSemana"></span>
+                                        <span flex></span>
+
+                                    </div>
+                                </md-toolbar>
+
+
+                                <md-form-escala-atendimento dia-semana-model="itensEscalaAtendimento[6].diaSemana" dia-semana-name="DiaSemanaDomingo"
+                                                            periodo-model="itensEscalaAtendimento[6].periodo"  periodo-name="PeriodoDomingo" periodo-messages="editEscalaForm.periodoDomingo.$error"
+                                                            periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                            intervalo-agendamento-model="itensEscalaAtendimento[6].intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoDomingo" intervalo-agendamento-messages="editEscalaForm.intervaloAgendamentoDomingo.$error"
+                                                            intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                            quantidade-vagas-model="itensEscalaAtendimento[6].quantidadeVagas" quantidade-vagas-name="quantidadeVagasDomingo" quantidade-vagas-messages="editEscalaForm.quantidadeVagasDomingo.$error"
+                                                            quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                            tipo-atendimento-model="itensEscalaAtendimento[6].tipoAtendimento" tipo-atendimento-name="ordemAgendamentoDomingo" tipo-atendimento-messages="editEscalaForm.ordemAgendamentoDomingo.$error"
+                                                            tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                            hora-entrada-model="itensEscalaAtendimento[6].horaEntrada" hora-entrada-name="horaEntradaDomingo" hora-entrada-messages="editEscalaForm.horaEntradaDomingo.$error"
+                                                            hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                            hora-saida-model="itensEscalaAtendimento[6].horaSaida" hora-saida-name="horaSaidaDomingo" hora-saida-messages="editEscalaForm.horaSaidaDomingo.$error"
+                                                            hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                            hora-pausa-entrada-model="itensEscalaAtendimento[6].horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaDomingo" hora-pausa-entrada-options="horas"
+                                                            hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                            hora-pausa-termino-model="itensEscalaAtendimento[6].horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoDomingo" hora-pausa-termino-options="horas"
+                                                            hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                                </md-form-escala-atendimento>
+
+
+
+
+
+
+
+
+                            </md-card>
+
+
+                        </md-content>
+                    </md-step>
+
+                </md-steppers>
+            </md-stepper-card-content>
+
+
+            <!--Show errors-->
+            <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'">
+                <div class="error-toast-content">
+                    <div layout="column" layout-padding>
+                                    <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "
+                                          style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span
+                                            ng-bind="mensagem"></span></span></span>
+                        <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i
+                                class="material-icons">error</i> Erro - <span
+                                ng-bind="message"></span></span></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <!-- <md-button ng-click="cancelar()">
+                 Cancel
+             </md-button>
+             <md-button type="submit" class="md-primary md-raised" ng-disabled="editEscalaForm.$invalid">
+                 Save
+             </md-button>-->
+
+            <md-button ng-click="moveToPreviousStep()" ng-if="selectedStep > 0">Voltar</md-button>
+
+            <md-button ng-click="submitCurrentStep(stepData[0].data)" ng-if="selectedStep < selected.length || selected.length == 0" ng-disabled="selected.length == 0">Proximo</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-if="selectedStep == selected.length && selected.length > 0" ng-disabled="editEscalaForm.$invalid">
+                Save
+            </md-button>
+
+
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>

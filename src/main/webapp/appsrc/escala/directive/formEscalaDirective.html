@@ -1,0 +1,99 @@
+
+
+
+<div class="md-whiteframe-1dp md-padding">
+
+    <div class="table-responsive-vertical">
+        <table  class="table table-hover">
+            <thead>
+            <tr>
+
+                <th width="5%">Periodo</th>
+                <th width="5%">Intervalo(Agendamento)</th>
+                <th  width="5%">Quantidade Vagas</th>
+                <th  width="5%">Ordem Atendimento</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <input  name="{{diaSemanaName}}"  type="text"  class="ng-hide"     ng-model="diaSemanaModel" >
+                <td data-title="Periodo">
+
+                    <md-form-select-escala-td  model="periodoModel" options="periodoOptions"  field="{{periodoField}}" name="{{periodoName}}" messages="periodoMessages" required="required" label="{{periodoLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Intervalo(Agendamento)">
+
+                    <md-form-select-escala-td  model="intervaloAgendamentoModel" options="intervaloAgendamentoOptions"  field="{{intervaloAgendamentoField}}" name="{{intervaloAgendamentoName}}" messages="intervaloAgendamentoMessages" required="required" label="{{intervaloAgendamentoLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Quantidade Vagas" >
+
+
+                    <md-form-select-escala-td  model="quantidadeVagasModel" options="quantidadeVagasOptions" field="{{quantidadeVagasField}}" name="{{quantidadeVagasName}}" messages="quantidadeVagasMessages"  required="required" label="{{quantidadeVagasLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Ordem Atendimento" >
+                    <md-form-select-escala-td  model="tipoAtendimentoModel" options="tipoAtendimentoOptions" field="{{tipoAtendimentoField}}" name="{{tipoAtendimentoName}}" messages="tipoAtendimentoMessages"  required="required" label="{{tipoAtendimentoLabel}}"></md-form-select-escala-td>
+
+                </td>
+
+
+            </tr>
+            <tr ng-if="loading">
+                <td style="text-align:center;" colspan="10">Loading...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <md-divider></md-divider>
+    <div class="table-responsive-vertical">
+        <table id="table" class="table table-hover">
+            <thead>
+            <tr>
+
+                <th width="5%">Hora(Entrada)</th>
+                <th width="5%">Hora(Saida)</th>
+                <th ng-if="intervalo" width="5%">Intervalo(Inicio)</th>
+                <th ng-if="intervalo" width="5%">Intervalo(Termino)</th>
+                <th width="1%">Intervalo</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+
+                <td data-title="Hora(Entrada)">
+                    <md-form-select-escala-td  model="horaEntradaModel" options="horaEntradaOptions" field="{{horaEntradaField}}" name="{{horaEntradaName}}" messages="horaEntradaMessages"  required="required" label="{{horaEntradaLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Hora(Saída)">
+                    <md-form-select-escala-td  model="horaSaidaModel" options="horaSaidaOptions" field="{{horaSaidaField}}" name="{{horaSaidaName}}" messages="horaSaidaMessages"  required="required" label="{{horaSaidaLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Intervalo(Inicio)" ng-show="intervalo">
+
+                    <md-form-select-escala-td  model="horaPausaEntradaModel" options="horaPausaEntradaOptions" field="{{horaPausaEntradaField}}" name="{{horaPausaEntradaName}}"    label="{{horaPausaEntradaLabel}}"></md-form-select-escala-td>
+
+                </td>
+                <td data-title="Intervalo(Termino)" ng-show="intervalo">
+                    <md-form-select-escala-td  model="horaPausaTerminoModel" options="horaPausaTerminoOptions" field="{{horaPausaTerminoField}}" name="{{horaPausaTerminoName}}" label="{{horaPausaTerminoLabel}}"></md-form-select-escala-td>
+
+                </td>
+
+                <td style="padding: 0rem 0rem 0rem 1rem;">
+                    <md-switch ng-model="intervalo" aria-label="Intervalo">
+
+                    </md-switch>
+                </td>
+            </tr>
+            <tr ng-if="loading">
+                <td style="text-align:center;" colspan="10">Loading...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

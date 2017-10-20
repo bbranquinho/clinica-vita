@@ -1,0 +1,102 @@
+<md-dialog aria-label="Cadastro de Escalas">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Cadastro de Escalas</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancelar()">
+                <md-icon aria-label="Close dialog">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+
+    <form name="editItemEscalaForm" ng-submit="salvar()" ng-init="setFormNewEscalaScope(this)">
+        <md-dialog-content>
+
+
+
+            <md-content>
+
+
+
+                <md-card >
+                    <md-toolbar class="md-hue-2">
+                        <div class="md-toolbar-tools">
+                            <span ng-bind="itemEscala.diaSemana"></span>
+                            <span flex></span>
+
+                        </div>
+                    </md-toolbar>
+
+
+                    <md-form-escala-atendimento dia-semana-model="itemEscala.diaSemana" dia-semana-name="DiaSemanaSegunda"
+                                                periodo-model="itemEscala.periodo"  periodo-name="PeriodoSegunda" periodo-messages="editItemEscalaForm.periodoSegunda.$error"
+                                                periodo-options="['Manhã','Tarde','Noite','Manha/Tarde','Manha/Noite']" periodo-field="Periodo" periodo-label="Periodo"
+                                                intervalo-agendamento-model="itemEscala.intervaloAgendamento" intervalo-agendamento-name="intervaloAgendamentoSegunda" intervalo-agendamento-messages="editItemEscalaForm.intervaloAgendamentoSegunda.$error"
+                                                intervalo-agendamento-options="[30,35,45,60,90]" intervalo-agendamento-field="Intervalo(Agendamento)" intervalo-agendamento-label="Intervalo"
+                                                quantidade-vagas-model="itemEscala.quantidadeVagas" quantidade-vagas-name="quantidadeVagasSegunda" quantidade-vagas-messages="editItemEscalaForm.quantidadeVagasSegunda.$error"
+                                                quantidade-vagas-options="[1,2,3,4,5,6]" quantidade-vagas-field="Quantidade Vagas" quantidade-vagas-label="Vagas"
+                                                tipo-atendimento-model="itemEscala.tipoAtendimento" tipo-atendimento-name="ordemAgendamentoSegunda" tipo-atendimento-messages="editItemEscalaForm.ordemAgendamentoSegunda.$error"
+                                                tipo-atendimento-options="['Agendamento','Chegada']" tipo-atendimento-field="Ordem Atendimento" tipo-atendimento-label="Atendimento"
+                                                hora-entrada-model="itemEscala.horaEntrada" hora-entrada-name="horaEntradaSegunda" hora-entrada-messages="editItemEscalaForm.horaEntradaSegunda.$error"
+                                                hora-entrada-options="horas" hora-entrada-field="Hora Entrada" hora-entrada-label="Entrada"
+                                                hora-saida-model="itemEscala.horaSaida" hora-saida-name="horaSaidaSegunda" hora-saida-messages="editItemEscalaForm.horaSaidaSegunda.$error"
+                                                hora-saida-options="horas" hora-saida-field="Hora Saida" hora-saida-label="Saída"
+                                                hora-pausa-entrada-model="itemEscala.horaPausaEntrada" hora-pausa-entrada-name="horaPausaEntradaSegunda" hora-pausa-entrada-options="horas"
+                                                hora-pausa-entrada-field="Pausa Inicio" hora-pausa-entrada-label="Pausa"
+                                                hora-pausa-termino-model="itemEscala.horaPausaTermino" hora-pausa-termino-name="horaPausaTerminoSegunda" hora-pausa-termino-options="horas"
+                                                hora-pausa-termino-field="Pausa Termino" hora-pausa-termino-label="Pausa">
+                    </md-form-escala-atendimento>
+                    <pre>{{itensEscalaAtendimentoAux | json}}</pre>
+                    <pre>{{itensEscalaAtendimento | json}}</pre>
+
+
+
+
+
+
+
+                </md-card>
+
+
+            </md-content>
+
+
+
+            <!--Show errors-->
+            <div class="contextual-error-toast" style="" ng-if="statusError == 'unsuccess'">
+                <div class="error-toast-content">
+                    <div layout="column" layout-padding>
+                                    <span class="md-highlight flex" ng-repeat="(key, mensagem) in messages "
+                                          style="color:#FF5252" flex=""><i class="material-icons">error</i> Erro - <span
+                                            ng-bind="mensagem"></span></span></span>
+                        <span class="md-highlight flex" style="color:#FF5252" ng-if="message" flex=""><i
+                                class="material-icons">error</i> Erro - <span
+                                ng-bind="message"></span></span></span>
+
+                    </div>
+                </div>
+            </div>
+
+
+            </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <!-- <md-button ng-click="cancelar()">
+                 Cancel
+             </md-button>
+             <md-button type="submit" class="md-primary md-raised" ng-disabled="editItemEscalaForm.$invalid">
+                 Save
+             </md-button>-->
+
+
+            <md-button type="submit" class="md-primary md-raised"  ng-disabled="editItemEscalaForm.$invalid">
+                Save
+            </md-button>
+
+
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>
