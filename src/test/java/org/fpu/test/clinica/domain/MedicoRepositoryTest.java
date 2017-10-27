@@ -1,13 +1,5 @@
 package org.fpu.test.clinica.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Date;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.fpu.clinica.cargo.Cargo;
 import org.fpu.clinica.cargo.CargoRepository;
@@ -20,6 +12,12 @@ import org.fpu.clinica.usuario.UsuarioRepository;
 import org.fpu.test.clinica.utils.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 public class MedicoRepositoryTest extends BaseTest {
 
@@ -176,5 +174,15 @@ public class MedicoRepositoryTest extends BaseTest {
 		assertNull(this.setorRepository.findByNome("Setor Teste"));
 
 	}
+
+	@Test
+	public void getQuantidadeMedico(){
+		Long quantidadeMedicos = this.medicoRepository.findByQuantidadeMedicos();
+
+		LOGGER.info("Teste quantidade medicos :" +quantidadeMedicos);
+		assertTrue(quantidadeMedicos >= 0);
+
+	}
+
 
 }

@@ -11,22 +11,32 @@
         name: '@',
         color: '@',
         icon: "@",
-        title: "@",
+        title: "=",
         colorTitle: "@",
         bodyA: "@",
-        bodyB: "@"
+        bodyB: "@",
+        url: "@"
       },
-      controller: function($scope,$timeout) {
+      controller: function($scope,$timeout,SERVICE_PATH,RestSrv) {
 
-          $scope.value = 0;
+          RestSrv.find($scope.url, function (status, data) {
+              $scope.title = data;
+              console.log($scope.title);
 
-          $scope.increment = function() {
-            $scope.value++;
-            if ($scope.value < parseInt($scope.title)) {
-              $timeout($scope.increment, 10);
-            }
-          };
-          $scope.increment();
+
+              $scope.value = 0;
+
+              $scope.increment = function() {
+                  $scope.value++;
+                  if ($scope.value < parseInt($scope.title)) {
+                      $timeout($scope.increment, 10);
+                  }
+              };
+              if ($scope.value < parseInt($scope.title)) {
+                  $scope.increment();
+              }
+          });
+
         }
 
     };

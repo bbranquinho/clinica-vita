@@ -101,6 +101,8 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/data_agendamento").hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findCompromissoPaciente/*").hasAnyAuthority(AUTH_ADMIN,AUTH_PACIENTE)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/find_horario_agendamento/*").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos_sexo_mes").hasAnyAuthority(AUTH_ADMIN)
 
 
 
@@ -132,6 +134,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/estados").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/registrosprofissionais").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/findCurrentUser").hasAnyAuthority(AUTH_ADMIN,AUTH_MEDICO)
+				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/quantidade_medicos").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/findByStatus/*").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH).hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 				.antMatchers(HttpMethod.POST, ServicePath.MEDICO_PATH).hasAnyAuthority(AUTH_ADMIN)
@@ -155,7 +158,9 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/etnias").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/fatoressanguineos").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/matriculapaciente").permitAll()
+				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/quantidade_pacientes").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/findByStatus/*").permitAll()
+				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/quantidade_pacientes_sexo/*").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/findById/*").hasAnyAuthority(AUTH_PACIENTE,AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/findCurrentUser").hasAnyAuthority(AUTH_ADMIN,AUTH_PACIENTE)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH).hasAnyAuthority(AUTH_PACIENTE,AUTH_ADMIN)
