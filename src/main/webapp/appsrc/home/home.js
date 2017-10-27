@@ -40,19 +40,26 @@ angular.module('clinica')
         $scope.paciente = [];
         $scope.admin = [];
 
+
         var mdDialog = $mdDialog;
 
 
         this.cancel = $mdDialog.cancel;
 
 
-        var userUrl = SERVICE_PATH.PRIVATE_PATH + '/usuario/findCurrentUser';
-        var currentMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/findCurrentUser';
-        var currentFuncionarioUrl = SERVICE_PATH.PRIVATE_PATH + '/funcionario/findCurrentUser';
-        var currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
-        var medicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico';
-        var pacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente';
-        var funcionarioUrl = SERVICE_PATH.PRIVATE_PATH + '/funcionario';
+        let userUrl = SERVICE_PATH.PRIVATE_PATH + '/usuario/findCurrentUser';
+        let currentMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/findCurrentUser';
+        let currentFuncionarioUrl = SERVICE_PATH.PRIVATE_PATH + '/funcionario/findCurrentUser';
+        let currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
+        let medicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico';
+        let pacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente';
+        let funcionarioUrl = SERVICE_PATH.PRIVATE_PATH + '/funcionario';
+        let quantidadePacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/quantidade_pacientes';
+        let quantidadeMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/quantidade_medicos';
+        let quantidadeAgendamentos = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos';
+        let quantidadePacientesSexoUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/quantidade_pacientes_sexo/';
+        let quantidadeAgendamentosSexoMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos_sexo_mes';
+
 
 
         RestSrv.find(userUrl, function (status, data) {
@@ -73,9 +80,11 @@ angular.module('clinica')
                 }else if($scope.user[0].permissoes[0].role === "ROLE_FUNCIONARIO" ||$scope.user[0].permissoes[0].role === "ROLE_ADMIN" || $scope.user[0].permissoes[0].role === "ROLE_SECRETARIA"){
                     RestSrv.find(currentFuncionarioUrl, function (status, data) {
                         $scope.funcionario = data;
-
-
                         console.log($scope.funcionario);
+
+
+
+
 
                     });
 
@@ -237,141 +246,86 @@ angular.module('clinica')
 
 
         }, 1000);
-        $scope.model = {
+
+
+
+
+
+
+
+            $scope.modelTeste = {
                 'rows': [{
-                    'structure': '25-25-25-25',
                     'columns': [{
-                        'flex': '50',
-                        'layout': 'column',
+                        'layoutPadding':'',
+                        'layout': 'row',
+                        'flex': '',
                         'gadgets': [{
-                            'directiveName': 'open-tile',
+                            'directiveName': 'regular-card',
+                            'template':'<regular-card color="mat-indigo"></regular-card>',
                             'title': 'Open Issues',
-                            'type': 'tile',
-                            'icon': 'picture_in_picture'
-                        }]
-                    }, {
-                        'flex': '50',
-                        'layout': 'column',
-                        'gadgets': [{
-                            'directiveName': 'closed-tile',
-                            'title': 'Closed Issues',
-                            'type': 'tile',
-                            'icon': 'picture_in_picture'
-                        }]
-                    },  {
-                        'flex': '25',
-                        'layout': 'column',
-                        'gadgets': [{
-                            'directiveName': 'in-progress-tile',
-                            'title': 'Issues in Progress',
-                            'type': 'tile',
-                            'icon': 'picture_in_picture'
-                        }]
-                    }, {
-                        'flex': '25',
-                        'layout': 'column',
-                        'gadgets': [{
-                            'directiveName': 'backlog-tile',
-                            'title': 'Backlog Issues',
+                            'color': 'mat-indigo',
                             'type': 'tile',
                             'icon': 'picture_in_picture'
                         }]
                     }]
-                }, {
-                    'structure': '33-66',
+
+
+                },{
+
+                    'layout': 'row',
+
                     'columns': [{
-                        'layout': 'column',
-                        'flex': '33',
+
                         'gadgets': [{
-                            'directiveName': 'pie-chart',
-                            'title': 'Current Issues Chart',
-                            'type': 'chart',
-                            'icon': 'pie_chart'
+                            'directiveName': 'card-home',
+                            'template': '<card-home color="mat-teal" url="'+ quantidadeAgendamentos +'" icon="notifications" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])"title-number="35"title="Notificações"></card-home>',
+                            'title': 'Open Issues',
+                            'color': 'mat-teal',
+                            'type': 'tile',
+                            'icon': 'picture_in_picture'
                         }]
-                    }, {
-                        'layout': 'column',
-                        'flex': '66',
+
+                    },{
+
                         'gadgets': [{
-                            'directiveName': 'line-chart',
-                            'title': 'Issues in Last Month',
-                            'type': 'chart',
-                            'icon': 'show_chart'
+                            'directiveName': 'card-home',
+                            'template': '<card-home color="mat-gray" icon="event" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" title-number="20" url="'+ quantidadeAgendamentos +'" title="Agendamentos"></card-home>',
+                            'title': 'Open Issues',
+                            'color': 'mat-gray',
+                            'type': 'tile',
+                            'icon': 'picture_in_picture'
                         }]
+
                     }]
+
+
+                },{
+
+                    'layout': 'row',
+
+                    'columns': [{
+
+                        'gadgets': [{
+                            'template': '<card-paciente color="mat-blue" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" icon="medico_home" title="Medicos" color-title="primary " url="'+ quantidadeMedicoUrl +'" body-a="Médicos" body-b="Cadastrados"></card-paciente>'
+
+                        }]
+
+                    },{
+
+                        'gadgets': [{
+                            'template': '<card-paciente color="mat-green" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" icon="paciente_home" title="Pacientes" color-title="primary " url="'+ quantidadePacienteUrl +'" body-a="Pacientes" body-b="Cadastrados"></card-paciente>',
+
+                        }]
+
+                    }]
+
+
                 }]
             };
-        
 
 
-        $scope.modelTeste = {
-            'rows': [{
-                'columns': [{
-                    'layoutPadding':'',
-                    'layout': 'row',
-                    'flex': '',
-                    'gadgets': [{
-                        'directiveName': 'regular-card',
-                        'template':'<regular-card color="mat-indigo"></regular-card>',
-                        'title': 'Open Issues',
-                        'color': 'mat-indigo',
-                        'type': 'tile',
-                        'icon': 'picture_in_picture'
-                    }]
-                }]
 
 
-            },{
-
-                'layout': 'row',
-                
-                'columns': [{
-
-                    'gadgets': [{
-                        'directiveName': 'card-home',
-                        'template': '<card-home color="mat-teal" icon="notifications" title-number="35"title="Notificações"></card-home>',
-                        'title': 'Open Issues',
-                        'color': 'mat-teal',
-                        'type': 'tile',
-                        'icon': 'picture_in_picture'
-                    }]
-
-                },{
-
-                    'gadgets': [{
-                        'directiveName': 'card-home',
-                        'template': '<card-home color="mat-gray" icon="event" title-number="20" title="Agendamentos"></card-home>',
-                        'title': 'Open Issues',
-                        'color': 'mat-gray',
-                        'type': 'tile',
-                        'icon': 'picture_in_picture'
-                    }]
-
-                }]
-
-
-            },{
-
-                'layout': 'row',
-
-                'columns': [{
-
-                    'gadgets': [{
-                        'template': '<card-paciente color="mat-blue" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" icon="medico_home" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-paciente>'
-
-                    }]
-
-                },{
-
-                    'gadgets': [{
-                        'template': '<card-paciente color="mat-green" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" icon="paciente_home" title="80" color-title="primary " body-a="Pacientes" body-b="Cadastrados"></card-paciente>',
-
-                    }]
-
-                }]
-
-
-            }]
-        };
 
 
         $scope.modelGrafic = {
@@ -382,13 +336,13 @@ angular.module('clinica')
                 'columns': [{
 
                     'gadgets': [{
-                        'template': '<card-donut-grafic color="mat-clean-yellow" icon="event" title="80" color-title="primary " body-a="Pacientes" body-b="Cadastrados"></card-donut-grafic>'
+                        'template': '<card-donut-grafic color="mat-clean-yellow" icon="event" title="Pacientes(Por: sexo)" color-title="primary " url="'+ quantidadePacientesSexoUrl +'" params-url="[\'Masculino\',\'Feminino\']"   body-a="Pacientes" body-b="Cadastrados" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-donut-grafic>'
 
                     }]
 
                 },{
                     'gadgets': [{
-                        'template': '<card-bar-grafic color="mat-clean-green" icon="event" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-bar-grafic>'
+                        'template': '<card-bar-grafic color="mat-clean-green" icon="event" title="Agendamentos:Mês(Azul:Feminino/Cinza:Masculino)" url="'+ quantidadeAgendamentosSexoMes +'" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" color-title="primary " body-a="Médicos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" body-b="Cadastrados"></card-bar-grafic>'
 
                     }]
 

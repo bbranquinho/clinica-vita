@@ -11,25 +11,30 @@ angular.module('clinica')
             color: '@',
             icon: "@",
             title: "@",
-            titleNumber: "@"
-        },controller: function ($scope) {
+            titleNumber: "@",
+            url: "@"
+        },controller: function ($scope,SERVICE_PATH,RestSrv) {
             $scope.theme = $scope.theme || 'default';
 
-            $scope.value = 0;
 
-            $scope.increment = function() {
-                $scope.value++;
+            RestSrv.find($scope.url, function (status, data) {
+                $scope.titleNumber = data;
+                console.log($scope.titleNumber);
+
+
+                $scope.value = 0;
+
+                $scope.increment = function() {
+                    $scope.value++;
+                    if ($scope.value < parseInt($scope.titleNumber)) {
+                        $timeout($scope.increment, 10);
+                    }
+                };
                 if ($scope.value < parseInt($scope.titleNumber)) {
-                    $timeout($scope.increment, 10);
+                    $scope.increment();
                 }
-            };
-            $scope.increment();
+            });
 
-
-
-
-
-            console.log($scope.value );
 
            /* $scope.color = 'mat-teal';*/
         }

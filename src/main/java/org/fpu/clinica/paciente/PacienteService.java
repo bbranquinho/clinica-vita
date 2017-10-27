@@ -1,16 +1,9 @@
 package org.fpu.clinica.paciente;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.fpu.clinica.errors.ErrorServiceInterface;
 import org.fpu.clinica.errors.FieldsErrorDetalhe;
 import org.fpu.clinica.errors.Message;
-import org.fpu.clinica.fileupload.FileUpload;
 import org.fpu.clinica.fileupload.FileUploadRepository;
-import org.fpu.clinica.medico.Medico;
 import org.fpu.clinica.permissao.Permissao;
 import org.fpu.clinica.permissao.PermissaoRepository;
 import org.fpu.clinica.pessoa.TipoSexo;
@@ -28,12 +21,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 
 
 
@@ -304,4 +296,27 @@ public class PacienteService extends GenericService<Paciente, Long> {
 			message.setData(pacientes);
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		}
+
+
+	@RequestMapping(value = "/quantidade_pacientes", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getQuantidadePacientes() {
+
+		Long quantidadePacientes = this.pacienteRepository.findByQuantidadePacientes();
+
+
+
+		return quantidadePacientes;
+	}
+
+	@RequestMapping(value = "/quantidade_pacientes_sexo/{sexo}", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getQuantidadePacientesBySexo(@PathVariable("sexo") String sexo) {
+
+		Long quantidadePacientesBySexo = this.pacienteRepository.countBySexo(sexo);
+
+
+
+		return quantidadePacientesBySexo;
+	}
 }

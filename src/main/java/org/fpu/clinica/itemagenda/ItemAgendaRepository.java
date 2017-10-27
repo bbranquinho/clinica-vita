@@ -1,13 +1,13 @@
 package org.fpu.clinica.itemagenda;
 
-import java.util.Date;
-import java.util.List;
-
 import org.fpu.clinica.agenda.Agenda;
 import org.fpu.clinica.medico.Medico;
 import org.fpu.clinica.paciente.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Date;
+import java.util.List;
 
 public interface ItemAgendaRepository extends JpaRepository<ItemAgenda, Long>{
 	
@@ -23,5 +23,10 @@ public interface ItemAgendaRepository extends JpaRepository<ItemAgenda, Long>{
 	
 	@Query("select i from ItemAgenda i where i.paciente = ?1")
 	List<ItemAgenda> findCompromissosPaciente(Paciente paciente);
+
+	Long countByStatusAgendaOrStatusAgenda(String status1, String status2);
+
+	@Query("select count(*) from ItemAgenda as i inner join  i.agenda as agenda where extract(month from i.agenda.dataHoraInicialConsulta) = ?1 and i.paciente.sexo = ?2")
+	public Long findByQuantidadeAgendamentoMesSexo(int mes, String sexo);
 
 }

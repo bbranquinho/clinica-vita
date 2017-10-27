@@ -182,25 +182,7 @@ angular.module('clinica')
                     _medico:$scope.medico*/
                 }
             }). then(function(date) { // * Obs fazer de outra forma
-                console.log('date:');
-                console.log(date);
 
-
-                var evento_aux = {};
-                evento_aux.start = moment(date.agenda.dataHoraInicialConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
-                console.log(evento_aux.start);
-                evento_aux.end = moment(date.agenda.dataHoraFinalConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
-                evento_aux.title = date.statusAgenda;
-                evento_aux.agenda = date;
-
-                $scope.events.push(evento_aux);
-                console.log($scope.events);
-
-
-                //$scope.events[0].start = date;
-                //$scope.events[0].end = date;
-
-                // openToast("Cargo added");
             }, function () {
                 console.log('You cancelled the dialog.');
 

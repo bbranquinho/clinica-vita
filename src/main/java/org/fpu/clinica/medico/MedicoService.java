@@ -1,10 +1,5 @@
 package org.fpu.clinica.medico;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.fpu.clinica.errors.ErrorServiceInterface;
 import org.fpu.clinica.errors.FieldsErrorDetalhe;
 import org.fpu.clinica.errors.Message;
@@ -28,12 +23,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = ServicePath.MEDICO_PATH)
@@ -235,5 +229,16 @@ public class MedicoService extends GenericService<Medico, Long> {
 		message.AddField("mensagem", "Load Medicos success");
 		message.setData(medicos);
 		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+
+	@RequestMapping(value = "/quantidade_medicos", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getQuantidadeMedicos() {
+
+		Long quantidadeMedicos = this.medicoRepository.findByQuantidadeMedicos();
+
+
+
+		return quantidadeMedicos;
 	}
 }

@@ -104,14 +104,17 @@ angular.module('clinica')
                         $scope.message = data.atributeMessage.MENSAGEM;
 
 
-                        showCustomSuccessToast('Sucesso','Horário de Agenda(a) \'' + $scope.itemAgenda.agenda.dataHoraInicialConsulta + '\' gerado(a).');
+                        showCustomSuccessToast('Sucesso','Horários de Agenda(a)  gerados(a).');
                         return  $mdDialog.hide(data.data);
                     }else{
                         $scope.statusError = 'unsuccess';
                         $scope.messages = data.fieldsErrorMessages;
                         if(data.message != null || data.message != undefined){
                             $scope.message = data.message;
+                        }else if(data.atributeMessage != null || data.atributeMessage != undefined){
+                            $scope.message = data.atributeMessage.MENSAGEM;
                         }
+
                         $scope.fields = data.mapOfFields;
                         console.log(data);
                     }

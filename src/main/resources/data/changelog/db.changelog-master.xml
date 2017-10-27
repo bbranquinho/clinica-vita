@@ -24,4 +24,6 @@
 	<include file="data/changelog/db.changelog-create-tb-item-escala-atendimento-0.0.16.xml" />
 	<include file="data/changelog/00000000000000_initial_schema.xml" />
 	<include file="data/changelog/20170918235500_rename_colum_item_escala.xml" />
+	<include file="data/changelog/db.changelog-add-constraint-escala-atendimento-dia-semana-0.0.17.xml" />
+
 </databaseChangeLog>

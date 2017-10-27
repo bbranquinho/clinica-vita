@@ -71,15 +71,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		Calendar calDataFinal = Calendar.getInstance();
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
-		if(calDataInicial.compareTo(calDataFinal) == 1){
-			List<String> mensagensErro;
-			mensagensErro = new ArrayList<String>();
-			mensagensErro.add(String.format(" %s : %s", "Data Final",
-					"Data final não pode ser maior que a data Inicial"));
-
-			fieldsErrorDetalhe.AddField("DATAFINAL", "error");
-
-			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro();
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -88,8 +81,6 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		agendaSave = agendaRepository.save(agendaSave);
 
 		itemAgenda.setAgenda(agendaSave);
-
-
 
 		return super.insert(itemAgenda, erros);
 	}
@@ -111,17 +102,12 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		Calendar calDataFinal = Calendar.getInstance();
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
-		if(calDataInicial.compareTo(calDataFinal) == 1){
-			List<String> mensagensErro;
-			mensagensErro = new ArrayList<String>();
-			mensagensErro.add(String.format(" %s : %s", "Data Final",
-					"Data final não pode ser maior que a data Inicial"));
-
-			fieldsErrorDetalhe.AddField("DATAFINAL", "error");
-
-			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro();
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
+
+
 
 		if(itemAgenda.getPaciente() == null){
 			List<String> mensagensErro;
@@ -144,17 +130,39 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		return super.update(itemAgendaAux, erros);
 	}
 
+	private void SetMessageErro() {
+		List<String> mensagensErro;
+		mensagensErro = new ArrayList<String>();
+		mensagensErro.add(String.format(" %s : %s", "Data Final",
+                "Data final não pode ser maior que a data Inicial"));
+
+		fieldsErrorDetalhe.AddField("DATAFINAL", "error");
+
+		fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
+	}
+
+
+	private boolean CompareDatas(Calendar calDataInicial, Calendar calDataFinal) {
+		if(calDataInicial.compareTo(calDataFinal) == 1){ return true;}
+		return false;
+	}
 
 
 	@RequestMapping(path = "/gerar_agendamento", method = RequestMethod.POST)
 	@Transactional
 	public ResponseEntity<?>  gerarAgendamento(@RequestBody PeriodoAgendamento periodoAgendamento) {
+		/*Verifica se o medico informado possui itens na escala*/
+		if(checkQuantidadeEscala(periodoAgendamento.getMedicoId())){
+			message.AddField("mensagem", "O médico informado não possui escalas cadastradas.");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+		}
 
 
 		/*verifica se ja existe agendamentos no periodo informado*/
-		if(checkQtdItensAgenda(periodoAgendamento) == -1){
-			message.AddField("mensagem", "Já existem datas cadastradas neste periodo.");
-			return ResponseEntity.status(HttpStatus.OK).body(message);
+		if(checkQtdItensAgenda(periodoAgendamento)){
+
+			message.AddField("mensagem", "Já existem horários cadastrados neste periodo.");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
 		}
 
 
@@ -198,7 +206,11 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 			EscalaAtendimento escalaAtendimento = escalaAtendimentoRepository.findByMedico(medico);
 
-			String diaSemana = getDayWeek(calPeriodoInicialAux.getTime().getDay());
+			//String diaSemana = getDayWeek(calPeriodoInicialAux.getTime().getDay());
+			//String diaSemana = calPeriodoInicialAux.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, new Locale("pt", "BR")).toUpperCase();
+			String diaSemana = getDayWeek(calPeriodoInicialAux.get(Calendar.DAY_OF_WEEK));
+
+
 
 			ItemEscalaAtendimento itemEscalaAtendimento = itensEscalaAtendimentoRepository.findByEscalaAndDiaSemana
 					(escalaAtendimento, diaSemana);
@@ -225,12 +237,45 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 				Calendar calDiaHoraFinalAux = Calendar.getInstance();
 				calDiaHoraFinalAux.setTime(diaHoraFinalAux);
 
+
+
+
 				while (calDiaHoraInicialAux.before(calDiaHoraFinalAux)) {
+
+
+
+
 					Date diaHoraConsultaFinal = calDiaHoraInicialAux.getTime();
 					Calendar calDiaHoraConsultaFinal = Calendar.getInstance();
 					calDiaHoraConsultaFinal.setTime(diaHoraConsultaFinal);
 					calDiaHoraConsultaFinal.add(Calendar.MINUTE,
 							+itemEscalaAtendimento.getIntervaloAgendamento());
+
+
+
+
+					if(itemEscalaAtendimento.getHoraPausaEntrada() != null && itemEscalaAtendimento.getHoraPausaTermino() != null){
+					/*configuracao intervalo*/
+						Date horaPausaEntrada = calDiaHoraInicialAux.getTime();
+						horaPausaEntrada.setHours(itemEscalaAtendimento.getHoraPausaEntrada().getHours());
+						horaPausaEntrada.setMinutes(itemEscalaAtendimento.getHoraPausaTermino().getMinutes());
+						Calendar calHoraPausaEntrada = Calendar.getInstance();
+						calHoraPausaEntrada.setTime(horaPausaEntrada);
+
+						Date horaPausaTermino = calDiaHoraInicialAux.getTime();
+						horaPausaTermino.setHours(itemEscalaAtendimento.getHoraPausaTermino().getHours());
+						horaPausaTermino.setMinutes(itemEscalaAtendimento.getHoraPausaTermino().getMinutes());
+						Calendar calHoraPausaTermino = Calendar.getInstance();
+						calHoraPausaTermino.setTime(horaPausaTermino);
+
+						if(calDiaHoraConsultaFinal.after(calHoraPausaEntrada) && calDiaHoraConsultaFinal.before(calHoraPausaTermino)){
+							calDiaHoraInicialAux.setTime(calHoraPausaTermino.getTime());
+							continue;
+						}
+
+
+					}
+
 
 					Agenda agendaSave = new Agenda(itemEscalaAtendimento.getQuantidadeVagas(), new Date(),
 							calDiaHoraInicialAux.getTime(), calDiaHoraConsultaFinal.getTime());
@@ -259,6 +304,10 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		}
 
 
+
+		List<ItemAgenda> itensAgendas = itemAgendaRepository.findbyDateAgenda(periodoAgendamento.getPeriodoInicial(),
+				periodoAgendamento.getPeriodoFinal(), medico);
+
 		message.AddField("mensagem", "Salvo com sucesso");
 		//message.setData(itemAgenda);
 		return ResponseEntity.status(HttpStatus.OK).body(message);
@@ -267,15 +316,28 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	}
 
 
+	private boolean checkQuantidadeEscala(Long idMedico){
+		Medico medico = this.medicoRepository.findOne(idMedico);
+		if(medico == null){
+			return true;
+		}
+		EscalaAtendimento escalaAtendimento = this.escalaAtendimentoRepository.findByMedico(medico);
+		List<ItemEscalaAtendimento> itensEscala = this.itensEscalaAtendimentoRepository.findByEscalaAtendimento(escalaAtendimento);
 
+		if(itensEscala.size() < 1){
+			return true;
+		}
 
-	public String getDayWeek(int day){
-		if(day == 0) return "Segunda-Feira";
-		else if(day == 1) return "Terça-Feira";
-		else if(day == 2) return "Quarta-Feira";
-		else if(day == 3) return "Quinta-Feira";
-		else if(day == 4) return "Sexta-Feira";
-		else if(day == 5) return "Sabado";
+		return false;
+	}
+
+	private String getDayWeek(int day){
+		if(day == 2) return "Segunda-Feira";
+		else if(day == 3) return "Terça-Feira";
+		else if(day == 4) return "Quarta-Feira";
+		else if(day == 5) return "Quinta-Feira";
+		else if(day == 6) return "Sexta-Feira";
+		else if(day == 7) return "Sabado";
 
 		return "Domingo";
 
@@ -283,59 +345,40 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	}
 
 
-	public int checkQtdItensAgenda(PeriodoAgendamento periodoAgendamento ){
+	private boolean checkQtdItensAgenda(PeriodoAgendamento periodoAgendamento ){
 
 		SimpleDateFormat formatterb = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Date diaHoraInicialAux = null;
-		Date diaHoraFinalAux = null;
-		Date periodoInicialAux = null;
-		Date periodoFinalAux = null;
-
-
-
-		diaHoraInicialAux = periodoAgendamento.getPeriodoInicial();
-		diaHoraInicialAux.setHours(0);
-		diaHoraInicialAux.setMinutes(0);
-
-		diaHoraFinalAux = periodoAgendamento.getPeriodoInicial();
-		diaHoraFinalAux.setHours(23);
-		diaHoraFinalAux.setMinutes(59);
-
-		periodoInicialAux = periodoAgendamento.getPeriodoInicial();
-		periodoInicialAux.setHours(0);
-		periodoInicialAux.setMinutes(0);
-
-		periodoFinalAux = periodoAgendamento.getPeriodoFinal();
-		periodoInicialAux.setHours(23);
-		periodoInicialAux.setMinutes(59);
 
 
 
 
-		Calendar calDiaHoraInicialAux = Calendar.getInstance();
-		calDiaHoraInicialAux.setTime(diaHoraInicialAux);
 
-		Calendar calDiaHoraFinalAux = Calendar.getInstance();
-		calDiaHoraFinalAux.setTime(diaHoraFinalAux);
 
-		Calendar calPeriodoInicialAux = Calendar.getInstance();
-		calDiaHoraInicialAux.setTime(periodoInicialAux);
 
-		Calendar calPeriodoFinalAux = Calendar.getInstance();
-		calDiaHoraInicialAux.setTime(periodoFinalAux);
+		Date periodoInicial  = periodoAgendamento.getPeriodoInicial();
+		periodoInicial.setHours(0);
+		periodoInicial.setMinutes(0);
+
+		Date periodoFinalAux = periodoAgendamento.getPeriodoFinal();
+		periodoFinalAux.setHours(23);
+		periodoFinalAux.setMinutes(59);
+
+
+
+
 
 
 		Medico medico = medicoRepository.findOne(periodoAgendamento.getMedicoId());
 
 
-		List<ItemAgenda> itensAgendas = itemAgendaRepository.findbyDateAgenda(calDiaHoraInicialAux.getTime(),
-				calPeriodoFinalAux.getTime(), medico);
+		List<ItemAgenda> itensAgendas = itemAgendaRepository.findbyDateAgenda(periodoInicial,
+				periodoFinalAux, medico);
 		if(itensAgendas.size() > 0){
-			return -1;
+			return true;
 		}
 
-		return 0;
+		return false;
 	}
 
 	@RequestMapping(path = "/findagenda")
@@ -476,6 +519,53 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		return Arrays.asList(dataAgendamento);
 	}
+
+
+	@RequestMapping(value = "/quantidade_agendamentos", method = RequestMethod.GET)
+	@ResponseBody
+	public Long getQuantidadeAgendamentos() {
+
+		Long quantidadeAgendamentos = this.itemAgendaRepository.countByStatusAgendaOrStatusAgenda("Agendado","Aguardando Autorização");
+
+
+
+		return quantidadeAgendamentos;
+	}
+
+	@RequestMapping(value = "/quantidade_agendamentos_sexo_mes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeAgendamentosBySexoMes() {
+
+		HashMap<String, List<Long>> agendamentos = new HashMap<>();
+		List<String> meses = new ArrayList<>();
+		List<Long> agendamentosMasculinos = new ArrayList<>();
+		List<Long> agendamentosFemininos = new ArrayList<>();
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Masculino");
+
+			agendamentosMasculinos.add(quantidadeAgendamentosMasculino);
+
+			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Feminino");
+			agendamentosFemininos.add(quantidadeAgendamentosFeminino);
+
+			cal.add(Calendar.MONTH, +1);
+
+
+		}
+
+
+		agendamentos.put("Masculino",agendamentosMasculinos);
+		agendamentos.put("Feminino",agendamentosFemininos);
+
+		return ResponseEntity.status(HttpStatus.OK).body(agendamentos);
+	}
+
 
 
 
