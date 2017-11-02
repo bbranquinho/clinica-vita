@@ -106,6 +106,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos_sexo_ano").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_consultas_realizadas_mes").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_solicitacoes_agendamento").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.PUT, ServicePath.ITEM_AGENDA_PATH + "/cancelar_agendamento").hasAnyAuthority(AUTH_SECRETARIA,AUTH_PACIENTE)
 
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
 				.antMatchers(HttpMethod.POST, ServicePath.ITEM_AGENDA_PATH + "/gerar_agendamento").hasAnyAuthority(AUTH_ADMIN,AUTH_MEDICO, AUTH_SECRETARIA)

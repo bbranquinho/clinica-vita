@@ -130,6 +130,50 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		return super.update(itemAgendaAux, erros);
 	}
 
+
+	@RequestMapping(path = "/cancelar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> cancelarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro();
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+
+			List<String> mensagensErro;
+			mensagensErro = new ArrayList<String>();
+			mensagensErro.add(String.format(" %s : %s", "Paciente",
+					"Paciente não pode estar em branco"));
+
+			fieldsErrorDetalhe.AddField("PACIENTE", "error");
+
+			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.CANCELADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
 	private void SetMessageErro() {
 		List<String> mensagensErro;
 		mensagensErro = new ArrayList<String>();

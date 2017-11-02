@@ -3,7 +3,10 @@
         <div class="md-toolbar-tools">
             <span class="title">Agendamento</span>
             <span flex></span>
-
+            <md-button class="md-icon-button" ng-click="cancelar()">
+                <!--<i class="material-icons">close</i>-->
+                <md-icon md-svg-icon="close" aria-label="Close dialog"></md-icon>
+            </md-button>
         </div>
     </md-toolbar>
 
@@ -66,9 +69,9 @@
 
 
 
-        <md-button ng-click="cancelar()">
-            <md-tooltip md-direction="top" >Fechar</md-tooltip>
-            Fechar
+        <md-button class="md-raised md-warn" ng-click="cancelarAgenda($event,calendarEvent)" ng-if="calendarEvent.agenda.statusAgenda == 'Aguardando Autorização'||calendarEvent.agenda.statusAgenda == 'Agendado'">
+            <md-tooltip md-direction="top" >Cancelar Agenda</md-tooltip>
+            Cancelar Agenda
         </md-button>
 
     </md-dialog-actions>
