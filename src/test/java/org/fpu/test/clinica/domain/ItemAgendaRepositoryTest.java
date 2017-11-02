@@ -49,13 +49,33 @@ public class ItemAgendaRepositoryTest extends BaseTest {
 	public void getQuantidadeAgendamentosMesSexo(){
 		Calendar cal = Calendar.getInstance();
 
-		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByQuantidadeAgendamentoMesSexo(10,"Masculino");
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(10,"Masculino");
 
 		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
 		assertTrue(quantidadeAgendamentos >= 0);
 
 	}
 
+	@Test
+	public void getPacientesQuantidadeAgendamentosAnoSexo(){
+		Calendar cal = Calendar.getInstance();
 
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(2017,"Masculino");
+
+		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
+		assertTrue(quantidadeAgendamentos >= 0);
+
+	}
+
+	@Test
+	public void getQuantidadeConsultasRealizadas(){
+		Calendar cal = Calendar.getInstance();
+
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByConsultasRealizadasMes(10,"Finalizado");
+
+		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
+		assertTrue(quantidadeAgendamentos >= 0);
+
+	}
 
 }

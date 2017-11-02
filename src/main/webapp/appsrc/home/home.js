@@ -59,6 +59,9 @@ angular.module('clinica')
         let quantidadeAgendamentos = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos';
         let quantidadePacientesSexoUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/quantidade_pacientes_sexo/';
         let quantidadeAgendamentosSexoMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos_sexo_mes';
+        let quantidadeAgendamentosSexoAno = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos_sexo_ano';
+        let quantidadeConsultasRealizadasMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_consultas_realizadas_mes';
+        let quantidadeSolicitacoesAgendamento = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_solicitacoes_agendamento';
 
 
 
@@ -342,7 +345,7 @@ angular.module('clinica')
 
                 },{
                     'gadgets': [{
-                        'template': '<card-bar-grafic color="mat-clean-green" icon="event" title="Agendamentos:Mês(Azul:Feminino/Cinza:Masculino)" url="'+ quantidadeAgendamentosSexoMes +'" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" color-title="primary " body-a="Médicos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" body-b="Cadastrados"></card-bar-grafic>'
+                        'template': '<card-bar-grafic color="mat-clean-green" icon="event" title="Agendamentos:Mês(Azul:F/Cinza:M)" url="'+ quantidadeAgendamentosSexoMes +'" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" color-title="primary " body-a="Médicos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" body-b="Cadastrados"></card-bar-grafic>'
 
                     }]
 
@@ -365,7 +368,7 @@ angular.module('clinica')
 
                     'gadgets': [{
 
-                        'template': '<card-bar-horizontal-grafic color="mat-blue_dark_clean" icon="event" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-bar-horizontal-grafic>'
+                        'template': '<card-bar-horizontal-grafic color="mat-blue_dark_clean" icon="event" title="Agendamentos:Ano(Azul:F/Cinza:M)" url="'+ quantidadeAgendamentosSexoAno +'" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-bar-horizontal-grafic>'
 
                     }]
 
@@ -379,13 +382,13 @@ angular.module('clinica')
                 'columns': [{
 
                     'gadgets': [{
-                        'template': '<card-pie-grafic color="mat-green_light" icon="event" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-pie-grafic>'
+                        'template': '<card-pie-grafic color="mat-green_light" icon="event" url="'+ quantidadeSolicitacoesAgendamento +'" params="[\'Aguardando Autorização\',\'Não Agendado\',\'Cancelado\',\'Faltou\']" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-pie-grafic>'
                     }]
 
                 },{
 
                     'gadgets': [{
-                        'template': '<card-line-grafic color="mat-concrete" icon="event" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-line-grafic>'
+                        'template': '<card-line-grafic color="mat-concrete" icon="event" title="Consutas Realizadas:Mês" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" url="'+ quantidadeConsultasRealizadasMes +'" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-line-grafic>'
 
                     }]
 

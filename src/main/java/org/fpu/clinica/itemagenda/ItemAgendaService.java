@@ -547,18 +547,17 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 		for(int i = 0; i < 7; i++){
-			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Masculino");
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Masculino");
 
 			agendamentosMasculinos.add(quantidadeAgendamentosMasculino);
 
-			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Feminino");
+			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Feminino");
 			agendamentosFemininos.add(quantidadeAgendamentosFeminino);
 
 			cal.add(Calendar.MONTH, +1);
 
 
 		}
-
 
 		agendamentos.put("Masculino",agendamentosMasculinos);
 		agendamentos.put("Feminino",agendamentosFemininos);
@@ -567,6 +566,90 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	}
 
 
+	@RequestMapping(value = "/quantidade_agendamentos_sexo_ano", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeConsultasBySexoAno() {
+
+		HashMap<String, List<Long>> consultasMedicos = new HashMap<>();
+
+		List<Long> consultasMasculino = new ArrayList<>();
+		List<Long> consultasFeminino = new ArrayList<>();
 
 
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -6);
+
+
+		for(int i = 0; i < 7; i++){
+			System.out.println();
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(cal.get(Calendar.YEAR),"Masculino");
+
+			consultasMasculino.add(quantidadeAgendamentosMasculino);
+
+			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(cal.get(Calendar.YEAR),"Feminino");
+			consultasFeminino.add(quantidadeAgendamentosFeminino);
+
+			cal.add(Calendar.YEAR, +1);
+
+
+		}
+
+		consultasMedicos.put("Masculino",consultasMasculino);
+		consultasMedicos.put("Feminino",consultasFeminino);
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultasMedicos);
+	}
+
+
+	@RequestMapping(value = "/quantidade_consultas_realizadas_mes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeConsultasRealizadas() {
+
+		HashMap<String, List<Long>> consultas = new HashMap<>();
+
+		List<Long> QuantidadeConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			QuantidadeConsultasRealizadas.add(quantidadeAgendamentosMasculino);
+
+
+
+			cal.add(Calendar.MONTH, +1);
+
+
+		}
+
+		consultas.put("Consultas",QuantidadeConsultasRealizadas);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultas);
+	}
+
+	@RequestMapping(value = "/quantidade_solicitacoes_agendamento", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeStatusSolicitacoesAgendamento() {
+
+		HashMap<String, List<Long>> solicitacoes = new HashMap<>();
+
+		List<Long> quantidadesStatusSolicitacoes = new ArrayList<>();
+
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.AGUARDANDOAUTORIZACAO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.NAOAGENDADO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.CANCELADO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.FALTOU.getDescricao()));
+
+
+		solicitacoes.put("Solicitacoes",quantidadesStatusSolicitacoes);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(solicitacoes);
+	}
 }

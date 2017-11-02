@@ -16,4 +16,6 @@ public interface MedicoRepository extends JpaRepository<Medico,Long>{
 
 	@Query("SELECT COUNT(*) FROM Medico")
 	public Long findByQuantidadeMedicos();
+
+
 }

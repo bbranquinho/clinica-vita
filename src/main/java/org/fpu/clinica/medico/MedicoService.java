@@ -26,8 +26,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping(path = ServicePath.MEDICO_PATH)
@@ -241,4 +240,6 @@ public class MedicoService extends GenericService<Medico, Long> {
 
 		return quantidadeMedicos;
 	}
+
+
 }
