@@ -3,7 +3,7 @@
 
 angular.module('clinica')
 
-    .controller('AgendaDetailDialogController',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH,_events) {
+    .controller('AgendaDetailDialogController',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH,_events,$rootScope) {
         $scope.calendarEvent = _events;
         
 
@@ -29,6 +29,14 @@ angular.module('clinica')
 
             }
 
+        /*Show message*/
+        function openToast(message) {
+            $mdToast.show($mdToast.simple()
+                .textContent(message)
+                .position('top right')
+                .hideDelay(3000));
+        };
+
         var cancelarAgendamentoUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/cancelar_agendamento/';
 
         /*show dialog delete registro*/
@@ -44,9 +52,9 @@ angular.module('clinica')
 
             $mdDialog.show(confirm).then(function() {
 
-                RestSrv.edit(cancelarAgendamentoUrl, calEvent, function(status,data) {
+                RestSrv.edit(cancelarAgendamentoUrl, calEvent.agenda, function(status,data) {
 
-
+                    $rootScope.$broadcast('updateAgenda');
                     openToast('Agenda Cancelada.', 'success');
 
                 });
