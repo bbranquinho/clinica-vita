@@ -5,29 +5,29 @@ angular.module('clinica')
 
     .controller('AgendaDetailDialogController',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH,_events,$rootScope) {
         $scope.calendarEvent = _events;
-        
 
 
-            $scope.cancelar = function(){
-                    console.log("oi");
-                    return $mdDialog.cancel();
 
-            };
+        $scope.cancelar = function(){
+            console.log("oi");
+            return $mdDialog.cancel();
+
+        };
 
 
-           
 
-            $scope.salvar = function() {
-                    console.log('ola');
-                    if($scope.calendarEvent === undefined){
-                            return $mdDialog.cancel();
-                    }else{
-                            return  $mdDialog.hide($scope.calendarEvent);
 
-                    }
-
+        $scope.salvar = function() {
+            console.log('ola');
+            if($scope.calendarEvent === undefined){
+                return $mdDialog.cancel();
+            }else{
+                return  $mdDialog.hide($scope.calendarEvent);
 
             }
+
+
+        }
 
         /*Show message*/
         function openToast(message) {
@@ -63,8 +63,37 @@ angular.module('clinica')
 
             });
         };
+        $scope.statusAutorizacao = null;
+
+        $scope.showNotification = function(status){
+            $scope.statusAutorizacao = status;
+        }
+
+        var autorizarAgendamentoUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/autorizar_agendamento/';
+        $scope.autorizarAgendamento = function (calEvent) {
+                RestSrv.edit(autorizarAgendamentoUrl, calEvent.agenda, function(status,data) {
+
+                    $rootScope.$broadcast('updateAgenda');
+                    openToast('Agenda Autorizada.', 'success');
+                    $mdDialog.hide();
+
+                });
 
 
-      
+        }
 
-});
+        var rejeitarAgendamentoUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/rejeitar_agendamento/';
+        $scope.rejeitarAgendamento = function(calEvent) {
+            RestSrv.edit(rejeitarAgendamentoUrl, calEvent.agenda, function(status,data) {
+
+                $rootScope.$broadcast('updateAgenda');
+                openToast('Agenda rejeitada.', 'success');
+                $mdDialog.hide();
+
+            });
+        }
+
+
+
+
+    });

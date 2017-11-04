@@ -72,7 +72,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro();
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -103,21 +104,17 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro();
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
 
 
 		if(itemAgenda.getPaciente() == null){
-			List<String> mensagensErro;
-			mensagensErro = new ArrayList<String>();
-			mensagensErro.add(String.format(" %s : %s", "Paciente",
-					"Paciente não pode estar em branco"));
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
 
-			fieldsErrorDetalhe.AddField("PACIENTE", "error");
-
-			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -145,7 +142,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro();
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -153,15 +151,9 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		if(itemAgenda.getPaciente() == null){
 
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
 
-			List<String> mensagensErro;
-			mensagensErro = new ArrayList<String>();
-			mensagensErro.add(String.format(" %s : %s", "Paciente",
-					"Paciente não pode estar em branco"));
-
-			fieldsErrorDetalhe.AddField("PACIENTE", "error");
-
-			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -174,13 +166,93 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		return super.update(itemAgendaAux, erros);
 	}
 
-	private void SetMessageErro() {
+
+
+	@RequestMapping(path = "/autorizar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> autorizarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.AGENDADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
+
+	@RequestMapping(path = "/rejeitar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> rejeitarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.NAOAUTORIZADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
+
+	private void SetMessageErro(String chave1, String chave2, String valor1, String valor2) {
 		List<String> mensagensErro;
 		mensagensErro = new ArrayList<String>();
-		mensagensErro.add(String.format(" %s : %s", "Data Final",
-                "Data final não pode ser maior que a data Inicial"));
+		mensagensErro.add(String.format(" %s : %s", chave1,
+                valor1));
 
-		fieldsErrorDetalhe.AddField("DATAFINAL", "error");
+		fieldsErrorDetalhe.AddField(chave2, valor2);
 
 		fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
 	}

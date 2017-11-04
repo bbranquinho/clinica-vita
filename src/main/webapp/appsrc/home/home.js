@@ -292,7 +292,7 @@ angular.module('clinica')
 
                         'gadgets': [{
                             'directiveName': 'card-home',
-                            'template': '<card-home color="mat-gray" icon="event" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" title-number="20" url="'+ quantidadeAgendamentos +'" title="Agendamentos"></card-home>',
+                            'template': '<card-home color="mat-gray" icon="event" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" title-number="20" url="'+ quantidadeAgendamentos +'" title="Agendamentos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-home>',
                             'title': 'Open Issues',
                             'color': 'mat-gray',
                             'type': 'tile',
@@ -368,7 +368,7 @@ angular.module('clinica')
 
                     'gadgets': [{
 
-                        'template': '<card-bar-horizontal-grafic color="mat-blue_dark_clean" icon="event" title="Agendamentos:Ano(Azul:F/Cinza:M)" url="'+ quantidadeAgendamentosSexoAno +'" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-bar-horizontal-grafic>'
+                        'template': '<card-bar-horizontal-grafic color="mat-blue_dark_clean" icon="event" title="Agendamentos:Ano(Azul:F/Cinza:M)" url="'+ quantidadeAgendamentosSexoAno +'" color-title="primary " body-a="Médicos" body-b="Cadastrados" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-bar-horizontal-grafic>'
 
                     }]
 
@@ -382,13 +382,13 @@ angular.module('clinica')
                 'columns': [{
 
                     'gadgets': [{
-                        'template': '<card-pie-grafic color="mat-green_light" icon="event" url="'+ quantidadeSolicitacoesAgendamento +'" params="[\'Aguardando Autorização\',\'Não Agendado\',\'Cancelado\',\'Faltou\']" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-pie-grafic>'
+                        'template': '<card-pie-grafic color="mat-green_light" icon="event" url="'+ quantidadeSolicitacoesAgendamento +'" params="[\'Aguardando Autorização\',\'Não Agendado\',\'Cancelado\',\'Faltou\']" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-pie-grafic>'
                     }]
 
                 },{
 
                     'gadgets': [{
-                        'template': '<card-line-grafic color="mat-concrete" icon="event" title="Consutas Realizadas:Mês" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" url="'+ quantidadeConsultasRealizadasMes +'" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados"></card-line-grafic>'
+                        'template': '<card-line-grafic color="mat-concrete" icon="event" title="Consutas Realizadas:Mês" params-x="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']" url="'+ quantidadeConsultasRealizadasMes +'" title="50" color-title="primary " body-a="Médicos" body-b="Cadastrados" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-line-grafic>'
 
                     }]
 
