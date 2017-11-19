@@ -30,6 +30,11 @@
                 <md-divider ng-show="hasAnyPermission(['ROLE_PACIENTE'])"></md-divider>
                 <md-accordion-button  ng-show="hasAnyPermission(['ROLE_PACIENTE'])"  href="#!/compromissos"> <md-icon md-svg-icon="compromisso" class="menu-svg"></md-icon>Compromissos</md-accordion-button>
                 <md-divider ng-show="hasAnyPermission(['ROLE_PACIENTE'])"></md-divider>
+
+
+                <md-accordion-button  ng-show="hasAnyPermission(['ROLE_MEDICO'])"  href="#!/compromissos"> <md-icon md-svg-icon="compromisso" class="menu-svg"></md-icon>Compromissos Médico</md-accordion-button>
+                <md-divider ng-show="hasAnyPermission(['ROLE_MEDICO'])"></md-divider>
+
                 <md-divider ng-show="hasAnyPermission(['ROLE_SECRETARIA'])"></md-divider>
                 <md-divider ng-show="hasAnyPermission(['ROLE_ADMIN'])" ></md-divider>
                 <md-accordion-button  ng-show="hasAnyPermission(['ROLE_ADMIN'])"   href="#!/medicos"> <md-icon md-svg-icon="medico" class="menu-svg"></md-icon>Médicos</md-accordion-button>

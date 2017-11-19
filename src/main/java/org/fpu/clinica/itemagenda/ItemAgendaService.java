@@ -540,11 +540,6 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 			itensgendas = itemAgendaRepository.findbyDateAgenda(dataHoraAgendamentoIntervaloInicial,dataHoraAgendamentoIntervaloFinal, medicoAux);
 		}
 
-
-
-
-
-
 		return itensgendas;
 
 	}
@@ -558,6 +553,20 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		Paciente pacienteAux = pacienteRepository.findOne(id);
 
 		List<ItemAgenda> itemAgenda = itemAgendaRepository.findCompromissosPaciente(pacienteAux);
+
+		message.AddField("mensagem", "Load Medicos success");
+		message.setData(itemAgenda);
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+
+	@Transactional
+	@RequestMapping(value = "/findCompromissoMedico/{idMedico}", method = RequestMethod.GET)
+	public ResponseEntity<?> findCompromissosMedico( @PathVariable("idMedico") Long id) {
+
+
+		Medico medicoAux = medicoRepository.findOne(id);
+
+		List<ItemAgenda> itemAgenda = itemAgendaRepository.findCompromissosMedico(medicoAux);
 
 		message.AddField("mensagem", "Load Medicos success");
 		message.setData(itemAgenda);
@@ -767,5 +776,35 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 		return ResponseEntity.status(HttpStatus.OK).body(solicitacoes);
+	}
+
+
+	@RequestMapping(value = "/valor_consultas_realizadas_mes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getValorConsultasRealizadas() {
+
+		HashMap<String, List<BigDecimal>> consultas = new HashMap<>();
+
+		List<BigDecimal> valorConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			BigDecimal valorConsultaMes = this.itemAgendaRepository.findByValorConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			valorConsultasRealizadas.add(valorConsultaMes);
+
+			cal.add(Calendar.MONTH, +1);
+
+		}
+
+		consultas.put("valorConsultas",valorConsultasRealizadas);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultas);
 	}
 }

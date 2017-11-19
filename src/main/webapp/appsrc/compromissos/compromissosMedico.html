@@ -1,0 +1,162 @@
+<div id="calendar" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header" >
+
+        <div class="header-content" layout="column" layout-align="space-between">
+
+            <div class="header-top" layout="row" layout-align="space-between center" layout-xs="column">
+
+            </div>
+            <!-- / TOOLBAR -->
+
+            <!-- HEADER BOTTOM -->
+            <div class="header-bottom" layout="row" layout-align="center center">
+
+
+                <div class="title" layout-gt-sm="row">
+                    <md-icon md-svg-icon="compromisso" style="width: 200px; height: 200px;" class="logo profile-image avatar huge"></md-icon>
+
+                </div>
+
+            </div>
+            <div class="header-bottom" layout="row" layout-align="center center">
+
+
+
+                <div class="title" layout-gt-sm="row">
+                    <span style="width: 200px; "class="logo-text" >Compromissos</span>
+
+                </div>
+
+
+
+            </div>
+            <!-- / HEADER BOTTOM -->
+        </div>
+
+        <!-- ADD EVENT BUTTON
+        <md-button class="add-event-button md-fab md-warn" ng-click=""
+                   aria-label="Editar Perfil" >
+            <ng-md-icon icon="add" class="material-icons  md-24"></ng-md-icon>
+        </md-button>
+         / ADD EVENT BUTTON -->
+    </div>
+    <!-- / HEADER -->
+
+
+    <div class="content" flex>
+
+        <md-progress-linear md-mode="determinate" value="{{determinateValue}}"></md-progress-linear>
+        <md-tabs md-dynamic-height md-stretch-tabs="always"  md-selected="tabIndex" md-border-bottom>
+
+            <md-tab>
+                <md-tab-label>
+                    <md-tooltip md-direction="top">Gerar Horários para Agendamento</md-tooltip>
+                    <span ><span ><i class="material-icons">today</i></span></span>
+                </md-tab-label>
+                <md-tab-body>
+                    <!--<md-content class="timeline-tab"
+                                ng-include="'app/main/pages/profile/tabs/timeline/timeline.html'">
+                    </md-content>-->
+
+                    <div  layout="row" flex layout-xs="column">
+
+
+
+
+
+
+
+
+                        <div  layout="column" flex-gt-xs="100"
+                              flex-xs="100">
+
+                            <div  flex
+                                  ng-drop="isEdited" ></div>
+
+                            <div  layout="column" flex="auto">
+                                <md-card-content  flex layout="column">
+
+
+
+                                    <md-card  flex="auto"   ng-drag="isEdited" class="gadget" layout="column">
+                                        <md-toolbar>
+                                            <div class="md-toolbar-tools">
+                                                <h2>Compromissos: {{medico.user.nome}}</h2>
+                                                <span flex></span>
+
+                                            </div>
+                                        </md-toolbar>
+
+                                        <md-content style="overflow: inherit;">
+                                            <md-event-calendar ng-if="!medico.id"
+                                                               ng-model="selected"
+                                                               md-events="events"
+
+                                                               md-label="title",
+                                                               md-show-create-link="true"
+                                                               md-event-click="eventClicked($selectedEvent,$event)"
+                                                               md-create-event-click="createClicked($event,$date)"
+                                                               md-create-disabled="true"
+                                                               auto-height=""
+                                                               md-show-create-link
+                                                               class="md-primary"
+                                            >
+                                                <md-event-calendar-header class="md-center">
+                                                    <md-event-calendar-prev></md-event-calendar-prev>
+                                                    <md-event-calendar-title></md-event-calendar-title>
+                                                    <md-event-calendar-next></md-event-calendar-next>
+                                                    <md-event-calendar-today>
+                                                    </md-event-calendar-today>
+                                                </md-event-calendar-header>
+                                            </md-event-calendar>
+
+                                            <md-event-calendar ng-if="medico.id"
+                                                               ng-model="selected"
+                                                               md-events="events"
+
+                                                               md-label="title",
+                                                               md-show-create-link="false"
+                                                               md-event-click="eventClicked($selectedEvent,$event)"
+                                                               md-create-event-click="createClicked($event,$date)"
+                                                               md-create-disabled="dis"
+                                                               auto-height=""
+                                                               md-show-create-link
+                                                               class="md-primary"
+                                            >
+                                                <md-event-calendar-header class="md-center" layout="column" layout-padding >
+                                                    <div  class="layout-row">
+                                                        <md-event-calendar-prev></md-event-calendar-prev>
+                                                        <md-event-calendar-title></md-event-calendar-title>
+                                                        <md-event-calendar-next></md-event-calendar-next>
+                                                    </div>
+                                                    <md-event-calendar-today class="layout-row">
+                                                    </md-event-calendar-today>
+                                                </md-event-calendar-header>
+                                            </md-event-calendar>
+                                        </md-content>
+                                </md-card-content>
+                                </md-card>
+                            </div>
+                        </div>
+                    </div>
+
+                </md-tab-body>
+            </md-tab>
+
+
+
+        </md-tabs>
+
+
+    </div>
+    <!-- / CONTENT -->
+
+
+
+
+
+
+
+</div>

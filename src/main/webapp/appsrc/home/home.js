@@ -61,6 +61,7 @@ angular.module('clinica')
         let quantidadeAgendamentosSexoMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos_sexo_mes';
         let quantidadeAgendamentosSexoAno = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_agendamentos_sexo_ano';
         let quantidadeConsultasRealizadasMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_consultas_realizadas_mes';
+        let valorConsultasRealizadasMes = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/valor_consultas_realizadas_mes';
         let quantidadeSolicitacoesAgendamento = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/quantidade_solicitacoes_agendamento';
 
 
@@ -84,9 +85,6 @@ angular.module('clinica')
                     RestSrv.find(currentFuncionarioUrl, function (status, data) {
                         $scope.funcionario = data;
                         console.log($scope.funcionario);
-
-
-
 
 
                     });
@@ -281,7 +279,7 @@ angular.module('clinica')
 
                         'gadgets': [{
                             'directiveName': 'card-home',
-                            'template': '<card-home color="mat-teal" url="'+ quantidadeAgendamentos +'" icon="notifications" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])"title-number="35"title="Notificações"></card-home>',
+                            'template': '<card-home color="mat-teal" url="'+ quantidadeAgendamentos +'" icon="notifications" ng-if="hasAnyPermission([\'ROLE_ADMIN\'])"title-number="35"title="Notificações"></card-home>',
                             'title': 'Open Issues',
                             'color': 'mat-teal',
                             'type': 'tile',
@@ -292,7 +290,7 @@ angular.module('clinica')
 
                         'gadgets': [{
                             'directiveName': 'card-home',
-                            'template': '<card-home color="mat-gray" icon="event" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" title-number="20" url="'+ quantidadeAgendamentos +'" title="Agendamentos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-home>',
+                            'template': '<card-home color="mat-gray" icon="event" title-number="20" url="'+ quantidadeAgendamentos +'" title="Agendamentos" ng-if="hasAnyPermission([\'ROLE_ADMIN\']);"></card-home>',
                             'title': 'Open Issues',
                             'color': 'mat-gray',
                             'type': 'tile',
@@ -316,7 +314,7 @@ angular.module('clinica')
                     },{
 
                         'gadgets': [{
-                            'template': '<card-paciente color="mat-green" ng-show="hasAnyPermission([\'ROLE_ADMIN\'])" icon="paciente_home" title="Pacientes" color-title="primary " url="'+ quantidadePacienteUrl +'" body-a="Pacientes" body-b="Cadastrados"></card-paciente>',
+                            'template': '<card-paciente color="mat-green" ng-if="hasAnyPermission([\'ROLE_ADMIN\'])" icon="paciente_home" title="Pacientes" color-title="primary " url="'+ quantidadePacienteUrl +'" body-a="Pacientes" body-b="Cadastrados"></card-paciente>',
 
                         }]
 
@@ -360,7 +358,7 @@ angular.module('clinica')
 
                     'gadgets': [{
 
-                        'template': '<card-polar-grafic color="mat-tomato" icon="event" title="80" color-title="primary " body-a="Pacientes" body-b="Cadastrados"></card-polar-grafic>'
+                        'template': '<card-polar-grafic color="mat-tomato" icon="event" title="Valor das consultas por mês" color-title="primary " url="'+  valorConsultasRealizadasMes +'" params="[\'JAN\',\'FEV\',\'MAR\',\'ABR\',\'MAI\',\'JUN\',\'JUL\',\'AGO\',\'SET\',\'OUT\',\'NOV\',\'DEZ\']"  body-a="Pacientes"  ng-if="hasAnyPermission([\'ROLE_ADMIN\']);" body-b="Cadastrados"></card-polar-grafic>'
 
                     }]
 

@@ -4,84 +4,148 @@ angular.module('clinica')
 
     .controller('AgendaCompromissoCtrl',function ( $mdDialog, $scope, $mdMedia, $mdToast,RestSrv,SERVICE_PATH, $rootScope,$document,FormatDate )  {
         $rootScope.statusMenu = true;
-        var mdDialog = $mdDialog;
+        let mdDialog = $mdDialog;
 
         $scope.paciente = {};
         $scope.events = [];
-
+        $scope.medico = {};
+        $scope.currentPermission = {};
 
         $scope.agendas = {};
 
 
-
-        var userUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
-
-
+        let userUrl = SERVICE_PATH.PRIVATE_PATH + '/usuario/findCurrentUser';
 
 
         RestSrv.find(userUrl, function (status, data) {
             $scope.user = data;
             console.log($scope.user);
 
+            $scope.currentPermission = $scope.user[0].permissoes[0].role;
 
-            var currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findById/' + $scope.user[0].id;
-            RestSrv.find(currentPacienteUrl, function (status, data) {
+            if($scope.user != null && $scope.user != undefined){
+                if($scope.user[0].permissoes[0].role === "ROLE_MEDICO"){
 
-                $scope.paciente = data.data;
-
-                var compromissosPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/findCompromissoPaciente/' +  $scope.paciente.id;
-
-                RestSrv.find(compromissosPacienteUrl, function (status, data) {
-
-                    console.log(data);
+                    let userMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/findCurrentUser';
 
 
-                    $scope.agendas = data.data;
-                    console.log($scope.agendas);
-
-                    $scope.events = [];
-                    for(var i = 0 ; i < $scope.agendas.length; i++) {
-                        var evento_aux = {};
-                        evento_aux.start = moment($scope.agendas[i].agenda.dataHoraInicialConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
-                        console.log(evento_aux.start);
-                        evento_aux.end = moment($scope.agendas[i].agenda.dataHoraFinalConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
-                        evento_aux.title = $scope.agendas[i].statusAgenda;
-                        evento_aux.agenda = $scope.agendas[i];
-
-                        $scope.events.push(evento_aux);
 
 
-                    }
+                    RestSrv.find(userMedicoUrl, function (status, data) {
+                        $scope.user = data;
+                        console.log($scope.user);
 
-                    console.log($scope.events);
 
-                    // openToast('Loaded Medicos with success.', 'success');
+                        let currentMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/medico/findById/' + $scope.user[0].id;
+                        RestSrv.find(currentMedicoUrl, function (status, data) {
 
-                });
+                            $scope.medico = data.data;
 
-            });
+                            let compromissosMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/findCompromissoMedico/' +  $scope.medico.id;
 
+                            RestSrv.find(compromissosMedicoUrl, function (status, data) {
+
+                                console.log(data);
+
+
+                                $scope.agendas = data.data;
+                                console.log($scope.agendas);
+
+                                $scope.events = [];
+                                for(let i = 0 ; i < $scope.agendas.length; i++) {
+                                    let evento_aux = {};
+                                    evento_aux.start = moment($scope.agendas[i].agenda.dataHoraInicialConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
+                                    console.log(evento_aux.start);
+                                    evento_aux.end = moment($scope.agendas[i].agenda.dataHoraFinalConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
+                                    evento_aux.title = $scope.agendas[i].statusAgenda;
+                                    evento_aux.agenda = $scope.agendas[i];
+
+                                    $scope.events.push(evento_aux);
+
+
+                                }
+
+                                console.log($scope.events);
+
+                                // openToast('Loaded Medicos with success.', 'success');
+
+                            });
+
+                        });
+
+                    });
+
+
+
+                }else if($scope.user[0].permissoes[0].role === "ROLE_PACIENTE"){
+
+
+                    let userMedicoUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
+
+
+
+
+                    RestSrv.find(userMedicoUrl, function (status, data) {
+                        $scope.user = data;
+                        console.log($scope.user);
+
+                        let currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findById/' + $scope.user[0].id;
+                        RestSrv.find(currentPacienteUrl, function (status, data) {
+
+                            $scope.paciente = data.data;
+
+                            let compromissosPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/findCompromissoPaciente/' +  $scope.paciente.id;
+
+                            RestSrv.find(compromissosPacienteUrl, function (status, data) {
+
+                                console.log(data);
+
+
+                                $scope.agendas = data.data;
+                                console.log($scope.agendas);
+
+                                $scope.events = [];
+                                for(let i = 0 ; i < $scope.agendas.length; i++) {
+                                    let evento_aux = {};
+                                    evento_aux.start = moment($scope.agendas[i].agenda.dataHoraInicialConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
+                                    console.log(evento_aux.start);
+                                    evento_aux.end = moment($scope.agendas[i].agenda.dataHoraFinalConsulta , 'DD/MM/YYYY HH:mm:ss').toDate();
+                                    evento_aux.title = $scope.agendas[i].statusAgenda;
+                                    evento_aux.agenda = $scope.agendas[i];
+
+                                    $scope.events.push(evento_aux);
+
+
+                                }
+
+                            });
+
+                        });
+                    });
+                }
+            }
         });
+
 
 
 
         $scope.updateAgendaCompromisso = function() {
 
 
-            var userUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
+            let userPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findCurrentUser';
 
 
-            RestSrv.find(userUrl, function (status, data) {
+            RestSrv.find(userPacienteUrl, function (status, data) {
                 $scope.user = data;
                 console.log($scope.user);
 
 
-                var currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findById/' + $scope.user[0].id;
+                let currentPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/paciente/findById/' + $scope.user[0].id;
                 RestSrv.find(currentPacienteUrl, function (status, data) {
 
                     $scope.paciente = data.data;
 
-                    var compromissosPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/findCompromissoPaciente/' + $scope.paciente.id;
+                    let compromissosPacienteUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/findCompromissoPaciente/' + $scope.paciente.id;
 
                     RestSrv.find(compromissosPacienteUrl, function (status, data) {
 
@@ -93,8 +157,8 @@ angular.module('clinica')
 
 
                         $scope.events = [];
-                        for (var i = 0; i < $scope.agendas.length; i++) {
-                            var evento_aux = {};
+                        for (let i = 0; i < $scope.agendas.length; i++) {
+                            let evento_aux = {};
                             evento_aux.start = moment($scope.agendas[i].agenda.dataHoraInicialConsulta, 'DD/MM/YYYY HH:mm:ss').toDate();
                             console.log(evento_aux.start);
                             evento_aux.end = moment($scope.agendas[i].agenda.dataHoraFinalConsulta, 'DD/MM/YYYY HH:mm:ss').toDate();
@@ -108,10 +172,6 @@ angular.module('clinica')
 
                         console.log($scope.events);
 
-
-                        // openToast('Loaded Medicos with success.', 'success');
-
-
                     });
 
                 });
@@ -119,26 +179,21 @@ angular.module('clinica')
             });
         }
 
-        //var medicoUrl =  '/medico/findByStatus/Ativo';
-        var medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo';
+        //let medicoUrl =  '/medico/findByStatus/Ativo';
+        let medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo';
         
         $scope.medico = {};
         $scope.medicos = [];
 
         RestSrv.find(medicoUrl, function(status,data) {
-
                 $scope.medicos = data.data;
-
-           // openToast('Loaded Medicos with success.', 'success');
-
-
         });
 
         $scope.tabIndex = 0;
 
 
         $scope.eventClicked = function (item,$event) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+            let useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
 
             mdDialog.show({
@@ -172,23 +227,7 @@ angular.module('clinica')
 
         };
 
-        function getDate(offsetDays, hour) {
-            offsetDays = offsetDays || 0;
-            var offset = offsetDays * 24 * 60 * 60 * 1000;
-            var date = new Date(new Date().getTime() + offset);
-            if (hour) { date.setHours(hour); }
-            return date;
-        }
 
-        function formattedDate(fieldData) {
-            return FormatDate.format(fieldData);
-
-        };
-
-
-        $scope.dis = false;
-        
-        
         /*Atualiza a agenda*/
 
         $rootScope.$on('updateAgendaCompromisso',function () {

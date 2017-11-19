@@ -312,6 +312,26 @@
                                     </md-input-container>
                                 </div>
 
+                                <div>
+
+                                    <div layout-gt-sm="row">
+                                        <div flex-gt-xs>
+                                            <h4>Senha*:</h4>
+                                            <md-input-container class="md-block" flex-gt-sm>
+
+                                                <label>Senha(*):</label>
+                                                <input ng-model="editarFuncionario.user.password" name="senha" type="password" minlength="6" maxlength="20"  ng-required="true"/>
+                                                <md-icon md-svg-src="key_form"></md-icon>
+                                                <div ng-messages="newFuncionarioForm.senha.$error">
+                                                    <div ng-message="required">Campo Obrigatório.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
 
                                 <div flex="100" flex-gt-sm="50" layout="column">
                                     <div>

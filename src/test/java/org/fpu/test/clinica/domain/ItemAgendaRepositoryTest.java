@@ -7,7 +7,10 @@ import org.fpu.test.clinica.utils.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -75,6 +78,41 @@ public class ItemAgendaRepositoryTest extends BaseTest {
 
 		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
 		assertTrue(quantidadeAgendamentos >= 0);
+
+	}
+
+
+	@Test
+	public void getValorConsultsaMes(){
+		HashMap<String, List<BigDecimal>> consultas = new HashMap<>();
+
+		List<BigDecimal> valorConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			BigDecimal valorConsultaMes = this.itemItemAgendaRepository.findByValorConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			if(valorConsultaMes == null){
+				valorConsultasRealizadas.add(BigDecimal.ZERO);
+			}else {
+				valorConsultasRealizadas.add(valorConsultaMes);
+			}
+
+
+
+			cal.add(Calendar.MONTH, +1);
+
+		}
+
+		consultas.put("Consultas",valorConsultasRealizadas);
+
+		LOGGER.info("Teste quantidade Agendamentos :" +consultas);
+		assertTrue(consultas.size() > 0);
 
 	}
 

@@ -157,33 +157,16 @@ public class PacienteService extends GenericService<Paciente, Long> {
 			
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
-		validateUserRequest(paciente);		
-		//paciente.getUser().setPassword(this.passwordEncoder.encode(paciente.getUser().getPassword()));
+		//validateUserRequest(paciente);
 
-		paciente.getUser().setPassword(validateUserRequest(paciente).getPassword());
-		/*System.out.println("File:"+ paciente.getUser().getFileUpload().getId());
-		Long idFile = paciente.getUser().getFileUpload().getId();
-		System.out.println("idFile:"+ idFile);
-		FileUpload fileUplad = new FileUpload();
-		fileUplad.setId(idFile);
-		fileUplad.setFile(paciente.getUser().getFileUpload().getFile());
-		fileUplad.setMimeType(paciente.getUser().getFileUpload().getMimeType());
-		fileUplad = this.fileUploadRepository.saveAndFlush(fileUplad);
-		
-		Usuario usuario = new Usuario();
-		usuario = this.userRepository.findByEmail(currentUser.getActiveUser().getEmail());
-		usuario.setEmail(paciente.getUser().getEmail());
-		
-		usuario.setFileUpload(fileUplad);
-		usuario.setNome(paciente.getUser().getNome());
-		usuario.setPassword(paciente.getUser().getPassword());*/
-		
-		
+		//paciente.getUser().setPassword(validateUserRequest(paciente).getPassword());
+		paciente.getUser().setPassword(this.passwordEncoder.encode(paciente.getUser().getPassword()));
+
 		Usuario usuario = this.userRepository.saveAndFlush(paciente.getUser());
-		
 
 		
 		paciente.setUser(usuario);
+
 		return super.update(paciente, errors);
 	}
 	
