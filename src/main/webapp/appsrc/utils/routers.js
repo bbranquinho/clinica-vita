@@ -41,10 +41,6 @@ angular.module('clinica')
             controller: 'AgendaCompromissoCtrl'
         })
 
-        .when('/compromissosMedico', {
-            templateUrl: 'appsrc/compromissos/compromissosMedico.html',
-            controller: 'AgendaCompromissoMedicoCtrl'
-        })
 
         .when('/cargos', {
             templateUrl: 'appsrc/cargo/cargo.html',
