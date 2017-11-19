@@ -216,5 +216,10 @@ angular.module('clinica')
             console.log('on');
             $scope.selectAgenda($scope.medico);
         })
+
+        $rootScope.$on('updateAgendaSol',function (event, opt) {
+            console.log('on');
+            $scope.selectAgenda(opt.medico);
+        })
     });
 

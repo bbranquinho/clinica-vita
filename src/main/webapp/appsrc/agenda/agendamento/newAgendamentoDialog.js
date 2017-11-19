@@ -11,8 +11,8 @@ angular.module('clinica')
         $scope.paciente = {};
         $scope.setPaciente = function(elements){
             if(elements != null) {
-                $scope.paciente = elements;
-                console.log(elements);
+                $scope.itemAgenda.paciente  = elements;
+                console.log( $scope.itemAgenda.paciente);
             }
 
         }
@@ -55,8 +55,8 @@ angular.module('clinica')
         $scope.salvar = function() {
 
 
-            $scope.itemAgenda.paciente = $scope.paciente;
-            console.log( $scope.itemAgenda);
+            //$scope.itemAgenda.paciente = $scope.paciente;
+            //console.log( $scope.itemAgenda);
             if($scope.itemAgenda === undefined){
                 return $mdDialog.cancel();
             }else{
@@ -71,7 +71,7 @@ angular.module('clinica')
 
 
                         showCustomSuccessToast('Sucesso','Solicitação de Agendamento \'' + $scope.itemAgenda.agenda.dataHoraInicialConsulta + '\' concluida.');
-                        return  $mdDialog.hide(data.data);
+                        return  $mdDialog.hide($scope.itemAgenda);
                     }else{
                         $scope.statusError = 'unsuccess';
                         $scope.messages = data.fieldsErrorMessages;
