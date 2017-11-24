@@ -205,13 +205,13 @@ angular.module('clinica')
                 console.log('date:');
                 console.log(itemAgenda);
 
-                $scope.searchHorarios();
+                $scope.persquisarHorarios();
 
                 /*Dispara um evento para atualizar a agenda*/
                // $scope.$broadcast("updateAgenda");
 
-
-                $rootScope.$broadcast('updateAgenda');
+                console.log(itemAgenda.medico.id);
+                $rootScope.$broadcast('updateAgendaSol', {medico: itemAgenda.medico});
 
 
 

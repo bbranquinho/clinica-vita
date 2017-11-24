@@ -100,10 +100,17 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/status_agenda").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/data_agendamento").hasAnyAuthority(AUTH_ADMIN,AUTH_SECRETARIA)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findCompromissoPaciente/*").hasAnyAuthority(AUTH_ADMIN,AUTH_PACIENTE)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/findCompromissoMedico/*").hasAnyAuthority(AUTH_ADMIN,AUTH_MEDICO)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/find_horario_agendamento/*").hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos_sexo_mes").hasAnyAuthority(AUTH_ADMIN)
-
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_agendamentos_sexo_ano").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_consultas_realizadas_mes").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/valor_consultas_realizadas_mes").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH + "/quantidade_solicitacoes_agendamento").hasAnyAuthority(AUTH_ADMIN)
+				.antMatchers(HttpMethod.PUT, ServicePath.ITEM_AGENDA_PATH + "/cancelar_agendamento").hasAnyAuthority(AUTH_SECRETARIA,AUTH_PACIENTE)
+				.antMatchers(HttpMethod.PUT, ServicePath.ITEM_AGENDA_PATH + "/rejeitar_agendamento").hasAnyAuthority(AUTH_SECRETARIA)
+				.antMatchers(HttpMethod.PUT, ServicePath.ITEM_AGENDA_PATH + "/autorizar_agendamento").hasAnyAuthority(AUTH_SECRETARIA)
 
 
 				.antMatchers(HttpMethod.GET, ServicePath.ITEM_AGENDA_PATH).hasAnyAuthority(AUTH_MEDICO,AUTH_SECRETARIA)
@@ -133,6 +140,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/cidades").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/estados").permitAll()
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/registrosprofissionais").permitAll()
+				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/findById/*").hasAnyAuthority(AUTH_MEDICO,AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/findCurrentUser").hasAnyAuthority(AUTH_ADMIN,AUTH_MEDICO)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/quantidade_medicos").hasAnyAuthority(AUTH_ADMIN)
 				.antMatchers(HttpMethod.GET, ServicePath.MEDICO_PATH + "/findByStatus/*").permitAll()
@@ -165,7 +173,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH + "/findCurrentUser").hasAnyAuthority(AUTH_ADMIN,AUTH_PACIENTE)
 				.antMatchers(HttpMethod.GET, ServicePath.PACIENTE_PATH).hasAnyAuthority(AUTH_PACIENTE,AUTH_ADMIN)
 				.antMatchers(HttpMethod.POST, ServicePath.PACIENTE_PATH).permitAll()
-				.antMatchers(HttpMethod.PUT, ServicePath.PACIENTE_PATH).hasAnyAuthority(AUTH_PACIENTE)
+				.antMatchers(HttpMethod.PUT, ServicePath.PACIENTE_PATH).hasAnyAuthority(AUTH_PACIENTE,AUTH_ADMIN)
 				.antMatchers(HttpMethod.DELETE, ServicePath.PACIENTE_PATH).hasAnyAuthority(AUTH_ADMIN)
 
 				// Usuario Authorities.

@@ -72,7 +72,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro();
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -103,21 +104,17 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro();
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
 
 
 		if(itemAgenda.getPaciente() == null){
-			List<String> mensagensErro;
-			mensagensErro = new ArrayList<String>();
-			mensagensErro.add(String.format(" %s : %s", "Paciente",
-					"Paciente não pode estar em branco"));
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
 
-			fieldsErrorDetalhe.AddField("PACIENTE", "error");
-
-			fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
@@ -130,13 +127,132 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		return super.update(itemAgendaAux, erros);
 	}
 
-	private void SetMessageErro() {
+
+	@RequestMapping(path = "/cancelar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> cancelarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.CANCELADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
+
+
+	@RequestMapping(path = "/autorizar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> autorizarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.AGENDADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
+
+	@RequestMapping(path = "/rejeitar_agendamento", method = RequestMethod.PUT)
+	public ResponseEntity<?> rejeitarAgendamento(@RequestBody  @Validated ItemAgenda itemAgenda, Errors erros) {
+		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		Calendar calDataInicial = Calendar.getInstance();
+		calDataInicial.setTime(itemAgenda.getAgenda().getDataHoraInicialConsulta());
+
+		Calendar calDataFinal = Calendar.getInstance();
+		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
+
+		if(CompareDatas(calDataInicial, calDataFinal)){
+			SetMessageErro("Data Final","DATAFINAL",
+					"Data final não pode ser maior que a data Inicial","error");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
+
+		if(itemAgenda.getPaciente() == null){
+
+			SetMessageErro("Paciente","PACIENTE",
+					"Paciente não pode estar em branco","error");
+
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+		ItemAgenda itemAgendaAux = itemAgendaRepository.findOne(itemAgenda.getId());
+		Paciente paciente = pacienteRepository.findOne(itemAgenda.getPaciente().getId());
+
+		itemAgendaAux.setPaciente(paciente);
+		itemAgendaAux.setStatusAgenda(TipoStatusAgenda.NAOAUTORIZADO.getDescricao());
+
+		return super.update(itemAgendaAux, erros);
+	}
+
+
+	private void SetMessageErro(String chave1, String chave2, String valor1, String valor2) {
 		List<String> mensagensErro;
 		mensagensErro = new ArrayList<String>();
-		mensagensErro.add(String.format(" %s : %s", "Data Final",
-                "Data final não pode ser maior que a data Inicial"));
+		mensagensErro.add(String.format(" %s : %s", chave1,
+                valor1));
 
-		fieldsErrorDetalhe.AddField("DATAFINAL", "error");
+		fieldsErrorDetalhe.AddField(chave2, valor2);
 
 		fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
 	}
@@ -424,11 +540,6 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 			itensgendas = itemAgendaRepository.findbyDateAgenda(dataHoraAgendamentoIntervaloInicial,dataHoraAgendamentoIntervaloFinal, medicoAux);
 		}
 
-
-
-
-
-
 		return itensgendas;
 
 	}
@@ -442,6 +553,20 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		Paciente pacienteAux = pacienteRepository.findOne(id);
 
 		List<ItemAgenda> itemAgenda = itemAgendaRepository.findCompromissosPaciente(pacienteAux);
+
+		message.AddField("mensagem", "Load Medicos success");
+		message.setData(itemAgenda);
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+
+	@Transactional
+	@RequestMapping(value = "/findCompromissoMedico/{idMedico}", method = RequestMethod.GET)
+	public ResponseEntity<?> findCompromissosMedico( @PathVariable("idMedico") Long id) {
+
+
+		Medico medicoAux = medicoRepository.findOne(id);
+
+		List<ItemAgenda> itemAgenda = itemAgendaRepository.findCompromissosMedico(medicoAux);
 
 		message.AddField("mensagem", "Load Medicos success");
 		message.setData(itemAgenda);
@@ -547,18 +672,17 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 		for(int i = 0; i < 7; i++){
-			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Masculino");
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Masculino");
 
 			agendamentosMasculinos.add(quantidadeAgendamentosMasculino);
 
-			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Feminino");
+			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(cal.getTime().getMonth(),"Feminino");
 			agendamentosFemininos.add(quantidadeAgendamentosFeminino);
 
 			cal.add(Calendar.MONTH, +1);
 
 
 		}
-
 
 		agendamentos.put("Masculino",agendamentosMasculinos);
 		agendamentos.put("Feminino",agendamentosFemininos);
@@ -567,6 +691,120 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	}
 
 
+	@RequestMapping(value = "/quantidade_agendamentos_sexo_ano", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeConsultasBySexoAno() {
+
+		HashMap<String, List<Long>> consultasMedicos = new HashMap<>();
+
+		List<Long> consultasMasculino = new ArrayList<>();
+		List<Long> consultasFeminino = new ArrayList<>();
 
 
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -6);
+
+
+		for(int i = 0; i < 7; i++){
+			System.out.println();
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(cal.get(Calendar.YEAR),"Masculino");
+
+			consultasMasculino.add(quantidadeAgendamentosMasculino);
+
+			Long quantidadeAgendamentosFeminino = this.itemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(cal.get(Calendar.YEAR),"Feminino");
+			consultasFeminino.add(quantidadeAgendamentosFeminino);
+
+			cal.add(Calendar.YEAR, +1);
+
+
+		}
+
+		consultasMedicos.put("Masculino",consultasMasculino);
+		consultasMedicos.put("Feminino",consultasFeminino);
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultasMedicos);
+	}
+
+
+	@RequestMapping(value = "/quantidade_consultas_realizadas_mes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeConsultasRealizadas() {
+
+		HashMap<String, List<Long>> consultas = new HashMap<>();
+
+		List<Long> QuantidadeConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			Long quantidadeAgendamentosMasculino = this.itemAgendaRepository.findByConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			QuantidadeConsultasRealizadas.add(quantidadeAgendamentosMasculino);
+
+
+
+			cal.add(Calendar.MONTH, +1);
+
+
+		}
+
+		consultas.put("Consultas",QuantidadeConsultasRealizadas);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultas);
+	}
+
+	@RequestMapping(value = "/quantidade_solicitacoes_agendamento", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getQuantidadeStatusSolicitacoesAgendamento() {
+
+		HashMap<String, List<Long>> solicitacoes = new HashMap<>();
+
+		List<Long> quantidadesStatusSolicitacoes = new ArrayList<>();
+
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.AGUARDANDOAUTORIZACAO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.NAOAGENDADO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.CANCELADO.getDescricao()));
+		quantidadesStatusSolicitacoes.add( this.itemAgendaRepository.countByStatusAgenda(TipoStatusAgenda.FALTOU.getDescricao()));
+
+
+		solicitacoes.put("Solicitacoes",quantidadesStatusSolicitacoes);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(solicitacoes);
+	}
+
+
+	@RequestMapping(value = "/valor_consultas_realizadas_mes", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> getValorConsultasRealizadas() {
+
+		HashMap<String, List<BigDecimal>> consultas = new HashMap<>();
+
+		List<BigDecimal> valorConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			BigDecimal valorConsultaMes = this.itemAgendaRepository.findByValorConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			valorConsultasRealizadas.add(valorConsultaMes);
+
+			cal.add(Calendar.MONTH, +1);
+
+		}
+
+		consultas.put("valorConsultas",valorConsultasRealizadas);
+
+
+		return ResponseEntity.status(HttpStatus.OK).body(consultas);
+	}
 }

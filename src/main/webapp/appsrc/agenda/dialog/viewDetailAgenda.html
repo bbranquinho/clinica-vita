@@ -1,13 +1,82 @@
-<md-dialog class="event-detail-dialog" aria-label="New Message">
+<md-dialog class="event-detail-dialog" aria-label="New Message" ng-init="showCardAgendamento = false">
     <md-toolbar >
         <div class="md-toolbar-tools">
             <span class="title">Agendamento</span>
             <span flex></span>
-
+            <md-button class="md-icon-button" ng-click="cancelar()">
+                <!--<i class="material-icons">close</i>-->
+                <md-icon md-svg-icon="close" aria-label="Close dialog"></md-icon>
+            </md-button>
         </div>
     </md-toolbar>
 
+
+
+
+
     <md-dialog-content ms-scroll>
+
+        <!--Card Autorizar agendamento-->
+        <md-card ng-if="calendarEvent.agenda.statusAgenda == 'Aguardando Autorização'">
+            <md-toolbar class="animate-show "  layout-padding="20px">
+                <md-list-item class="md-3-line">
+
+
+
+                    <div class="md-list-item-text"  layout-align="top right">
+                        <p>Autorizar Agendamento:</p>
+                        <md-button class="md-fab md-mini md-secundary" aria-label="Autorizar Agendamento"  ng-click="showNotification(true)">
+                            <md-tooltip md-direction="bottom">Autorizar Agendamento</md-tooltip>
+                            <ng-md-icon icon="thumb_up" class="material-icons  md-24"></ng-md-icon>
+                        </md-button>
+
+                        <md-button class="md-fab md-mini md-secundary" aria-label="Rejeitar Agendamento"  ng-click="showNotification(false)">
+                            <md-tooltip md-direction="bottom">Rejeitar Agendamento</md-tooltip>
+                            <ng-md-icon icon="thumb_down" class="material-icons  md-24"></ng-md-icon>
+                        </md-button>
+                    </div>
+                </md-list-item>
+
+            </md-toolbar>
+
+            <div ng-if="statusAutorizacao != null" layout-padding="20px">
+
+                <div layout-gt-sm="row">
+
+                    <div flex-gt-xs>
+                        <h4><ng-md-icon icon="notifications" class="material-icons  md-32"></ng-md-icon>Conteúdo Notificação*(
+                            <ng-md-icon icon="thumb_up"  ng-if="statusAutorizacao == true" class="material-icons  md-24"></ng-md-icon>
+                            <ng-md-icon icon="thumb_down" ng-if="statusAutorizacao == false" class="material-icons  md-24"></ng-md-icon>
+                            ):</h4>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Notificação</label>
+
+                            <input ng-model="notificacao.conteudo" name="notificacao" md-autofocus required="required">
+
+                            <div ng-messages="newNotificacaoForm.conteudo.$error">
+                                <div ng-message="required">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+
+            <md-card-actions layout="row" layout-align="end right" ng-if="statusAutorizacao != null" >
+
+                <md-button class="md-raised md-primary" aria-label="Enviar Autorização" ng-if="statusAutorizacao == true" ><ng-md-icon icon="send" ng-click="autorizarAgendamento(calendarEvent)" class="material-icons  md-32"></ng-md-icon></md-button>
+                <md-button class="md-raised md-primary" aria-label="Enviar Autorização" ng-if="statusAutorizacao == false"> <ng-md-icon icon="send"  class="material-icons md-32" ng-click="rejeitarAgendamento(calendarEvent)" ></ng-md-icon></md-button>
+            </md-card-actions>
+
+        </md-card>
+
+        <!--Fim Card Autorizar Agendamento-->
+
+        <md-divider ng-if="calendarEvent.agenda.statusAgenda == 'Aguardando Autorização'"></md-divider>
 
         <div class="event-details" layout="column">
 
@@ -66,9 +135,9 @@
 
 
 
-        <md-button ng-click="cancelar()">
-            <md-tooltip md-direction="top" >Fechar</md-tooltip>
-            Fechar
+        <md-button class="md-raised md-warn" ng-click="cancelarAgenda($event,calendarEvent)" ng-if="calendarEvent.agenda.statusAgenda == 'Aguardando Autorização'||calendarEvent.agenda.statusAgenda == 'Agendado'">
+            <md-tooltip md-direction="top" >Cancelar Agenda</md-tooltip>
+            Cancelar Agenda
         </md-button>
 
     </md-dialog-actions>

@@ -7,7 +7,10 @@ import org.fpu.test.clinica.utils.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
@@ -49,7 +52,29 @@ public class ItemAgendaRepositoryTest extends BaseTest {
 	public void getQuantidadeAgendamentosMesSexo(){
 		Calendar cal = Calendar.getInstance();
 
-		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByQuantidadeAgendamentoMesSexo(10,"Masculino");
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByPacienteQuantidadeAgendamentoMesSexo(10,"Masculino");
+
+		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
+		assertTrue(quantidadeAgendamentos >= 0);
+
+	}
+
+	@Test
+	public void getPacientesQuantidadeAgendamentosAnoSexo(){
+		Calendar cal = Calendar.getInstance();
+
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByPacienteQuantidadeAgendamentoAnoSexo(2017,"Masculino");
+
+		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
+		assertTrue(quantidadeAgendamentos >= 0);
+
+	}
+
+	@Test
+	public void getQuantidadeConsultasRealizadas(){
+		Calendar cal = Calendar.getInstance();
+
+		Long quantidadeAgendamentos = this.itemItemAgendaRepository.findByConsultasRealizadasMes(10,"Finalizado");
 
 		LOGGER.info("Teste quantidade Agendamentos :" +quantidadeAgendamentos);
 		assertTrue(quantidadeAgendamentos >= 0);
@@ -57,5 +82,38 @@ public class ItemAgendaRepositoryTest extends BaseTest {
 	}
 
 
+	@Test
+	public void getValorConsultsaMes(){
+		HashMap<String, List<BigDecimal>> consultas = new HashMap<>();
+
+		List<BigDecimal> valorConsultasRealizadas = new ArrayList<>();
+
+
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -7);
+
+
+		for(int i = 0; i < 7; i++){
+			BigDecimal valorConsultaMes = this.itemItemAgendaRepository.findByValorConsultasRealizadasMes(cal.get(Calendar.MONTH),"Finalizado");
+
+			if(valorConsultaMes == null){
+				valorConsultasRealizadas.add(BigDecimal.ZERO);
+			}else {
+				valorConsultasRealizadas.add(valorConsultaMes);
+			}
+
+
+
+			cal.add(Calendar.MONTH, +1);
+
+		}
+
+		consultas.put("Consultas",valorConsultasRealizadas);
+
+		LOGGER.info("Teste quantidade Agendamentos :" +consultas);
+		assertTrue(consultas.size() > 0);
+
+	}
 
 }

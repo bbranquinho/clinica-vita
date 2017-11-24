@@ -168,40 +168,39 @@
 
             <md-content layout="column" layout-fill ng-if="initParamenters.showCardTable == true && initParamenters.showResultHorarios == true">
 
-                <div class="inset" hide-sm></div>
-                <div layout="row" flex layout-xs="column">
-                    <div layout="column" flex-gt-xs="33"
-                         flex-xs="100" ng-repeat="itemAgenda in itensAgenda">
-                        <md-card>
-                            <md-toolbar class="animate-show md-hue-2" style="padding:20px">
-                                <md-list-item class="md-3-line" >
-
-                                    <div class="mrgn-b-md" flex layout="row" flex layout-align="start center" style="box-sizing: border-box; max-height: 100%; display: flex; flex-direction: row; -moz-box-orient: horizontal; -moz-box-direction: normal; place-content: center flex-start; align-items: center; -moz-box-pack: start; -moz-box-align: center;">
-                                        <div flex layout="column" style="display: flex; box-sizing: border-box; flex-direction: column; -moz-box-orient: vertical; -moz-box-direction: normal;">
-                                            <div class="user-thumb">
-                                                <h4 class="headline">{{itemAgenda.medico.user.nome}}</h4>
-                                                <h5><ng-md-icon icon="info"   ></ng-md-icon>Especialidade: {{itemAgenda.medico.especialidade}}</h5>
-                                                <h5><ng-md-icon icon="info"  ></ng-md-icon>{{itemAgenda.medico.tipoRegistro}}: {{itemAgenda.medico.registroProfissional}}</h5>
-                                                <!-- <img alt="user list image" class="img-responsive img-circle" src="assets/img/user-1.jpg" width="107" height="107">-->
-                                            </div>
-                                        </div><div class="pad-wrap"></div>
-
-                                        <md-icon md-svg-icon="doutor" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Masculino') !== -1" style="width: 60px; height: 60px;"></md-icon>
-                                        <md-icon md-svg-icon="doutora" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Feminino') !== -1" style="width: 60px; height: 60px;"></md-icon>
-                                        <img class="md-user-avatar" ng-if="!!itemAgenda.medico.user.fileUpload"  src="{{itemAgenda.medico.user.fileUpload.mimeType}},{{itemAgenda.medico.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
 
 
+                <div class='md-padding' layout="row" layout-wrap>
+                    <md-card style="width: 300px;" ng-repeat="itemAgenda in itensAgenda">
 
-                                        <!--<md-icon md-svg-icon="doutor" class="md-user-avatar" ng-if="!medico.user.fileUpload" style="width: 60px; height: 60px;"></md-icon>
-                                        &lt;!&ndash; <img class="md-user-avatar" ng-if="!medico.user.fileUpload"  src="../../../img/user.jpg" class="avatar" style="width: 60px; height: 60px;" />&ndash;&gt;
-                                        <img class="md-user-avatar" ng-if="!!medico.user.fileUpload"  src="{{medico.user.fileUpload.mimeType}},{{medico.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px;">--> </div>
+                        <md-toolbar class="animate-show md-hue-2" style="padding:20px">
+                            <md-list-item class="md-3-line" >
 
-                                </md-list-item>
+                                <div class="mrgn-b-md" flex layout="row" flex layout-align="start center" style="box-sizing: border-box; max-height: 100%; display: flex; flex-direction: row; -moz-box-orient: horizontal; -moz-box-direction: normal; place-content: center flex-start; align-items: center; -moz-box-pack: start; -moz-box-align: center;">
+                                    <div flex layout="column" style="display: flex; box-sizing: border-box; flex-direction: column; -moz-box-orient: vertical; -moz-box-direction: normal;">
+                                        <div class="user-thumb">
+                                            <h4 class="headline">{{itemAgenda.medico.user.nome}}</h4>
+                                            <h5><ng-md-icon icon="info"   ></ng-md-icon>Especialidade: {{itemAgenda.medico.especialidade}}</h5>
+                                            <h5><ng-md-icon icon="info"  ></ng-md-icon>{{itemAgenda.medico.tipoRegistro}}: {{itemAgenda.medico.registroProfissional}}</h5>
+                                            <!-- <img alt="user list image" class="img-responsive img-circle" src="assets/img/user-1.jpg" width="107" height="107">-->
+                                        </div>
+                                    </div><div class="pad-wrap"></div>
+
+                                    <md-icon md-svg-icon="doutor" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Masculino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                    <md-icon md-svg-icon="doutora" class="md-user-avatar"  ng-if="!itemAgenda.medico.user.fileUpload && itemAgenda.medico.sexo.indexOf('Feminino') !== -1" style="width: 60px; height: 60px;"></md-icon>
+                                    <img class="md-user-avatar" ng-if="!!itemAgenda.medico.user.fileUpload"  src="{{itemAgenda.medico.user.fileUpload.mimeType}},{{itemAgenda.medico.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+                                </div>
+
+                            </md-list-item>
 
 
 
-                            </md-toolbar>
+                        </md-toolbar>
 
+
+
+
+                        <md-card-content>
                             <div class="user-content" style="padding:20px">
 
 
@@ -209,25 +208,39 @@
                                 <span class="gene-block "> <ng-md-icon icon="date_range" style="fill:#757575"  ></ng-md-icon>Data/Hora Final: {{itemAgenda.agenda.dataHoraFinalConsulta}}</span>
                                 <span class="gene-block "> <ng-md-icon icon="airline_seat_angled" style="fill:#757575"  ></ng-md-icon>Tipo de Agendamento: {{itemAgenda.tipoAgenda}}</span>
                                 <span class="gene-block "> <ng-md-icon icon="monetization_on" style="fill:#757575"  ></ng-md-icon>Valor: {{itemAgenda.valorConsulta | currency:'R$'}}</span>
-                                <span class="gene-block mrgn-b-md"> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Status: <a class="mat-blue-800 gene-btn-sm">{{itemAgenda.statusAgenda}}</a></span>
+                                <span class="gene-block "> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Status: <a class="mat-blue-800 gene-btn-sm">{{itemAgenda.statusAgenda}}</a></span>
+                                <span class="gene-block mrgn-b-md"> <ng-md-icon icon="info" style="fill:#757575"  ></ng-md-icon>Convênios:
+                                     <md-tooltip md-direction="top">Mostrar Convênios</md-tooltip>
+                                    <!--Show/Hide Butom columns-->
 
-                                                <span class="gene-block mrgn-b-md">
+
+                                        <md-button aria-label="menu" class="md-icon-button" ng-click="showConvenio(itemAgenda.medico,$event)">
+                                            <ng-md-icon icon="more_vert"></ng-md-icon>
+                                        </md-button>
+
+
+
+                                    <!--Fim Show/Hide Butom columns-->
+                                </span>
+                                <span class="gene-block mrgn-b-md">
                                                     <!--<md-button  class=" md-raised" ng-click="" style="width:100%">-->
                                                         <md-tooltip md-direction="top">Agendar</md-tooltip>
                                                         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
                                                             <ng-md-icon icon="event_available" ng-click="novoAgendamento($event,itemAgenda)"  size="48px" ></ng-md-icon>
 
                                                         </section>
-                                                    <!--</md-button>-->
+                                    <!--</md-button>-->
                                                 </span>
 
 
 
                             </div>
+                        </md-card-content>
 
-                        </md-card>
-                    </div>
+                    </md-card>
                 </div>
+
+
             </md-content>
 
 

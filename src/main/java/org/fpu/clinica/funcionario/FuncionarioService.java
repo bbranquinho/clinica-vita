@@ -1,10 +1,5 @@
 package org.fpu.clinica.funcionario;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import org.fpu.clinica.errors.ErrorServiceInterface;
 import org.fpu.clinica.errors.FieldsErrorDetalhe;
 import org.fpu.clinica.errors.Message;
@@ -29,11 +24,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 
 
 
@@ -138,26 +133,11 @@ public class FuncionarioService extends GenericService<Funcionario, Long> {
 			
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
-		validateUserRequest(funcionario);		
+		//validateUserRequest(funcionario);
 		//funcionario.getUser().setPassword(this.passwordEncoder.encode(funcionario.getUser().getPassword()));
-		funcionario.getUser().setPassword(validateUserRequest(funcionario).getPassword());
-		/*System.out.println("File:"+ funcionario.getUser().getFileUpload().getId());
-		Long idFile = funcionario.getUser().getFileUpload().getId();
-		System.out.println("idFile:"+ idFile);
-		FileUpload fileUplad = new FileUpload();
-		fileUplad.setId(idFile);
-		fileUplad.setFile(funcionario.getUser().getFileUpload().getFile());
-		fileUplad.setMimeType(funcionario.getUser().getFileUpload().getMimeType());
-		fileUplad = this.fileUploadRepository.saveAndFlush(fileUplad);*/
-		
-		/*Usuario usuario = new Usuario();
-		//usuario = this.userRepository.findByEmail(currentUser.getActiveUser().getEmail());
-		usuario.setEmail(funcionario.getUser().getEmail());
-		
-		usuario.setFileUpload(fileUplad);
-		usuario.setNome(funcionario.getUser().getNome());
-		usuario.setPassword(funcionario.getUser().getPassword());*/
-		
+		//funcionario.getUser().setPassword(validateUserRequest(funcionario).getPassword());
+
+		funcionario.getUser().setPassword(this.passwordEncoder.encode(funcionario.getUser().getPassword()));
 		
 		Usuario usuario = this.userRepository.saveAndFlush(funcionario.getUser());
 		

@@ -15,7 +15,7 @@
 
 
                 <div class="title" layout-gt-sm="row">
-                    <md-icon md-svg-icon="home" style="width: 200px; height: 200px;" class="logo profile-image avatar huge"></md-icon>
+                    <md-icon md-svg-icon="compromisso" style="width: 200px; height: 200px;" class="logo profile-image avatar huge"></md-icon>
 
                 </div>
 
@@ -25,7 +25,7 @@
 
 
                 <div class="title" layout-gt-sm="row">
-                    <span style="width: 200px; "class="logo-text" >Agendas</span>
+                    <span style="width: 200px; "class="logo-text" >Compromissos</span>
 
                 </div>
 
@@ -35,12 +35,12 @@
             <!-- / HEADER BOTTOM -->
         </div>
 
-        <!-- ADD EVENT BUTTON -->
+        <!-- ADD EVENT BUTTON
         <md-button class="add-event-button md-fab md-warn" ng-click=""
                    aria-label="Editar Perfil" >
             <ng-md-icon icon="add" class="material-icons  md-24"></ng-md-icon>
         </md-button>
-        <!-- / ADD EVENT BUTTON -->
+         / ADD EVENT BUTTON -->
     </div>
     <!-- / HEADER -->
 
@@ -83,14 +83,15 @@
                                     <md-card  flex="auto"   ng-drag="isEdited" class="gadget" layout="column">
                                         <md-toolbar>
                                             <div class="md-toolbar-tools">
-                                                <h2>Compromissos: {{paciente.user.nome}}</h2>
+                                                <h2 ng-if="paciente.id">Compromissos: {{paciente.user.nome}}</h2>
+                                                <h2 ng-if="medico.id">Compromissos: {{medico.user.nome}}</h2>
                                                 <span flex></span>
 
                                             </div>
                                         </md-toolbar>
 
                                         <md-content style="overflow: inherit;">
-                                            <md-event-calendar ng-if="!paciente.id"
+                                            <md-event-calendar ng-if="!paciente.id && !medico.id"
                                                                ng-model="selected"
                                                                md-events="events"
 
@@ -103,11 +104,13 @@
                                                                md-show-create-link
                                                                class="md-primary"
                                             >
-                                                <md-event-calendar-header class="md-center">
-                                                    <md-event-calendar-prev></md-event-calendar-prev>
-                                                    <md-event-calendar-title></md-event-calendar-title>
-                                                    <md-event-calendar-next></md-event-calendar-next>
-                                                    <md-event-calendar-today>
+                                                <md-event-calendar-header class="md-center" layout="column" layout-padding >
+                                                    <div  class="layout-row">
+                                                        <md-event-calendar-prev></md-event-calendar-prev>
+                                                        <md-event-calendar-title></md-event-calendar-title>
+                                                        <md-event-calendar-next></md-event-calendar-next>
+                                                    </div>
+                                                    <md-event-calendar-today class="layout-row">
                                                     </md-event-calendar-today>
                                                 </md-event-calendar-header>
                                             </md-event-calendar>
@@ -125,11 +128,40 @@
                                                                md-show-create-link
                                                                class="md-primary"
                                             >
-                                                <md-event-calendar-header class="md-center">
-                                                    <md-event-calendar-prev></md-event-calendar-prev>
-                                                    <md-event-calendar-title></md-event-calendar-title>
-                                                    <md-event-calendar-next></md-event-calendar-next>
-                                                    <md-event-calendar-today>
+                                                <md-event-calendar-header class="md-center" layout="column" layout-padding >
+                                                    <div  class="layout-row">
+                                                        <md-event-calendar-prev></md-event-calendar-prev>
+                                                        <md-event-calendar-title></md-event-calendar-title>
+                                                        <md-event-calendar-next></md-event-calendar-next>
+                                                    </div>
+                                                    <md-event-calendar-today class="layout-row">
+                                                    </md-event-calendar-today>
+                                                </md-event-calendar-header>
+                                            </md-event-calendar>
+
+
+
+
+                                            <md-event-calendar ng-if="medico.id"
+                                                               ng-model="selected"
+                                                               md-events="events"
+
+                                                               md-label="title",
+                                                               md-show-create-link="false"
+                                                               md-event-click="eventClicked($selectedEvent,$event)"
+                                                               md-create-event-click="createClicked($event,$date)"
+                                                               md-create-disabled="dis"
+                                                               auto-height=""
+                                                               md-show-create-link
+                                                               class="md-primary"
+                                            >
+                                                <md-event-calendar-header class="md-center" layout="column" layout-padding >
+                                                    <div  class="layout-row">
+                                                        <md-event-calendar-prev></md-event-calendar-prev>
+                                                        <md-event-calendar-title></md-event-calendar-title>
+                                                        <md-event-calendar-next></md-event-calendar-next>
+                                                    </div>
+                                                    <md-event-calendar-today class="layout-row">
                                                     </md-event-calendar-today>
                                                 </md-event-calendar-header>
                                             </md-event-calendar>
@@ -142,7 +174,7 @@
 
                 </md-tab-body>
             </md-tab>
-            <md-tab>
+            <md-tab ng-if="currentPermission == 'ROLE_PACIENTE'">
                 <md-tab-label>
                     <md-tooltip md-direction="top">Agendamentos</md-tooltip>
                     <ng-md-icon icon="event_available" style="color: #757575; cursor:pointer" class="material-icons  md-24"></ng-md-icon>

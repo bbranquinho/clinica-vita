@@ -72,6 +72,20 @@ public class MedicoService extends GenericService<Medico, Long> {
 		return this.medicoRepository.findByUser(user);
 	}
 
+
+	@Transactional
+	@RequestMapping(value = "/findById/{idMedico}", method = RequestMethod.GET)
+	public ResponseEntity<?> findMedicoById( @PathVariable("idMedico") Long id) {
+
+
+		Medico medico = medicoRepository.findOne(id);
+
+		message.AddField("mensagem", "Load Medicos success");
+		message.setData(medico);
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+
+
 	@Override
 	public ResponseEntity<?> insert(@RequestBody @Validated Medico medico, Errors erros) {
 		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, erros)) {
@@ -122,30 +136,12 @@ public class MedicoService extends GenericService<Medico, Long> {
 
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
-		validateUserRequest(medico);
-		// medico.getUser().setPassword(this.passwordEncoder.encode(medico.getUser().getPassword()));
 
-		medico.getUser().setPassword(validateUserRequest(medico).getPassword());
-		/*
-		 * System.out.println("File:"+
-		 * medico.getUser().getFileUpload().getId()); Long idFile =
-		 * medico.getUser().getFileUpload().getId();
-		 * System.out.println("idFile:"+ idFile); FileUpload fileUplad = new
-		 * FileUpload(); fileUplad.setId(idFile);
-		 * fileUplad.setFile(medico.getUser().getFileUpload().getFile());
-		 * fileUplad.setMimeType(medico.getUser().getFileUpload().getMimeType())
-		 * ; fileUplad = this.fileUploadRepository.saveAndFlush(fileUplad);
-		 */
+		//validateUserRequest(medico);
 
-		/*
-		 * Usuario usuario = new Usuario(); //usuario =
-		 * this.userRepository.findByEmail(currentUser.getActiveUser().getEmail(
-		 * )); usuario.setEmail(medico.getUser().getEmail());
-		 * 
-		 * usuario.setFileUpload(fileUplad);
-		 * usuario.setNome(medico.getUser().getNome());
-		 * usuario.setPassword(medico.getUser().getPassword());
-		 */
+
+		//medico.getUser().setPassword(validateUserRequest(medico).getPassword());
+		medico.getUser().setPassword(this.passwordEncoder.encode(medico.getUser().getPassword()));
 
 		Usuario usuario = this.userRepository.saveAndFlush(medico.getUser());
 
@@ -241,4 +237,6 @@ public class MedicoService extends GenericService<Medico, Long> {
 
 		return quantidadeMedicos;
 	}
+
+
 }

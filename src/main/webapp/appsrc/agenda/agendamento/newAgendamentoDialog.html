@@ -3,7 +3,7 @@
     <!--<pre>{{ funcionario| json}}</pre>-->
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Solicitação de Agendamento</h2>
+            <h2>Solicitação0 de Agendamento</h2>
             <span flex></span>
 
         </div>
@@ -49,7 +49,7 @@
                                                               md-input-name="autocompleteField"
                                                               md-input-minlength="3"
                                                               md-input-maxlength="60"
-
+                                                              md-selected-item-change="setPaciente(elements)"
                                                               md-selected-item="elements.paciente"
                                                               md-search-text="searchText"
                                                               md-items="elements in pacientes | filter:searchText"
@@ -59,19 +59,19 @@
                                                 <md-item-template>
                                                     <!--<span md-highlight-text="ctrl.searchText">{{item.display}}</span>-->
 
-                                        <span class="item-title" ng-click="setPaciente(elements)">
-                                     <md-icon md-svg-icon="user_m" class="md-user-avatar" ng-click="setPaciente(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Masculino') !== -1" style="width: 20px; height: 20px;"></md-icon>
-                                    <md-icon md-svg-icon="user_f" class="md-user-avatar" ng-click="setPaciente(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Feminino') !== -1" style="width: 20px; height: 20px;"></md-icon>
-                                     <img class="md-user-avatar" ng-if="!!elements.user.fileUpload"  src="{{elements.user.fileUpload.mimeType}},{{elements.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+                                                    <span class="item-title" ng-click="">
+                                                         <md-icon md-svg-icon="user_m" class="md-user-avatar" ng-click="setPaciente(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Masculino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                                        <md-icon md-svg-icon="user_f" class="md-user-avatar" ng-click="setPaciente(elements)" ng-if="!elements.user.fileUpload && elements.sexo.indexOf('Feminino') !== -1" style="width: 20px; height: 20px;"></md-icon>
+                                                         <img class="md-user-avatar"  ng-if="!!elements.user.fileUpload"  src="{{elements.user.fileUpload.mimeType}},{{elements.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
 
-                                <span md-highlight-text="searchText"  md-highlight-flags="^i">{{elements.user.nome}}</span><span>/</span>
-                                     <span md-highlight-text="searchText"  md-highlight-flags="^i">
-                                     {{elements.cpf}}/
-                                    </span>
-                                    <span md-highlight-text="searchText"  md-highlight-flags="^i">
-                                     Matricula: {{elements.matricula}}
-                                    </span>
-                                </span>
+                                                        <span md-highlight-text="searchText"   md-highlight-flags="^i">{{elements.user.nome}}</span><span>/</span>
+                                                         <span md-highlight-text="searchText"  md-highlight-flags="^i">
+                                                         {{elements.cpf}}/
+                                                        </span>
+                                                        <span md-highlight-text="searchText"  md-highlight-flags="^i">
+                                                         Matricula: {{elements.matricula}}
+                                                    </span>
+                                                    </span>
                                                 </md-item-template>
                                                 <div ng-messages="newAgendamento.autocompleteField.$error" ng-if="newAgendamento.autocompleteField.$touched">
                                                     <div ng-message="required">Campo Obrigatório.</div>
@@ -198,6 +198,7 @@
 
 
                             </div>
+                            <pre>{{itemAgenda | json}}</pre>
                         </div>
                     </md-tab-body>
                 </md-tab>
