@@ -2,8 +2,9 @@
 
 angular.module('clinica')
     .controller('AgendamentoCompromissoController', function ($scope,$mdToast,$mdDialog,RestSrv,SERVICE_PATH, FormatDate,FormatBDate, $mdMedia,$rootScope) {
-        var mdDialog = $mdDialog;
+        let mdDialog = $mdDialog;
 
+        $scope.dataDisponivelFinal = true;
 
         $scope.elements = {};
 
@@ -15,7 +16,7 @@ angular.module('clinica')
 
 
         /*Data Minima e Maxima para Agendamento*/
-        var dias = 7;
+        let dias = 7;
         $scope.dataMinina  = new Date();
         $scope.dataMinina.addDias(1);
         $scope.dataMaxima = new Date();
@@ -40,9 +41,10 @@ angular.module('clinica')
             console.log($scope.elements.medico.id);
             console.log($scope.elements.datasDiponiveis);
 
-            var dataSearch = FormatBDate.format($scope.elements.datasDiponiveis);
+            let dataSearch = FormatBDate.format($scope.elements.datasDiponiveis);
+            let dataSearchFinal = FormatBDate.format($scope.elements.dataDisponivelFinal);
 
-            var itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearch + '/'+ $scope.elements.medico.id ;
+            let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearch + '/'+ dataSearchFinal + '/' + $scope.elements.medico.id ;
             //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3
 
 
@@ -60,7 +62,7 @@ angular.module('clinica')
 
 
 
-        var horaInicial,horaFinal,minutoInicial,minutoFinal;
+        let horaInicial,horaFinal,minutoInicial,minutoFinal;
         $scope.formattimepiker = function(fieldData,time) {
 
 
@@ -71,7 +73,7 @@ angular.module('clinica')
 
 
             if($scope.itemAgenda.agenda === undefined){
-                var agenda = {agenda:{}};
+                let agenda = {agenda:{}};
                 angular.merge($scope.itemAgenda, agenda);
             }
 
@@ -110,7 +112,7 @@ angular.module('clinica')
         }
 
         $scope.medicos = [];
-        var medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo' ;
+        let medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo' ;
 
         console.log(medicoUrl);
 
@@ -126,7 +128,7 @@ angular.module('clinica')
 
 
         $scope.novoAgendamento = function ($event,itemAgenda) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+            let useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
 
             mdDialog.show({
@@ -163,6 +165,16 @@ angular.module('clinica')
 
             console.log(itemAgenda);
         };
-        
 
+
+
+        $scope.changeStatusDataFinal = function() {
+            $scope.dataDisponivelFinal = false;
+
+            $scope.dataMinimaInicialFinal = $scope.elements.datasDiponiveis;
+            $scope.dataMaximaInicial = $scope.dataMaxima;
+
+        }
+
+        
     });

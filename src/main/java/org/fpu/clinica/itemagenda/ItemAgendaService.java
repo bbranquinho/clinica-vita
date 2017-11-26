@@ -95,6 +95,9 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
+
+
+
 		//	if((itemAgenda.getAgenda().getDataHoraInicialConsulta().getTime() - DataSalva.getTime()) / (1000 * 60 * 60 * 24) == 5)
 		//if((itemAgenda.getAgenda().getDataHoraInicialConsulta().getTime() - itemAgenda.getAgenda().getDataHoraFinalConsulta().getTime()) / (1000 * 60 * 60 * 24) == 5)
 		Calendar calDataInicial = Calendar.getInstance();
@@ -513,9 +516,9 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 
-	@RequestMapping(path = "/find_horario_agendamento/{dataHoraDisponivel}/{medicoId}")
+	@RequestMapping(path = "/find_horario_agendamento/{dataHoraDisponivelInicial}/{dataHoraDisponivelFinal}/{medicoId}")
 	//@Transactional
-	public List<ItemAgenda>  findHorarioAgendamento(@PathVariable("dataHoraDisponivel") String dataHoraDisponivel, @PathVariable("medicoId") Long medico) {
+	public List<ItemAgenda>  findHorarioAgendamento(@PathVariable("dataHoraDisponivelInicial") String dataHoraDisponivelInicial, @PathVariable("dataHoraDisponivelFinal") String dataHoraDisponivelFinal, @PathVariable("medicoId") Long medico) {
 		SimpleDateFormat formatterb = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		Date dataHoraAgendamentoIntervaloInicial = null;
 		Date dataHoraAgendamentoIntervaloFinal = null;
@@ -525,8 +528,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		try {
 
-			dataHoraAgendamentoIntervaloInicial = formatterb.parse(dataHoraDisponivel + " 00:00");
-			dataHoraAgendamentoIntervaloFinal = formatterb.parse(dataHoraDisponivel + " 23:59");
+			dataHoraAgendamentoIntervaloInicial = formatterb.parse(dataHoraDisponivelInicial + " 00:00");
+			dataHoraAgendamentoIntervaloFinal = formatterb.parse(dataHoraDisponivelFinal + " 23:59");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -581,7 +584,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		// List<String> msg = new ArrayList<String>();
 
-
+		checkStatusItensEscalaAtendimento();
 
 		Medico medico = medicoRepository.findOne(medicoId);
 
@@ -807,4 +810,42 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		return ResponseEntity.status(HttpStatus.OK).body(consultas);
 	}
+
+
+	private void checkStatusItensEscalaAtendimento() {
+		List<ItemAgenda> itensAgenda = itemAgendaRepository.findAll();
+		Calendar dataItemAgenda = Calendar.getInstance();
+		Calendar maxDiaAgenda = Calendar.getInstance();
+		maxDiaAgenda.setTime(new Date());
+
+		maxDiaAgenda.add(Calendar.DAY_OF_MONTH, -1);
+
+		for (ItemAgenda item : itensAgenda) {
+
+
+			dataItemAgenda.setTime(item.getAgenda().getDataHoraInicialConsulta());
+			boolean teste = maxDiaAgenda.after(dataItemAgenda);
+			if ((item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.DISPONIVEL.getDescricao()) ||
+					item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.AGUARDANDOAUTORIZACAO.getDescricao())) &&
+					dataItemAgenda.before(maxDiaAgenda)) {
+
+				item.setStatusAgenda(TipoStatusAgenda.NAOAGENDADO.getDescricao());
+
+				itemAgendaRepository.saveAndFlush(item);
+
+			}else if((item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.AGENDADO.getDescricao()) ) &&
+					dataItemAgenda.before(maxDiaAgenda) ){
+
+				item.setStatusAgenda(TipoStatusAgenda.FALTOU.getDescricao());
+				itemAgendaRepository.saveAndFlush(item);
+			}
+
+
+
+		}
+
+	}
+
+
+
 }

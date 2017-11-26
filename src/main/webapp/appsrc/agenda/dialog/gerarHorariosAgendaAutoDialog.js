@@ -33,7 +33,7 @@ angular.module('clinica')
             this.setDate(this.getDate() + dias)
         };
 
-        var dias = 7;
+        let dias = 7;
         $scope.dataMinimaInicial  = new Date();
         $scope.dataMinimaInicial.addDias(1);
         $scope.dataMaximaInicial = new Date();
@@ -52,7 +52,7 @@ angular.module('clinica')
 
 
 
-        var horaInicial,horaFinal,minutoInicial,minutoFinal;
+        let horaInicial,horaFinal,minutoInicial,minutoFinal;
         $scope.formattimepiker = function(fieldData,time) {
 
 
@@ -129,7 +129,7 @@ angular.module('clinica')
         }
 
         //var medicoUrl =  '/medico/findByStatus/Ativo';
-        var medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo';
+        let medicoUrl = SERVICE_PATH.PRIVATE_PATH +'/medico/findByStatus/Ativo';
 
 
 

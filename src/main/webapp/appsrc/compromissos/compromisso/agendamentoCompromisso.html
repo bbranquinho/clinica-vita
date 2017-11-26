@@ -85,17 +85,19 @@
 
                             </div>
 
+                        </div>
 
-
+                        <div layout-gt-sm="row">
                             <div flex-gt-xs>
-                                <h4>Data*:</h4>
+                                <h4>Data inicial*:</h4>
                                 <md-datepicker ng-model="elements.datasDiponiveis" name="datasDisponiveis"
-                                               md-placeholder="Data:" md-min-date="dataMinina" md-max-date="dataMaxima"  required  class="date-row">
+                                               ng-change="changeStatusDataFinal()"
+                                               md-placeholder="Data:" md-min-date="dataMinina" md-max-date="dataMaxima" required  class="date-row">
 
 
                                 </md-datepicker>
 
-                                <div ng-messages="searchHorariosAgendamentosCompromissos.datasDisponiveis.$error" ng-if="searchHorariosAgendamentosCompromissos.datasDisponiveis.$touched" style="color:#DD2C00">
+                                <div ng-messages="searchHorariosAgendamentos.datasDisponiveis.$error" ng-if="searchHorariosAgendamentos.datasDisponiveis.$touched" style="color:#DD2C00">
                                     <div ng-message="valid" >O valor Inserido não é uma data!</div>
                                     <div ng-message="required">Campo Obrigatório!</div>
                                     <div ng-message="mindate">Date is too early!</div>
@@ -103,6 +105,23 @@
                                 </div>
 
                             </div>
+
+
+                            <div flex-gt-xs>
+                                <h4>Data Final*:</h4>
+                                <md-datepicker ng-model="elements.dataDisponivelFinal" md-current-view="year" required name="periodoFinalConsulta"
+                                               md-placeholder="Data Final:" md-min-date="dataMinimaInicialFinal" md-max-date="dataMaximaInicial" ng-disabled="dataDisponivelFinal"  class="date-row" ng-change="formattimepiker('periodoFinalConsulta')">
+
+                                </md-datepicker>
+                                <div ng-messages="eventForm.periodoFinalConsulta.$error" ng-if="eventForm.periodoFinalConsulta.$touched" style="color:rgb(221,44,0);">
+                                    <div ng-message="valid" >A data inserida não é válida!</div>
+                                    <div ng-message="required">Campo Obrigatório!</div>
+                                    <div ng-message="mindate">Deve ser maior que a data de hoje!</div>
+                                    <div ng-message="maxdate">Deve ser menor ou igual ao intervalo de 7 dias!</div>
+                                </div>
+
+                            </div>
+
 
                         </div>
                     </div>
