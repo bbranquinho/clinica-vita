@@ -354,9 +354,9 @@
 
                                 <div flex-gt-xs>
                                     <h4>Fator Sanguíneo*:</h4>
-                                    <md-input-container class="md-block"  >
-                                        <label>Fator Sanguíneo:</label>
-                                        <md-select ng-model="paciente.fatorSanguineo" name="fatorSanguineo" required="required">
+                                    <md-input-container class="md-block" layout-gt-sm >
+
+                                        <md-select ng-model="paciente.fatorSanguineo" name="fatorSanguineo" required="required" aria-label="Tipo Sanguíneo" placeholder="Tipo Sanguíneo">
                                             <md-option ng-repeat="fatorSanguineo in fatoresSanguineos" ng-value="fatorSanguineo"   ng-bind="fatorSanguineo">
                                                 &lt;!&ndash; <md-icon md-svg-icon="{{avatar}}"></md-icon>&ndash;&gt;
                                             </md-option>
@@ -370,8 +370,8 @@
                                 <div flex-gt-xs>
                                     <h4>Estado Civil*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
-                                        <label>Estado Civil:</label>
-                                        <md-select ng-model="paciente.estadoCivil" name="estadoCivil" required="required">
+
+                                        <md-select ng-model="paciente.estadoCivil" name="estadoCivil" required="required"  aria-label="Estado Civil" placeholder="Estado Civil">
                                             <md-option ng-repeat="estadoCivil in estadosCivis" ng-value="estadoCivil"  ng-bind="estadoCivil">
                                                 &lt;!&ndash; <md-icon md-svg-icon="{{avatar}}"></md-icon>&ndash;&gt;
                                             </md-option>
@@ -387,8 +387,8 @@
                                 <div flex-gt-xs>
                                     <h4>Etnia*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
-                                        <label>Etnia:</label>
-                                        <md-select ng-model="paciente.etnia" name="etnia"  required="required">
+
+                                        <md-select ng-model="paciente.etnia" name="etnia"  required="required"  aria-label="Etnia" placeholder="Etnia">
                                             <md-option ng-repeat="etnia in etnias" ng-value="etnia"   ng-bind="etnia">
                                                 &lt;!&ndash; <md-icon md-svg-icon="{{avatar}}"></md-icon>&ndash;&gt;
                                             </md-option>
@@ -402,8 +402,8 @@
                                 <div flex-gt-xs>
                                     <h4>Escolaridade*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
-                                        <label>Escolaridade:</label>
-                                        <md-select ng-model="paciente.escolaridade" name="escolaridade" required="required">
+
+                                        <md-select ng-model="paciente.escolaridade" name="escolaridade" required="required"  aria-label="Escolaridade" placeholder="Escolaridade">
                                             <md-option ng-repeat="escolaridade in escolaridades" ng-value="escolaridade"  ng-bind="escolaridade">
                                                 &lt;!&ndash; <md-icon md-svg-icon="{{avatar}}"></md-icon>&ndash;&gt;
                                             </md-option>

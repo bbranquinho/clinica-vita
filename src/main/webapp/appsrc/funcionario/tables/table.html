@@ -47,9 +47,9 @@
             <td md-cell ng-if="columns[0].status">{{funcionario.id}}</td>
             <td md-cell ng-if="columns[1].status">
 
-                <md-icon md-svg-icon="funcionario_m" class="md-user-avatar" ng-if="!funcionario.user.fileUpload && funcionario.sexo.indexOf('Masculino') !== -1" style="width: 50px; height: 50px;"></md-icon>
+                <md-icon md-svg-icon="funcionario_m" class="md-user-avatar" ng-if="!funcionario.user.fileUpload && funcionario.sexo.indexOf('Masculino') !== -1" style="width: 50px; height: 50px; "></md-icon>
                 <md-icon md-svg-icon="funcionario_f" class="md-user-avatar" ng-if="!funcionario.user.fileUpload && funcionario.sexo.indexOf('Feminino') !== -1" style="width: 50px; height: 50px;"></md-icon>
-                <img class="md-user-avatar" ng-if="!!funcionario.user.fileUpload"  src="{{funcionario.user.fileUpload.mimeType}},{{funcionario.user.fileUpload.file}}" class="avatar" style="width: 50px; height: 50px;">
+                <img class="md-user-avatar" ng-if="!!funcionario.user.fileUpload"  src="{{funcionario.user.fileUpload.mimeType}},{{funcionario.user.fileUpload.file}}" class="avatar" style="width: 50px; height: 50px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
             </td>
             <td md-cell>{{funcionario.user.nome}}</td>
             <td md-cell ng-if="columns[2].status">{{funcionario.matricula}}</td>
