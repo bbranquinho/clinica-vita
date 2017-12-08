@@ -75,7 +75,7 @@
                                     </span>
                                 </span>
                                                 </md-item-template>
-                                                <div ng-messages="searchHorariosAgendamentos.autocompleteField.$error" ng-if="searchHorariosAgendamentos.autocompleteField.$touched">
+                                                <div ng-messages="eventForm.autocompleteField.$error" ng-if="eventForm.autocompleteField.$touched">
                                                     <div ng-message="required">Campo Obrigatório.</div>
                                                     <div ng-message="md-require-match">Não encontrado. Tente outro nome</div>
                                                     <div ng-message="minlength">Your entry is not long enough.</div>
@@ -93,14 +93,32 @@
 
                                     <div flex-gt-xs>
                                         <h4>Periodo Inicial*:</h4>
-                                        <md-datepicker ng-model="periodoInicialConsulta" md-autofocus
-                                                       name="dateField" required="required"
-                                                       ng-change="formattimepiker('periodoInicialConsulta',0)"
-                                                       md-current-view="year"   md-min-date="dataMinimaInicial" md-max-date="dataMaximaInicial"    md-placeholder="Periodo Inicial:" class="date-row">
+
+                                            <md-datepicker ng-model="periodoInicialConsulta"
+                                                           name="periodoInicialConsulta" required md-aria="periodo inicial"
+                                                           ng-change="formattimepiker('periodoInicialConsulta',0)"
+                                                           md-current-view="year"   md-min-date="dataMinimaInicial" md-max-date="dataMaximaInicial"    md-placeholder="Periodo Inicial:" class="date-row">
+
+                                            </md-datepicker>
+                                            <div ng-messages="eventForm.periodoInicialConsulta.$error" ng-if="eventForm.periodoInicialConsulta.$touched" style="color:rgb(221,44,0);">
+                                                <div ng-message="valid" >A data inserida não é válida!</div>
+                                                <div ng-message="required" >Campo Obrigatório)!</div>
+                                                <div ng-message="mindate">Deve ser maior que a data de hoje!</div>
+                                                <div ng-message="maxdate">Deve ser menor ou igual ao intervalo de 7 dias!</div>
+                                            </div>
+
+                                    </div>
+
+
+
+                                    <div flex-gt-xs>
+                                        <h4>Periodo Final*:</h4>
+                                        <md-datepicker ng-model="periodoFinalConsulta" md-current-view="year" required name="periodoFinalConsulta"
+                                                       md-placeholder="Data Final:" md-min-date="dataMinimaInicialFinal" md-max-date="dataMaximaInicial" ng-disabled="statusDataFinalConsulta"  class="date-row" ng-change="formattimepiker('periodoFinalConsulta')">
 
                                         </md-datepicker>
-                                        <div ng-messages="eventForm.dateField.$error">
-                                            <div ng-message="valid">A data inserida não é válida!</div>
+                                        <div ng-messages="eventForm.periodoFinalConsulta.$error" ng-if="eventForm.periodoFinalConsulta.$touched" style="color:rgb(221,44,0);">
+                                            <div ng-message="valid" >A data inserida não é válida!</div>
                                             <div ng-message="required">Campo Obrigatório!</div>
                                             <div ng-message="mindate">Deve ser maior que a data de hoje!</div>
                                             <div ng-message="maxdate">Deve ser menor ou igual ao intervalo de 7 dias!</div>
@@ -108,13 +126,6 @@
 
                                     </div>
 
-                                    <div flex-gt-xs>
-                                        <h4>Periodo Final*:</h4>
-                                        <md-datepicker ng-model="periodoFinalConsulta" md-current-view="year"
-                                                       md-placeholder="Data Final:" md-min-date="dataMinimaInicialFinal" md-max-date="dataMaximaInicial" ng-disabled="statusDataFinalConsulta"  class="date-row" ng-change="formattimepiker('periodoFinalConsulta')">
-
-                                        </md-datepicker>
-                                    </div>
 
                                 </div>
 

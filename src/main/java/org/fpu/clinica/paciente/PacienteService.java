@@ -13,6 +13,7 @@ import org.fpu.clinica.usuario.UsuarioRepository;
 import org.fpu.clinica.usuariopermissao.UsuarioPermissao;
 import org.fpu.clinica.usuariopermissao.UsuarioPermissaoKey;
 import org.fpu.clinica.usuariopermissao.UsuarioPermissaoRepository;
+import org.fpu.clinica.utils.ComUtils;
 import org.fpu.clinica.utils.GenericService;
 import org.fpu.clinica.utils.ServicePath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,14 @@ public class PacienteService extends GenericService<Paciente, Long> {
 			
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
+
+		if(userRepository.findByEmail(paciente.getUser().getEmail()) != null){
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Email","EMAIL",
+					"Paciente já existe","error");
+			 return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
+		}
+
+
 		paciente.getUser().setPassword(this.passwordEncoder.encode(paciente.getUser().getPassword()));
 
 		
@@ -119,7 +128,7 @@ public class PacienteService extends GenericService<Paciente, Long> {
 		usuario.setNome(paciente.getUser().getNome());
 		usuario.setPassword(paciente.getUser().getPassword());
 		
-		usuario = this.userRepository.saveAndFlush(usuario);
+		usuario = this.userRepository.save(usuario);
 		
 		Permissao permissao = this.permissaoRepository.findByRole("ROLE_PACIENTE");
 		
@@ -154,22 +163,25 @@ public class PacienteService extends GenericService<Paciente, Long> {
 	@Override
 	public ResponseEntity<?> update(@RequestBody @Validated Paciente paciente, Errors errors) {
 		if (errorServiceInterface.addErrors(fieldsErrorDetalhe, errors)) {
-			
+
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
-		//validateUserRequest(paciente);
 
+		return super.update(preparePaciente(paciente), errors);
+	}
+
+	private Paciente preparePaciente(Paciente paciente) {
 		//paciente.getUser().setPassword(validateUserRequest(paciente).getPassword());
 		paciente.getUser().setPassword(this.passwordEncoder.encode(paciente.getUser().getPassword()));
 
 		Usuario usuario = this.userRepository.saveAndFlush(paciente.getUser());
 
-		
+
 		paciente.setUser(usuario);
 
-		return super.update(paciente, errors);
+		return paciente;
 	}
-	
+
 	private Usuario validateUserRequest(Paciente paciente) {
 		Usuario user = this.userRepository.findByEmail(currentUser.getActiveUser().getEmail());
 
@@ -179,6 +191,8 @@ public class PacienteService extends GenericService<Paciente, Long> {
 
 		return user;
 	}
+
+
 	
 	@Override
 	public ResponseEntity<?> deletar(@RequestBody Paciente paciente) {

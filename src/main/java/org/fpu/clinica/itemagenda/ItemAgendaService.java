@@ -12,6 +12,7 @@ import org.fpu.clinica.medico.Medico;
 import org.fpu.clinica.medico.MedicoRepository;
 import org.fpu.clinica.paciente.Paciente;
 import org.fpu.clinica.paciente.PacienteRepository;
+import org.fpu.clinica.utils.ComUtils;
 import org.fpu.clinica.utils.GenericService;
 import org.fpu.clinica.utils.ServicePath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro("Data Final","DATAFINAL",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Data Final","DATAFINAL",
 					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
@@ -95,6 +96,9 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
 
+
+
+
 		//	if((itemAgenda.getAgenda().getDataHoraInicialConsulta().getTime() - DataSalva.getTime()) / (1000 * 60 * 60 * 24) == 5)
 		//if((itemAgenda.getAgenda().getDataHoraInicialConsulta().getTime() - itemAgenda.getAgenda().getDataHoraFinalConsulta().getTime()) / (1000 * 60 * 60 * 24) == 5)
 		Calendar calDataInicial = Calendar.getInstance();
@@ -104,7 +108,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro("Data Final","DATAFINAL",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Data Final","DATAFINAL",
 					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
@@ -112,7 +116,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 		if(itemAgenda.getPaciente() == null){
-			SetMessageErro("Paciente","PACIENTE",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Paciente","PACIENTE",
 					"Paciente não pode estar em branco","error");
 
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
@@ -142,7 +146,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro("Data Final","DATAFINAL",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Data Final","DATAFINAL",
 					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
@@ -151,7 +155,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		if(itemAgenda.getPaciente() == null){
 
-			SetMessageErro("Paciente","PACIENTE",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Paciente","PACIENTE",
 					"Paciente não pode estar em branco","error");
 
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
@@ -182,7 +186,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro("Data Final","DATAFINAL",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Data Final","DATAFINAL",
 					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
@@ -191,7 +195,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		if(itemAgenda.getPaciente() == null){
 
-			SetMessageErro("Paciente","PACIENTE",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Paciente","PACIENTE",
 					"Paciente não pode estar em branco","error");
 
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
@@ -221,7 +225,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 		calDataFinal.setTime(itemAgenda.getAgenda().getDataHoraFinalConsulta());
 
 		if(CompareDatas(calDataInicial, calDataFinal)){
-			SetMessageErro("Data Final","DATAFINAL",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Data Final","DATAFINAL",
 					"Data final não pode ser maior que a data Inicial","error");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
 		}
@@ -230,7 +234,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		if(itemAgenda.getPaciente() == null){
 
-			SetMessageErro("Paciente","PACIENTE",
+			ComUtils.setMessageErro(message,fieldsErrorDetalhe,"Paciente","PACIENTE",
 					"Paciente não pode estar em branco","error");
 
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(fieldsErrorDetalhe);
@@ -246,16 +250,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	}
 
 
-	private void SetMessageErro(String chave1, String chave2, String valor1, String valor2) {
-		List<String> mensagensErro;
-		mensagensErro = new ArrayList<String>();
-		mensagensErro.add(String.format(" %s : %s", chave1,
-                valor1));
-
-		fieldsErrorDetalhe.AddField(chave2, valor2);
-
-		fieldsErrorDetalhe.setFieldsErrorMessages(mensagensErro);
-	}
+	
 
 
 	private boolean CompareDatas(Calendar calDataInicial, Calendar calDataFinal) {
@@ -513,9 +508,9 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 
 
-	@RequestMapping(path = "/find_horario_agendamento/{dataHoraDisponivel}/{medicoId}")
+	@RequestMapping(path = "/find_horario_agendamento/{dataHoraDisponivelInicial}/{dataHoraDisponivelFinal}/{medicoId}")
 	//@Transactional
-	public List<ItemAgenda>  findHorarioAgendamento(@PathVariable("dataHoraDisponivel") String dataHoraDisponivel, @PathVariable("medicoId") Long medico) {
+	public List<ItemAgenda>  findHorarioAgendamento(@PathVariable("dataHoraDisponivelInicial") String dataHoraDisponivelInicial, @PathVariable("dataHoraDisponivelFinal") String dataHoraDisponivelFinal, @PathVariable("medicoId") Long medico) {
 		SimpleDateFormat formatterb = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 		Date dataHoraAgendamentoIntervaloInicial = null;
 		Date dataHoraAgendamentoIntervaloFinal = null;
@@ -525,8 +520,8 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		try {
 
-			dataHoraAgendamentoIntervaloInicial = formatterb.parse(dataHoraDisponivel + " 00:00");
-			dataHoraAgendamentoIntervaloFinal = formatterb.parse(dataHoraDisponivel + " 23:59");
+			dataHoraAgendamentoIntervaloInicial = formatterb.parse(dataHoraDisponivelInicial + " 00:00");
+			dataHoraAgendamentoIntervaloFinal = formatterb.parse(dataHoraDisponivelFinal + " 23:59");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -581,7 +576,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		// List<String> msg = new ArrayList<String>();
 
-
+		checkStatusItensEscalaAtendimento();
 
 		Medico medico = medicoRepository.findOne(medicoId);
 
@@ -807,4 +802,42 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 
 		return ResponseEntity.status(HttpStatus.OK).body(consultas);
 	}
+
+
+	private void checkStatusItensEscalaAtendimento() {
+		List<ItemAgenda> itensAgenda = itemAgendaRepository.findAll();
+		Calendar dataItemAgenda = Calendar.getInstance();
+		Calendar maxDiaAgenda = Calendar.getInstance();
+		maxDiaAgenda.setTime(new Date());
+
+		maxDiaAgenda.add(Calendar.DAY_OF_MONTH, -1);
+
+		for (ItemAgenda item : itensAgenda) {
+
+
+			dataItemAgenda.setTime(item.getAgenda().getDataHoraInicialConsulta());
+			boolean teste = maxDiaAgenda.after(dataItemAgenda);
+			if ((item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.DISPONIVEL.getDescricao()) ||
+					item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.AGUARDANDOAUTORIZACAO.getDescricao())) &&
+					dataItemAgenda.before(maxDiaAgenda)) {
+
+				item.setStatusAgenda(TipoStatusAgenda.NAOAGENDADO.getDescricao());
+
+				itemAgendaRepository.saveAndFlush(item);
+
+			}else if((item.getStatusAgenda().equalsIgnoreCase(TipoStatusAgenda.AGENDADO.getDescricao()) ) &&
+					dataItemAgenda.before(maxDiaAgenda) ){
+
+				item.setStatusAgenda(TipoStatusAgenda.FALTOU.getDescricao());
+				itemAgendaRepository.saveAndFlush(item);
+			}
+
+
+
+		}
+
+	}
+
+
+
 }

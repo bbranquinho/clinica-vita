@@ -70,9 +70,18 @@ angular.module('clinica')
         function errorCallback(response) {
             if(response.data !== null){
 
+                let messageErro;
+
+                if(response.data.message != null && response.data.message != undefined ){
+                    messageErro = response.data.message;
+                }
+                else  if(response.data.fieldsErrorMessages[0] != null && response.data.fieldsErrorMessages[0] != undefined ){
+                    messageErro = response.data.fieldsErrorMessages[0];
+                }
+
                 $mdToast.show({
                     hideDelay   : 10000, position    : 'top right',
-                    template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex>Erro:</span> <p class="md-highlight"  flex>Operação não realizada!</p></md-toast>'});
+                    template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex>Erro:</span> <p class="md-highlight"  flex>'+ messageErro +'</p></md-toast>'});
 
 
                 //$mdToast.show($mdToast.simple().textContent('Error: ' + response.data + '.', 'error').position('top right').hideDelay(3000));
