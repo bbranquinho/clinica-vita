@@ -30,7 +30,7 @@ angular.module('clinica')
         };
 
         $scope.salvar = function() {
-            console.log('ola');
+
             if($scope.cargo === undefined){
                 return $mdDialog.cancel();
             }else{
@@ -44,7 +44,7 @@ angular.module('clinica')
 
 
 
-                        showCustomSuccessToast('Sucesso','cargo \'' + $scope.cargo.nome + '\' adicionado.');
+                        showCustomSuccessToast('Sucesso','cargo \'' + $scope.cargo.nome + '\' adicionado(a).');
                         return  $mdDialog.hide(data.data);
                     }else{
                         $scope.statusError = 'unsuccess';

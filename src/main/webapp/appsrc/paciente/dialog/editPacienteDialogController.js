@@ -15,6 +15,13 @@ angular.module('clinica')
             $scope.editarPaciente = _editarpaciente_aux;
         }
 
+        Date.prototype.subYear = function(years){
+            this.setYear(this.getYear() - years)
+        };
+
+
+        $scope.dataMaximaNascimento  = new Date();
+        $scope.dataMaximaNascimento.subYear(18);
 
         $scope.tabIndexControll = function() {
 

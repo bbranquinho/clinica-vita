@@ -5,11 +5,11 @@
         <div class="md-toolbar-tools">
             <h2>Cadastro de Médicos</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="cancel()">
-                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-            </md-button>
+            <!-- <md-button class="md-icon-button" ng-click="cancel()">
+             <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>-->
         </div>
-    </md-toolbar>
+         </md-toolbar>
     <form name="newMedicoForm" ng-submit="salvar()" ng-init="setFormNewMedicoScope(this)">
         <md-dialog-content layout-padding>
             <md-tabs md-dynamic-height md-stretch-tabs="always"  md-selected="tabIndex" md-border-bottom>
@@ -66,9 +66,17 @@
                                     <h4>Registro Profissional*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Registro Profissional(*):</label>
-                                        <input ng-model="medico.registroProfissional"   name="registroProfissional" minlength="4" maxlength="10" required="required">
+                                        <input ng-model="medico.registroProfissional"   name="registroProfissional" minlength="4" maxlength="10" ng-pattern="/^[0-9]{1,}$/" required="required">
                                         <div ng-messages="newMedicoForm.registroProfissional.$error">
                                             <div ng-message="required">Campo Obrigatório.</div>
+
+                                                <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                    Deve ter entre 4 e 10 números.
+                                                </div>
+                                                <div ng-message-exp="['pattern']">
+                                                    Não pode ter letras.
+                                                </div>
+
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -77,9 +85,15 @@
                                 <h4>Nome*:</h4>
                                 <md-input-container  class="md-block" >
                                     <label>Nome:</label>
-                                    <input ng-model="medico.user.nome" name="nome" minlength="4" maxlength="80" required="required">
+                                    <input ng-model="medico.user.nome" name="nome" ng-pattern="/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/" minlength="4" maxlength="80" required="required">
                                     <div ng-messages="newMedicoForm.nome.$error">
                                         <div ng-message="required">Campo Obrigatório.</div>
+                                        <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                            Deve ter entre 4 e 80.
+                                        </div>
+                                        <div ng-message-exp="['pattern']">
+                                            Não pode ter números e caracteres especiais.
+                                        </div>
                                     </div>
                                 </md-input-container>
                             </div>
@@ -109,7 +123,7 @@
 
                                 <div flex-gt-xs>
                                     <h4>Data de Nascimento:</h4>
-                                    <md-datepicker ng-model="dataNascimento" md-placeholder="Insira Data" ng-change="formattedDate('dataNascimento')"></md-datepicker>
+                                    <md-datepicker ng-model="dataNascimento" md-placeholder="Insira Data" md-max-date="dataMaximaNascimento" ng-change="formattedDate('dataNascimento')"></md-datepicker>
                                 </div>
 
                             </div>
@@ -159,9 +173,15 @@
                                         <h4>Especialidade*:</h4>
                                         <md-input-container class="md-block" flex-gt-sm>
                                             <label>Especialidade(*):</label>
-                                            <input ng-model="medico.especialidade" name="especialidade" minlength="4" maxlength="60" required="required">
+                                            <input ng-model="medico.especialidade" name="especialidade" ng-pattern="/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/" minlength="4" maxlength="60" required="required">
                                             <div ng-messages="newMedicoForm.especialidade.$error">
                                                 <div ng-message="required">Campo Obrigatório.</div>
+                                                <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                    Deve ter entre 4 e 60.
+                                                </div>
+                                                <div ng-message-exp="['pattern']">
+                                                    Não pode ter números e caracteres especiais.
+                                                </div>
                                             </div>
                                         </md-input-container>
                                     </div>
@@ -175,7 +195,7 @@
                                     <div flex-gt-xs>
                                         <h4>Data de Admissão*:</h4>
                                         <md-datepicker ng-model="dataAdmissao" required="required"
-                                                       md-placeholder="Data Admissao(*):" class="date-row" ng-change="formattedDate('dataAdmissao')">
+                                                       md-placeholder="Data Admissao(*):" class="date-row" md-max-date="dataMaximaAdmissao" ng-change="formattedDate('dataAdmissao')">
 
                                         </md-datepicker>
                                     </div>
@@ -289,9 +309,12 @@
                                         <h4>Número*:</h4>
                                         <md-input-container class="md-block" >
                                             <label>Número(*):</label>
-                                            <input ng-model="medico.numero" name="numero" required="required">
+                                            <input ng-model="medico.numero" minlength="4" maxlength="20" name="numero" required="required">
                                             <div ng-messages="newMedicoForm.numero.$error">
                                                 <div ng-message="required">Campo Obrigatório.</div>
+                                                <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                    Deve ter entre 4 e 20.
+                                                </div>
                                             </div>
                                         </md-input-container>
                                     </div>
@@ -334,9 +357,10 @@
                                 <md-input-container  class="md-block" >
 
                                     <label>Email(*):</label>
-                                    <input ng-model="medico.user.email" type="email" name="email" required="required">
+                                    <input ng-model="medico.user.email" type="email" name="email" minlength="10" maxlength="100" required="required" ng-pattern="/^.+@.+\..+$/" >
                                     <md-icon md-svg-src="email_form"></md-icon>
                                     <div ng-messages="newMedicoForm.email.$error" role="alert">
+                                        <div ng-message="required">Campo Obrigatório.</div>
                                         <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
                                             Deve ter entre 10 e 100 letras e ser válido.
                                         </div>
@@ -352,7 +376,7 @@
                                         <md-input-container class="md-block" flex-gt-sm>
 
                                             <label>Senha(*):</label>
-                                            <input ng-model="medico.user.password" name="senha" type="password" minlength="6" maxlength="100" ng-required="true"/>
+                                            <input ng-model="medico.user.password" name="senha" type="password" minlength="6" maxlength="100" required/>
                                             <md-icon md-svg-src="key_form"></md-icon>
                                             <div ng-messages="newMedicoForm.senha.$error">
                                                 <div ng-message="required">Campo Obrigatório.</div>

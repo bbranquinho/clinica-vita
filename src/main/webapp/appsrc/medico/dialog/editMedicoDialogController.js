@@ -33,6 +33,17 @@ angular.module('clinica')
         }
 
 
+        Date.prototype.subYear = function(years){
+            this.setYear(this.getYear() - years)
+        };
+
+
+        $scope.dataMaximaNascimento  = new Date();
+        $scope.dataMaximaNascimento.subYear(18);
+
+        $scope.dataMaximaAdmissao = new Date();
+
+
         $scope.tabIndexControll = function() {
 
             $scope.tabIndex++;
@@ -261,7 +272,7 @@ angular.module('clinica')
 
                             $scope.statusError = 'success';
                             $scope.message = data.atributeMessage.MENSAGEM;
-                            openToast('cargo \'' + cargo.nome + '\' updated.', 'success');
+                            openToast('cargo \'' + cargo.nome + '\' atualizado.', 'success');
 
                         }else{
                             $scope.statusError = 'unsuccess';
@@ -280,7 +291,7 @@ angular.module('clinica')
                         if(status ==='ok'){
 
                             $mdToast.show($mdToast.simple()
-                                .textContent('cargo \'' + cargo.nome + '\' added.', 'success')
+                                .textContent('cargo \'' + cargo.nome + '\' adicionado(a).', 'success')
                                 .position('top right')
                                 .hideDelay(3000));
 
@@ -341,7 +352,7 @@ angular.module('clinica')
 
                             $scope.statusError = 'success';
                             $scope.message = data.atributeMessage.MENSAGEM;
-                            openToast('setor \'' + setor.nome + '\' updated.', 'success');
+                            openToast('setor \'' + setor.nome + '\' atualizado(a).', 'success');
 
                         }else{
                             $scope.statusError = 'unsuccess';
@@ -360,7 +371,7 @@ angular.module('clinica')
                         if(status ==='ok'){
 
                             $mdToast.show($mdToast.simple()
-                                .textContent('setor \'' + setor.nome + '\' added.', 'success')
+                                .textContent('setor \'' + setor.nome + '\' adicionado(a).', 'success')
                                 .position('top right')
                                 .hideDelay(3000));
 

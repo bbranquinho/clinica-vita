@@ -17,6 +17,13 @@ angular.module('clinica')
             $scope.paciente = _paciente_aux;
         }
 
+        Date.prototype.subYear = function(years){
+            this.setYear(this.getYear() - years)
+        };
+
+
+        $scope.dataMaximaNascimento  = new Date();
+        $scope.dataMaximaNascimento.subYear(18);
 
         $scope.tabIndexControll = function() {
 
@@ -187,7 +194,7 @@ angular.module('clinica')
 
 
       /*                  openToast('paciente \'' + paciente.nome + '\' added.', 'success');*/
-                        showCustomSuccessToast('Sucesso','paciente \'' + $scope.paciente.user.nome + '\' adicionado.');
+                        showCustomSuccessToast('Sucesso','paciente \'' + $scope.paciente.user.nome + '\' adicionado(a).');
                         return  $mdDialog.hide($scope.paciente);
                     }else{
                         $scope.statusError = 'unsuccess';

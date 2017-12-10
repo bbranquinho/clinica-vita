@@ -16,7 +16,7 @@ angular.module('clinica')
 
         
         $scope.cancelar = function(){
-            console.log("oi");
+
             return $mdDialog.cancel();
 
         };

@@ -101,8 +101,11 @@ angular.module('clinica')
             console.log($scope.elements.medico.id);
             console.log($scope.elements.datasDiponiveis);
 
+
             let dataSearchInicial = FormatBDate.format($scope.elements.datasDiponiveis);
             let dataSearchFinal = FormatBDate.format($scope.elements.dataDisponivelFinal);
+
+            //var isafter = moment(dataSearchInicial).isAfter(dataSearchFinal);
 
            let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearchInicial + '/'+ dataSearchFinal + '/' + $scope.elements.medico.id ;
             //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3

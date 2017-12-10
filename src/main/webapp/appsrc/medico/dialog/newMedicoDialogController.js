@@ -18,6 +18,20 @@ angular.module('clinica')
         }
 
 
+
+        Date.prototype.subYear = function(years){
+            this.setYear(this.getYear() - years)
+        };
+
+
+        $scope.dataMaximaNascimento  = new Date();
+        $scope.dataMaximaNascimento.subYear(18);
+
+        $scope.dataMaximaAdmissao = new Date();
+
+
+
+
         $scope.tabIndexControll = function() {
 
                 if($scope.tabIndex == 0){
