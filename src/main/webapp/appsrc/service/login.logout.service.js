@@ -25,17 +25,17 @@ angular.module('clinica')
                         $rootScope.authDetails = { name: data.name, authenticated: data.authenticated, permissions: data.authorities, file: data.principal.file};
                         $localStorage.authDetails = $rootScope.authDetails;
                         $location.path('/home');
-                        $mdToast.show($mdToast.simple().textContent('Welcome ' + data.name + '.', 'success').position('top right').hideDelay(3000));
+                        $mdToast.show($mdToast.simple().textContent('Bem Vindo ' + data.name + '.', 'success').position('top right').hideDelay(3000));
                        // ngNotify.set('Welcome ' + data.name + '.', 'success');
                     } else {
                         $rootScope.authDetails = { name: '', authenticated: false, permissions: [] , file: {}};
-                        $mdToast.show($mdToast.simple().textContent('Email or password that you have entered do not match our records.', 'error').position('top right').hideDelay(3000));
+                        $mdToast.show($mdToast.simple().textContent('Email ou senha inválido.', 'error').position('top right').hideDelay(3000));
                        // ngNotify.set('Email or password that you have entered do not match our records.', { type: 'failure', duration: 5000 });
                     }
                 },
                 function failure() {
                     $rootScope.authDetails = { name: '', authenticated: false, permissions: [], file: {}};
-                    $mdToast.show($mdToast.simple().textContent('Email or password that you have entered do not match our records.', 'error').position('top right').hideDelay(3000));
+                    $mdToast.show($mdToast.simple().textContent('Email ou senha inválido.', 'error').position('top right').hideDelay(3000));
                    // ngNotify.set('Email or password that you have entered do not match our records.', { type: 'failure', duration: 5000 });
                 }
             );

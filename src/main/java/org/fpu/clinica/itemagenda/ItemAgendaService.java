@@ -264,6 +264,7 @@ public class ItemAgendaService extends GenericService<ItemAgenda, Long> {
 	public ResponseEntity<?>  gerarAgendamento(@RequestBody PeriodoAgendamento periodoAgendamento) {
 		/*Verifica se o medico informado possui itens na escala*/
 		if(checkQuantidadeEscala(periodoAgendamento.getMedicoId())){
+
 			message.AddField("mensagem", "O médico informado não possui escalas cadastradas.");
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
 		}

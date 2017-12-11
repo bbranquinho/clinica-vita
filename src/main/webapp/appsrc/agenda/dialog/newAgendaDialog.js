@@ -15,7 +15,7 @@ angular.module('clinica')
         $scope.itemAgenda.medico = _medico;
 
         $scope.cancelar = function(){
-            console.log("oi");
+
             return $mdDialog.cancel();
 
         };

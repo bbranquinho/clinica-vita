@@ -5,9 +5,9 @@
         <div class="md-toolbar-tools">
             <h2>Cadastro de Pacientes</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="cancel()">
+           <!-- <md-button class="md-icon-button" ng-click="cancel()">
                 <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
-            </md-button>
+            </md-button>-->
         </div>
     </md-toolbar>
     <form name="newPacienteForm" ng-submit="salvar()" ng-init="setFormNewPacienteScope(this)">
@@ -30,7 +30,9 @@
                         </div>
 
                         <div layout="column" layout-padding>
-                            <foto model="paciente.user.fileUpload" mimetypefile="{{paciente.user.fileUpload.mimeType}},{{paciente.user.fileUpload.file}}" showfoto="{{paciente.user.fileUpload}}"></foto>
+                            <foto model="paciente.user.fileUpload" mimetypefile="{{paciente.user.fileUpload.mimeType}},{{paciente.user.fileUpload.file}}" showfoto="{{paciente.user.fileUpload}}" ng-if="!!paciente.user.fileUpload"></foto>
+
+                            <foto model="paciente.user.fileUpload"  showfoto="{{paciente.user.fileUpload}}" ng-if="!paciente.user.fileUpload"></foto>
                             <div>
                                 <div layout-gt-sm="row">
 

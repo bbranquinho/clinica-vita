@@ -74,7 +74,7 @@ angular.module('clinica')
         function showCustomErrorToast(status, mensagem) {
             $mdToast.show({
                 hideDelay   : 3000, position    : 'top right',
-                template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex ng-bind="status"></span> <p class="md-highlight"  flex ng-bind="mensagem"></p></md-toast>'});
+                template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex >'+status+'</span> <p class="md-highlight"  flex >'+mensagem+'</p></md-toast>'});
         };
         function showCustomSuccessToast(status, mensagem) {
             $mdToast.show({
@@ -94,32 +94,42 @@ angular.module('clinica')
                 $scope.periodoAgendamento.periodoFinal = FormatDate.format($scope.periodoFinalConsulta);
                 $scope.periodoAgendamento.medicoId = $scope.elements.medico.id;
 
-                let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/gerar_agendamento';
+                let isafter = moment($scope.periodoInicialConsulta).isAfter($scope.periodoFinalConsulta);
 
-                RestSrv.add(itemAgendaUrl, $scope.periodoAgendamento, function(status,data) {
+                if(isafter){
+                    showCustomErrorToast("Erro","A data Inicial deve ser anterior que a data final")
+                }else{
 
-                    if(status ==='ok'){
-                        //$scope.medicos.push(data.data);
-                        $scope.statusError = 'success';
-                        $scope.message = data.atributeMessage.MENSAGEM;
+                    let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/gerar_agendamento';
 
+                    RestSrv.add(itemAgendaUrl, $scope.periodoAgendamento, function(status,data) {
 
-                        showCustomSuccessToast('Sucesso','Horários de Agenda(a)  gerados(a).');
-                        return  $mdDialog.hide(data.data);
-                    }else{
-                        $scope.statusError = 'unsuccess';
-                        $scope.messages = data.fieldsErrorMessages;
-                        if(data.message != null || data.message != undefined){
-                            $scope.message = data.message;
-                        }else if(data.atributeMessage != null || data.atributeMessage != undefined){
+                        if(status ==='ok'){
+                            //$scope.medicos.push(data.data);
+                            $scope.statusError = 'success';
                             $scope.message = data.atributeMessage.MENSAGEM;
+
+
+                            showCustomSuccessToast('Sucesso','Horários de Agenda(a)  gerados(a).');
+                            return  $mdDialog.hide(data.data);
+                        }else{
+                            $scope.statusError = 'unsuccess';
+                            $scope.messages = data.fieldsErrorMessages;
+                            if(data.message != null || data.message != undefined){
+                                $scope.message = data.message;
+                            }else if(data.atributeMessage != null || data.atributeMessage != undefined){
+                                $scope.message = data.atributeMessage.MENSAGEM;
+                            }
+
+                            $scope.fields = data.mapOfFields;
+                            console.log(data);
                         }
 
-                        $scope.fields = data.mapOfFields;
-                        console.log(data);
-                    }
+                    });
 
-                });
+                }
+
+
 
 
 

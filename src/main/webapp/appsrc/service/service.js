@@ -74,8 +74,9 @@ angular.module('clinica')
 
                 if(response.data.message != null && response.data.message != undefined ){
                     messageErro = response.data.message;
-                }
-                else  if(response.data.fieldsErrorMessages[0] != null && response.data.fieldsErrorMessages[0] != undefined ){
+                }else if(response.data.atributeMessage.MENSAGEM != undefined && response.data.atributeMessage.MENSAGEM != null ){
+                    messageErro = response.data.atributeMessage.MENSAGEM;
+                }else  if(response.data.fieldsErrorMessages[0] != undefined  && response.data.fieldsErrorMessages[0] != null ){
                     messageErro = response.data.fieldsErrorMessages[0];
                 }
 

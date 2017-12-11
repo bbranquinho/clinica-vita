@@ -1,12 +1,8 @@
 package org.fpu.clinica.fileupload;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-
 import org.fpu.clinica.utils.BaseEntity;
+
+import javax.persistence.*;
 
 
 
@@ -18,8 +14,11 @@ public class FileUpload extends BaseEntity<Long> {
 
 	private static final long serialVersionUID = 1L;
 
-	@Lob
-	private byte[] file;
+	/*@Lob
+	private byte[] file;*/
+
+	@Column(columnDefinition="text")
+	private String file;
 	
 	@Column(name = "mime_type", nullable = true)
 	private String mimeType;
@@ -28,12 +27,11 @@ public class FileUpload extends BaseEntity<Long> {
 
 	}
 
-
-	public byte[] getFile() {
+	public String getFile() {
 		return file;
 	}
 
-	public void setFile(byte[] file) {
+	public void setFile(String file) {
 		this.file = file;
 	}
 
@@ -44,7 +42,4 @@ public class FileUpload extends BaseEntity<Long> {
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
 	}
-
-	
-
 }
