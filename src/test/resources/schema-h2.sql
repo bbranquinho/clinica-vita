@@ -17,7 +17,7 @@ drop table if exists public.tb_item_escala_atendimento;
 
 CREATE TABLE public.tb_file_upload (
   id_file_upload bigint(20) NOT NULL AUTO_INCREMENT,
-  file longblob,
+  file varchar(65535),
   mime_type varchar(255) DEFAULT NULL,
   PRIMARY KEY (id_file_upload)
 ); 
