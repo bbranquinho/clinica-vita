@@ -113,7 +113,7 @@ angular.module('clinica')
                 RestSrv.delete(setorUrl, $scope.selected[0], function(status,data) {
 
                     $scope.setores.splice($scope.setores.indexOf(setorUrl), 1);
-                    openToast('setor \'' + $scope.selected[0].nome + '\' deleted.', 'success');
+                    openToast('setor \'' + $scope.selected[0].nome + '\' deletado(a).', 'success');
                     $scope.selected = [];
                 });
 
@@ -245,7 +245,7 @@ angular.module('clinica')
             $scope.setores = data;
             $scope.desserts = $scope.setores;
 
-            openToast('Loaded Setors with success.', 'success');
+            openToast('Setores carregados com sucesso.', 'success');
 
 
         });

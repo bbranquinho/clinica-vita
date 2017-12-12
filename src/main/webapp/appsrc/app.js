@@ -108,7 +108,7 @@ angular.module('clinica',[
             showfoto: "@",
             mimetypefile:"@",
             model:"="},
-        template: '<div layout="column" layout-align="center center" flex> <md-card-avatar><img class="md-user-avatar"  src="../../../img/user.jpg" ng-if="!showfoto" class="avatar" style="width: 100px; height: 100px;"><img class="md-user-avatar"  src="{{mimetypefile}}" ng-if="!!showfoto" class="avatar" style="width: 100px; height: 100px;"> </md-card-avatar><input  id="input-file-id"  type="file" class="ng-hide"  app-filereader   ng-model="model"> <label for="input-file-id"  class="md-button md-raised md-primary">Selecionar Foto</label><md-icon class="ng-scope ng-isolate-scope md-default-theme material-icons">wallpaper</md-icon><span ng-bind="fotoName"></span></div>'
+        template: '<div layout="column" layout-align="center center" flex> <md-card-avatar><img class="md-user-avatar"  src="../../../img/user.jpg" ng-if="!showfoto" class="avatar" style="width: 100px; height: 100px;" /><img class="md-user-avatar"  src="{{mimetypefile}}" ng-if="!!showfoto" class="avatar" style="width: 100px; height: 100px;"> </md-card-avatar><input  id="input-file-id"  type="file" class="ng-hide"  app-filereader   ng-model="model" /> <label for="input-file-id"  class="md-button md-raised md-primary">Selecionar Foto</label><md-icon class="ng-scope ng-isolate-scope md-default-theme material-icons">wallpaper</md-icon><span ng-bind="fotoName"></span></div>'
 
   };
 

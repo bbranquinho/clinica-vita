@@ -43,9 +43,9 @@
                                     <div flex-gt-xs>
                                         <h4>Matricula*:</h4>
                                         <md-input-container  class="md-block" >
-                                            <label>Nome:</label>
-                                            <input ng-model="editarFuncionario.matricula" name="matricula" required="required">
-                                            <div ng-messages="newFuncionarioForm.matricula.$error">
+                                            <label>Matricula:</label>
+                                            <input ng-model="editarFuncionario.matricula" name="matricula" ng-disabled="true" required="required">
+                                            <div ng-messages="editFuncionarioForm.matricula.$error">
                                                 <div ng-message="required">This is required.</div>
                                             </div>
                                         </md-input-container>
@@ -56,9 +56,15 @@
                                     <h4>Nome*:</h4>
                                     <md-input-container  class="md-block" >
                                         <label>Nome:</label>
-                                        <input ng-model="editarFuncionario.user.nome" name="nome" required="required">
-                                        <div ng-messages="newFuncionarioForm.nome.$error">
-                                            <div ng-message="required">This is required.</div>
+                                        <input ng-model="editarFuncionario.user.nome" name="nome" ng-pattern="/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/" minlength="4" maxlength="80" required="required">
+                                        <div ng-messages="editFuncionarioForm.nome.$error">
+                                            <div ng-message="required">Campo Obrigatório.</div>
+                                            <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                Deve ter entre 4 e 80.
+                                            </div>
+                                            <div ng-message-exp="['pattern']">
+                                                Não pode ter números e caracteres especiais.
+                                            </div>
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -70,7 +76,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>RG:</label>
                                                 <input ng-model="editarFuncionario.rg" name="rg" required="required">
-                                                <div ng-messages="newFuncionarioForm.rg.$error">
+                                                <div ng-messages="editFuncionarioForm.rg.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -81,7 +87,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>CPF:</label>
                                                 <input ng-model="editarFuncionario.cpf" name="cpf" required="required" ui-br-cpf-mask>
-                                                <div ng-messages="newFuncionarioForm.cpf.$error">
+                                                <div ng-messages="editFuncionarioForm.cpf.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -89,7 +95,7 @@
 
                                         <div flex-gt-xs>
                                             <h4>Data de Nascimento*:</h4>
-                                            <md-datepicker ng-model="dataNascimento" ng-change="formattedDate('dataNascimento')"
+                                            <md-datepicker ng-model="dataNascimento" ng-change="formattedDate('dataNascimento')" md-max-date="dataMaximaNascimento"
                                                            md-placeholder="Data Nascimento" class="date-row">
 
                                             </md-datepicker>
@@ -140,14 +146,14 @@
 
                                     </div>
 
+
                                 </div>
                                 <div>
 
                                     <div layout-gt-sm="row">
                                         <div flex-gt-xs>
                                             <h4>Data de Admissão*:</h4>
-                                            <md-datepicker ng-model="dataAdmissao"
-                                                           md-placeholder="Data Admissao" class="date-row" ng-change="formattedDate('dataAdmissao')">
+                                            <md-datepicker ng-model="dataAdmissao" md-max-date="dataMaximaAdmissao"  md-placeholder="Data Admissao" class="date-row" ng-change="formattedDate('dataAdmissao')">
 
                                             </md-datepicker>
                                         </div>
@@ -158,7 +164,7 @@
                                                 <!--<md-icon md-svg-src="phone_form"></md-icon>-->
                                                 <label>Telefone:</label>
                                                 <input ng-model="editarFuncionario.telefone" name="rg" required="required" ui-br-phone-number>
-                                                <div ng-messages="newFuncionarioForm.telefone.$error">
+                                                <div ng-messages="editFuncionarioForm.telefone.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -193,7 +199,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>Cep(*):</label>
                                                 <input ng-model="editarFuncionario.cep"  name="cep" required="required" ui-br-cep-mask>
-                                                <div ng-messages="newFuncionarioForm.cep.$error">
+                                                <div ng-messages="editFuncionarioForm.cep.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
 
@@ -205,7 +211,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>Rua(*):</label>
                                                 <input ng-model="editarFuncionario.rua" ng-disabled="true"  name="rua" required="required">
-                                                <div ng-messages="newFuncionarioForm.rua.$error">
+                                                <div ng-messages="editFuncionarioForm.rua.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -223,7 +229,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>Bairro(*):</label>
                                                 <input ng-model="editarFuncionario.bairro" ng-disabled="true" name="bairro" required="required" >
-                                                <div ng-messages="newFuncionarioForm.bairro.$error">
+                                                <div ng-messages="editFuncionarioForm.bairro.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -234,7 +240,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>Cidade(*):</label>
                                                 <input ng-model="editarFuncionario.cidade" ng-disabled="true" name="cidade" required="required">
-                                                <div ng-messages="newFuncionarioForm.cidade.$error">
+                                                <div ng-messages="editFuncionarioForm.cidade.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -254,7 +260,7 @@
                                             <md-input-container class="md-block" flex-gt-sm>
                                                 <label>Estdo(*):</label>
                                                 <input ng-model="editarFuncionario.estado" ng-disabled="true" name="estado" required="required">
-                                                <div ng-messages="newFuncionarioForm.estado.$error">
+                                                <div ng-messages="editFuncionarioForm.estado.$error">
                                                     <div ng-message="required">This is required.</div>
                                                 </div>
                                             </md-input-container>
@@ -264,9 +270,12 @@
                                             <h4>Número*:</h4>
                                             <md-input-container class="md-block" >
                                                 <label>Número(*):</label>
-                                                <input ng-model="editarFuncionario.numero" name="numero" required="required">
-                                                <div ng-messages="newFuncionarioForm.numero.$error">
-                                                    <div ng-message="required">This is required.</div>
+                                                <input ng-model="editarFuncionario.numero" ng-model="editarMedico.numero" name="numero" required="required" minlength="4" maxlength="20">
+                                                <div ng-messages="editFuncionarioForm.numero.$error">
+                                                    <div ng-message="required">Campo Obrigatório.</div>
+                                                    <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                        Deve ter entre 4 e 20.
+                                                    </div>
                                                 </div>
                                             </md-input-container>
                                         </div>
@@ -306,8 +315,11 @@
                                         <label>Email:</label>
                                         <input ng-model="editarFuncionario.user.email" name="email" required="required" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" required="required">
                                         <md-icon md-svg-src="email_form"></md-icon>
-                                        <div ng-messages="newFuncionarioForm.email.$error">
-                                            <div ng-message="required">This is required.</div>
+                                        <div ng-messages="editFuncionarioForm.email.$error">
+                                            <div ng-message="required">Campo Obrigatório.</div>
+                                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                                Deve ter entre 10 e 100 letras e ser válido.
+                                            </div>
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -322,7 +334,7 @@
                                                 <label>Senha(*):</label>
                                                 <input ng-model="editarFuncionario.user.password" name="senha" type="password" minlength="6" maxlength="20"  ng-required="true"/>
                                                 <md-icon md-svg-src="key_form"></md-icon>
-                                                <div ng-messages="newFuncionarioForm.senha.$error">
+                                                <div ng-messages="editFuncionarioForm.senha.$error">
                                                     <div ng-message="required">Campo Obrigatório.</div>
                                                 </div>
                                             </md-input-container>
@@ -390,7 +402,7 @@
             <md-button ng-click="cancelar()">
                 Cancel
             </md-button>
-            <md-button type="submit" class="md-primary md-raised" ng-disabled="newFuncionarioForm.$invalid">
+            <md-button type="submit" class="md-primary md-raised" ng-disabled="editFuncionarioForm.$invalid">
                 Save
             </md-button>
         </md-dialog-actions>

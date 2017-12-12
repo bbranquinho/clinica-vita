@@ -120,7 +120,7 @@
                                         <div ng-messages="eventForm.periodoFinalConsulta.$error" ng-if="eventForm.periodoFinalConsulta.$touched" style="color:rgb(221,44,0);">
                                             <div ng-message="valid" >A data inserida não é válida!</div>
                                             <div ng-message="required">Campo Obrigatório!</div>
-                                            <div ng-message="mindate">Deve ser maior que a data de hoje!</div>
+                                            <div ng-message="mindate">Deve ser maior ou igual a data inicial!</div>
                                             <div ng-message="maxdate">Deve ser menor ou igual ao intervalo de 7 dias!</div>
                                         </div>
 

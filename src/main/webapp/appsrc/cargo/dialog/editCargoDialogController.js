@@ -16,7 +16,7 @@ angular.module('clinica')
 
         
         $scope.cancelar = function(){
-            console.log("oi");
+
             return $mdDialog.cancel();
 
         };
@@ -38,7 +38,7 @@ angular.module('clinica')
 
 
         $scope.salvar = function() {
-            console.log('ola');
+
             if($scope.editarCargo === undefined){
                 return $mdDialog.cancel();
             }else{
@@ -52,7 +52,7 @@ angular.module('clinica')
                         $scope.message = data.atributeMessage.MENSAGEM;
 
 
-                        showCustomSuccessToast('Sucesso','cargo \'' + $scope.editarCargo.nome + '\' atualizado.');
+                        showCustomSuccessToast('Sucesso','cargo \'' + $scope.editarCargo.nome + '\' atualizado(a).');
                         return  $mdDialog.hide($scope.editarCargo);
 
 

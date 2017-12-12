@@ -13,7 +13,65 @@ angular.module('clinica')
         };
 
 
+        /*dialog Show convenios*/
 
+        $scope.showConvenio = function(medico,$event) {
+            console.log('showConvenio');
+            // Appending dialog to document.body to cover sidenav in docs app
+            let useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            $mdDialog.show(
+
+                {
+                    templateUrl: 'appsrc/agenda/agendamento/dialogConvenio/dialogConvenio.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: DialogConvenioController,
+                    controllerAs: 'ctrl',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen,
+
+                    locals: {
+                        _medico: medico
+
+                    }
+
+                }
+
+
+            ).then(function() {
+
+
+
+            }, function() {
+                $scope.status = 'You decided to keep your debt.';
+            });
+
+            function DialogConvenioController($scope, $mdDialog, _medico) {
+                $scope.medico = _medico;
+
+                let findConvenioMedicoUrl = SERVICE_PATH.PRIVATE_PATH + "/convenio/findByMedico/" + $scope.medico.id;
+
+                RestSrv.find(findConvenioMedicoUrl, function(status,data) {
+
+
+                    $scope.conveniosMedico = data.data;
+                    console.log(data);
+
+
+                });
+
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                }
+            }
+        };
+
+        function showCustomErrorToast(status, mensagem) {
+            $mdToast.show({
+                hideDelay   : 3000, position    : 'top right',
+                template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex >'+status+'</span> <p class="md-highlight"  flex >'+mensagem+'</p></md-toast>'});
+        };
 
         /*Data Minima e Maxima para Agendamento*/
         let dias = 7;
@@ -44,19 +102,24 @@ angular.module('clinica')
             let dataSearch = FormatBDate.format($scope.elements.datasDiponiveis);
             let dataSearchFinal = FormatBDate.format($scope.elements.dataDisponivelFinal);
 
-            let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearch + '/'+ dataSearchFinal + '/' + $scope.elements.medico.id ;
-            //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3
+            let isafter = moment($scope.elements.datasDiponiveis).isAfter($scope.elements.dataDisponivelFinal);
+
+            if(isafter){
+                showCustomErrorToast("Erro","A data Inicial deve ser anterior que a data final")
+            }else {
+                let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH + '/item_agenda/find_horario_agendamento/' + dataSearch + '/' + dataSearchFinal + '/' + $scope.elements.medico.id;
+                //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3
 
 
-
-            RestSrv.find(itemAgendaUrl, function(status,data) {
-
-
-                $scope.itensAgenda = data;
-                $scope.initParamenters.showResultHorarios = true;
+                RestSrv.find(itemAgendaUrl, function (status, data) {
 
 
-            });
+                    $scope.itensAgenda = data;
+                    $scope.initParamenters.showResultHorarios = true;
+
+
+                });
+            }
         }
 
 

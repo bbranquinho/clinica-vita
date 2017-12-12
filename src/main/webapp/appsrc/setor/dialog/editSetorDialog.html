@@ -24,9 +24,15 @@
                         <h4>Nome*:</h4>
                         <md-input-container class="md-block"   flex-gt-sm>
                             <label>Nome</label>
-                            <input ng-model="editarSetor.nome" name="nome" md-autofocus required="required">
-                            <div ng-messages="editSetorForm.firstNome.$error">
-                                <div ng-message="required">This is required.</div>
+                            <input ng-model="editarSetor.nome" name="nome" minlength="4" maxlength="80" ng-pattern="/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/"  md-autofocus required="required">
+                            <div ng-messages="editSetorForm.nome.$error">
+                                <div ng-message="required">Campo Obrigatório.</div>
+                                <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                    Deve ter entre 4 e 80.
+                                </div>
+                                <div ng-message-exp="['pattern']">
+                                    Não pode ter números e caracteres especiais.
+                                </div>
                             </div>
                         </md-input-container>
                     </div>
@@ -34,9 +40,12 @@
                         <h4>Descrição*:</h4>
                         <md-input-container class="md-block" flex-gt-sm>
                             <label>Descrição</label>
-                            <input ng-model="editarSetor.descricao" name="descricao" required>
+                            <input ng-model="editarSetor.descricao" name="descricao"  minlength="4" maxlength="80" required>
                             <div ng-messages="editSetorForm.descricao.$error">
-                                <div ng-message="required">This is required.</div>
+                                <div ng-message="required">Campo Obrigatório.</div>
+                                <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                    Deve ter entre 4 e 80.
+                                </div>
                             </div>
                         </md-input-container>
                     </div>

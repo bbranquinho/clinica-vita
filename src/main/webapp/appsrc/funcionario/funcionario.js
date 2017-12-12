@@ -298,7 +298,7 @@ angular.module('clinica')
             }, 1000);
 
 
-            openToast('Loaded Funcionarios with success.', 'success');
+            openToast('Funcionários carregados com sucesso.', 'success');
 
 
         });

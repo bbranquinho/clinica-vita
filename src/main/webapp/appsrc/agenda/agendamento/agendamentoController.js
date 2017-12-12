@@ -72,7 +72,11 @@ angular.module('clinica')
             this.setDate(this.getDate() + dias)
         };
 
-
+        function showCustomErrorToast(status, mensagem) {
+            $mdToast.show({
+                hideDelay   : 3000, position    : 'top right',
+                template : ' <md-toast> <span class="md-toast-text" style="color:#FF5252" flex >'+status+'</span> <p class="md-highlight"  flex >'+mensagem+'</p></md-toast>'});
+        };
 
 
         /*Data Minima e Maxima para Agendamento*/
@@ -101,22 +105,31 @@ angular.module('clinica')
             console.log($scope.elements.medico.id);
             console.log($scope.elements.datasDiponiveis);
 
+
             let dataSearchInicial = FormatBDate.format($scope.elements.datasDiponiveis);
             let dataSearchFinal = FormatBDate.format($scope.elements.dataDisponivelFinal);
 
-           let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearchInicial + '/'+ dataSearchFinal + '/' + $scope.elements.medico.id ;
-            //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3
+            let isafter = moment($scope.elements.datasDiponiveis).isAfter($scope.elements.dataDisponivelFinal);
+
+            if(isafter){
+                showCustomErrorToast("Erro","A data Inicial deve ser anterior que a data final")
+            }else{
+                let itemAgendaUrl = SERVICE_PATH.PRIVATE_PATH +'/item_agenda/find_horario_agendamento/'+ dataSearchInicial + '/'+ dataSearchFinal + '/' + $scope.elements.medico.id ;
+                //http://localhost:8080/api/private/item_agenda/find_horario_agendamento/15-06-2017/3
 
 
 
-            RestSrv.find(itemAgendaUrl, function(status,data) {
+                RestSrv.find(itemAgendaUrl, function(status,data) {
 
 
-                $scope.itensAgenda = data;
-                $scope.initParamenters.showResultHorarios = true;
+                    $scope.itensAgenda = data;
+                    $scope.initParamenters.showResultHorarios = true;
 
 
-            });
+                });
+            }
+
+
         }
 
 

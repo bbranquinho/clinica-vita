@@ -10,7 +10,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    <form name="newMedicoForm" ng-submit="salvar()" ng-init="setFormNewSetorScope(this)">
+    <form name="newSetorForm" ng-submit="salvar()" ng-init="setFormNewSetorScope(this)">
         <md-dialog-content>
             <md-tabs md-dynamic-height md-stretch-tabs="always" md-border-bottom>
                 <md-tab>
@@ -35,9 +35,15 @@
                                     <h4>Nome*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Nome</label>
-                                        <input ng-model="setor.nome" name="nome" md-autofocus required="required">
-                                        <div ng-messages="newSetorForm.firstName.$error">
-                                            <div ng-message="required">This is required.</div>
+                                        <input ng-model="setor.nome" ng-pattern="/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/" name="nome" minlength="4" maxlength="80" md-autofocus required="required">
+                                        <div ng-messages="newSetorForm.nome.$error">
+                                            <div ng-message="required">Campo Obrigatório</div>
+                                            <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                Deve ter entre 4 e 80.
+                                            </div>
+                                            <div ng-message-exp="['pattern']">
+                                                Não pode ter números e caracteres especiais.
+                                            </div>
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -46,9 +52,12 @@
                                     <h4>Descricao*:</h4>
                                     <md-input-container class="md-block" flex-gt-sm>
                                         <label>Descricao</label>
-                                        <input ng-model="setor.descricao" name="descricao" required="required">
+                                        <input ng-model="setor.descricao" name="descricao" minlength="4" maxlength="80" required="required">
                                         <div ng-messages="newSetorForm.descricao.$error">
-                                            <div ng-message="required">This is required.</div>
+                                            <div ng-message="required">Campo Obrigatório</div>
+                                            <div ng-message-exp="[ 'minlength', 'maxlength']">
+                                                Deve ter entre 4 e 80.
+                                            </div>
                                         </div>
                                     </md-input-container>
                                 </div>

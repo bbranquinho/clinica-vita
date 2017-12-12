@@ -126,7 +126,7 @@ angular.module('clinica')
                 RestSrv.delete(cargoUrl, $scope.selected[0], function(status,data) {
 
                     $scope.cargos.splice($scope.cargos.indexOf(cargoUrl), 1);
-                    openToast('cargo \'' + $scope.selected[0].nome + '\' deleted.', 'success');
+                    openToast('cargo \'' + $scope.selected[0].nome + '\' deletado(a).', 'success');
                     $scope.selected = [];
                 });
 
@@ -256,7 +256,7 @@ angular.module('clinica')
             $scope.cargos = data;
             $scope.desserts = $scope.cargos;
 
-            openToast('Loaded Cargos with success.', 'success');
+            openToast('Cargos carregados com sucesso.', 'success');
 
 
         });

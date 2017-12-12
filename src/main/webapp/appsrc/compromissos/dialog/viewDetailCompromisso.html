@@ -37,7 +37,7 @@
 
                     <md-icon md-svg-icon="user_m" class="md-user-avatar"  ng-if="!calendarEvent.agenda.paciente.user.fileUpload && calendarEvent.agenda.paciente.sexo.indexOf('Masculino') !== -1 && calendarEvent.agenda.paciente.id" style="width: 60px; height: 60px;"></md-icon>
                     <md-icon md-svg-icon="user_f" class="md-user-avatar"  ng-if="!calendarEvent.agenda.paciente.user.fileUpload && calendarEvent.agenda.paciente.sexo.indexOf('Feminino') !== -1 && calendarEvent.agenda.paciente.id" style="width: 60px; height: 60px;"></md-icon>
-                    <img class="md-user-avatar" ng-if="!!calendarEvent.agenda.paciente.user.fileUpload"  src="{{calendarEvent.agenda.paciente.user.fileUpload.mimeType}},{{calendarEvent.agenda.paciente.user.fileUpload.file}}" class="avatar" style="width: 20px; height: 20px;" />
+                    <img class="md-user-avatar" ng-if="!!calendarEvent.agenda.paciente.user.fileUpload"  src="{{calendarEvent.agenda.paciente.user.fileUpload.mimeType}},{{calendarEvent.agenda.paciente.user.fileUpload.file}}" class="avatar" style="width: 60px; height: 60px; border-radius: 50%" />
                     <h4 class="headline" ng-if="calendarEvent.agenda.paciente">Paciente:{{calendarEvent.agenda.paciente.user.nome}}</h4>
                     <span ng-if="calendarEvent.agenda.paciente.id"><ng-md-icon icon="info"   ></ng-md-icon>CPF: {{calendarEvent.agenda.paciente.cpf}}</span>
                     <span ng-if="calendarEvent.agenda.paciente.id"><ng-md-icon icon="info"   ></ng-md-icon>Matricula: {{calendarEvent.agenda.paciente.matricula}}</span>
