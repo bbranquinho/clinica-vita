@@ -12,6 +12,7 @@ angular.module('clinica')
         $scope.tabToolTip = 'Proximo';
        //$scope.buttonTab = false;
         $scope.paciente = {};
+        $scope.paciente.status = "Ativo";
 
         if(_paciente_aux != null) {
             $scope.paciente = _paciente_aux;

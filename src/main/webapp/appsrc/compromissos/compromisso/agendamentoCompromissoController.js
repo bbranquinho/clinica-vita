@@ -13,6 +13,60 @@ angular.module('clinica')
         };
 
 
+        /*dialog Show convenios*/
+
+        $scope.showConvenio = function(medico,$event) {
+            console.log('showConvenio');
+            // Appending dialog to document.body to cover sidenav in docs app
+            let useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+            $mdDialog.show(
+
+                {
+                    templateUrl: 'appsrc/agenda/agendamento/dialogConvenio/dialogConvenio.html',
+                    parent: angular.element(document.body),
+                    targetEvent: $event,
+                    controller: DialogConvenioController,
+                    controllerAs: 'ctrl',
+                    clickOutsideToClose: true,
+                    fullscreen: useFullScreen,
+
+                    locals: {
+                        _medico: medico
+
+                    }
+
+                }
+
+
+            ).then(function() {
+
+
+
+            }, function() {
+                $scope.status = 'You decided to keep your debt.';
+            });
+
+            function DialogConvenioController($scope, $mdDialog, _medico) {
+                $scope.medico = _medico;
+
+                let findConvenioMedicoUrl = SERVICE_PATH.PRIVATE_PATH + "/convenio/findByMedico/" + $scope.medico.id;
+
+                RestSrv.find(findConvenioMedicoUrl, function(status,data) {
+
+
+                    $scope.conveniosMedico = data.data;
+                    console.log(data);
+
+
+                });
+
+                $scope.closeDialog = function () {
+                    $mdDialog.hide();
+                }
+            }
+        };
+
         function showCustomErrorToast(status, mensagem) {
             $mdToast.show({
                 hideDelay   : 3000, position    : 'top right',
